@@ -67,7 +67,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-accent font-semibold tracking-widest text-sm uppercase mb-4">
-                Über BB Gebrauchtwagen
+                Über Bucan Automobile
               </p>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
                 Ihr vertrauensvoller<br />
@@ -75,7 +75,7 @@ export default function Home() {
               </h2>
               <p className="text-slate-600 leading-relaxed mb-6">
                 Denis Bucan steht seit Jahren für seriösen Fahrzeughandel in München. Mit über
-                91 begeisterten Google-Bewertungen und einem Rating von 5,0 Sternen spricht
+                56 begeisterten Bewertungen und einem Rating von 5,0 Sternen spricht
                 das Ergebnis für sich.
               </p>
               <p className="text-slate-600 leading-relaxed mb-8">
@@ -85,7 +85,7 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-8">
                 {[
-                  { value: "91", label: "Bewertungen" },
+                  { value: "56", label: "Bewertungen" },
                   { value: "5,0★", label: "Google Rating" },
                   { value: "München", label: "Standort" },
                 ].map((s) => (

@@ -35,11 +35,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <Image
-              src="/bb-logo.svg"
-              alt="BB Gebrauchtwagen"
+              src="/bucan-logo.jpg"
+              alt="Bucan Automobile"
               width={200}
               height={200}
-              className="h-20 w-auto"
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>

@@ -20,7 +20,7 @@ export default function ContactSection() {
           <div className="space-y-8">
             <div className="card p-8">
               <h3 className="text-xl font-bold text-slate-900 mb-6">
-                BB Gebrauchtwagen
+                Bucan Automobile
               </h3>
               <div className="space-y-5">
                 <a
@@ -59,7 +59,7 @@ export default function ContactSection() {
                 </a>
 
                 <a
-                  href="mailto:info@bb-gebrauchtwagen.de"
+                  href="mailto:info@bucan-automobile.de"
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
@@ -68,7 +68,7 @@ export default function ContactSection() {
                   <div>
                     <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">E-Mail</div>
                     <div className="text-slate-900 font-semibold group-hover:text-accent transition-colors text-sm">
-                      info@bb-gebrauchtwagen.de
+                      info@bucan-automobile.de
                     </div>
                   </div>
                 </a>
@@ -130,7 +130,7 @@ export default function ContactSection() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="BB Gebrauchtwagen Standort"
+              title="Bucan Automobile Standort"
             />
           </div>
         </div>

@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const vehicle = getVehicleById(id);
   if (!vehicle) return { title: "Fahrzeug nicht gefunden" };
   return {
-    title: `${vehicle.make} ${vehicle.model} ${vehicle.year} – BB Gebrauchtwagen`,
-    description: `${vehicle.make} ${vehicle.model}, ${vehicle.year}, ${formatMileage(vehicle.mileage)}, ${formatPrice(vehicle.price)}. Jetzt bei BB Gebrauchtwagen München entdecken.`,
+    title: `${vehicle.make} ${vehicle.model} ${vehicle.year} – Bucan Automobile`,
+    description: `${vehicle.make} ${vehicle.model}, ${vehicle.year}, ${formatMileage(vehicle.mileage)}, ${formatPrice(vehicle.price)}. Jetzt bei Bucan Automobile München entdecken.`,
   };
 }
 

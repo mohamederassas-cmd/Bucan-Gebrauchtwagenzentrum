@@ -5,46 +5,74 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const reviews = [
   {
-    name: "Simon van Endern",
-    badge: "Local Guide · 293 Bewertungen",
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Top! Schnelle Reaktion, freundlich, professionell und zügige Abwicklung. Absolut empfehlenswert und zuverlässig.",
-    date: "vor 2 Wochen",
+    text: "Korrekter, ehrlicher Verkäufer. Tolles Auto. Gerne wieder.",
+    date: "16.05.2026",
   },
   {
-    name: "Mel D.",
-    badge: "Verifizierte Käuferin",
+    name: "Said",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Mittwoch angerufen, Donnerstag abgeholt, Freitag abgemeldet. Hervorragende Kommunikation via Telefon und WhatsApp. So schnell und unkompliziert habe ich noch kein Auto verkauft!",
-    date: "vor 1 Monat",
+    text: "Very good experience. Fair prices, honest seller and transparent communication. Everything was handled professionally and without any issues. Highly recommended.",
+    date: "06.01.2026",
   },
   {
-    name: "Maike",
-    badge: "Verifizierte Käuferin",
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Fairer Preis und sehr schnelle, unkomplizierte Abwicklung. Auto wurde abgeholt und sofort abgemeldet. Vertrag und Bezahlung direkt vor Ort. Klare Empfehlung!",
-    date: "vor 3 Wochen",
+    text: "Ich habe einen BMW 6er aus erster Hand mit lückenlos gepflegter Historie gekauft. Der Ablauf war freundlich, ehrlich und professionell. Bin sehr zufrieden mit dem Kauf – jederzeit gerne wieder!",
+    date: "14.11.2025",
   },
   {
-    name: "Susy",
-    badge: "Verifizierte Kundin",
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Nur Positives zu berichten! Der Kundenservice war wirklich ausgezeichnet! Er kam pünktlich. Perfekte, professionelle und reibungslose Abwicklung!",
-    date: "vor 2 Monaten",
+    text: "Ich bin sehr zufrieden mit dem Kauf. Herr Bucan hat für mich die Export-Kennzeichen organisiert, alles war schnell und ohne Probleme. Die Abwicklung war einfach und professionell. Sehr freundlicher Kontakt, vielen Dank, gerne wieder!",
+    date: "09.11.2025",
   },
   {
-    name: "Thomas K.",
-    badge: "Verifizierter Käufer",
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Sehr seriöser und fairer Händler. Transparente Kommunikation vom ersten Kontakt bis zur Übergabe. Gerne wieder!",
-    date: "vor 1 Monat",
+    text: "Ich bin sehr zufrieden mit dem Autokauf! Das Fahrzeug entsprach genau der Beschreibung, war in einem sehr guten Zustand und der gesamte Kaufprozess verlief reibungslos. Der Verkäufer war freundlich, ehrlich und professionell. Ich kann diesen Anbieter nur weiterempfehlen. Vielen Dank!",
+    date: "17.05.2025",
   },
   {
-    name: "Anna M.",
-    badge: "Verifizierte Käuferin",
+    name: "Damir",
+    badge: "Fahrzeug gekauft · mobile.de",
     rating: 5,
-    text: "Bestes Erlebnis beim Autohandel! Alles wurde schnell und fair abgewickelt. Das Fahrzeug war genau wie beschrieben. Absolut empfehlenswert.",
-    date: "vor 3 Monaten",
+    text: "Alles Lob an den Verkäufer, angenehmes und sehr freundliches Personal!",
+    date: "09.05.2025",
+  },
+  {
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
+    rating: 5,
+    text: "Ich habe einen Audi A3 von diesem Verkäufer gekauft und bin sehr zufrieden! Das Auto entsprach genau der Beschreibung – es war in ausgezeichnetem Zustand, sauber und technisch einwandfrei. Der Verkäufer war äußerst korrekt, freundlich und bereit, alle Fragen zu beantworten. Ich kann diesen Verkäufer jedem empfehlen. Vielen Dank nochmals!",
+    date: "05.05.2025",
+  },
+  {
+    name: "Thommi",
+    badge: "Fahrzeug gekauft · mobile.de",
+    rating: 5,
+    text: "Ich habe hier ein tolles Auto mit kompletter Historie und für sein Baujahr echt wenig Kilometer gekauft. Ich bin super zufrieden und kaufe mir beim nächsten Mal gerne wieder ein Auto hier.",
+    date: "16.03.2025",
+  },
+  {
+    name: "mobile.de Nutzer",
+    badge: "Fahrzeug gekauft · mobile.de",
+    rating: 5,
+    text: "Unsere Erfahrung hätte nicht besser sein können – sie kennen sich bestens auf dem Markt aus. Wir können getrost sagen, dass wir beim nächsten Autokauf wiederkommen werden und können sie jedem wärmstens empfehlen, der auf der Suche nach einem neuen Fahrzeug ist.",
+    date: "24.02.2025",
+  },
+  {
+    name: "Luay",
+    badge: "Fahrzeug gekauft · mobile.de",
+    rating: 5,
+    text: "Auto in top Zustand mit toller Ausstattung gekauft, Lieferung des Fahrzeugs war auch kein Problem.",
+    date: "11.02.2025",
   },
 ];
 
@@ -90,7 +118,7 @@ export default function ReviewsSection() {
               ))}
             </div>
             <span className="text-slate-900 font-bold text-xl">5,0</span>
-            <span className="text-slate-500 text-sm">· 91 Google-Bewertungen</span>
+            <span className="text-slate-500 text-sm">· 56 Bewertungen</span>
           </div>
         </div>
 
@@ -118,6 +146,7 @@ export default function ReviewsSection() {
               <div className="border-t border-slate-100 pt-4">
                 <div className="font-semibold text-slate-900 text-sm">{review.name}</div>
                 <div className="text-xs text-slate-400 mt-0.5">{review.badge}</div>
+                <div className="text-xs text-slate-300 mt-0.5">{review.date}</div>
               </div>
             </div>
           ))}

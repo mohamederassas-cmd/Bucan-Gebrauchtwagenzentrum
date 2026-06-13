@@ -5,8 +5,8 @@ import WhatsAppButton from "@/components/public/WhatsAppButton";
 import VehicleList from "@/components/public/VehicleList";
 
 export const metadata = {
-  title: "Fahrzeuge – BB Gebrauchtwagen München",
-  description: "Alle verfügbaren Fahrzeuge bei BB Gebrauchtwagen München. Geprüfte Gebrauchtwagen aller Marken zu fairen Festpreisen.",
+  title: "Fahrzeuge – Bucan Automobile München",
+  description: "Alle verfügbaren Fahrzeuge bei Bucan Automobile München. Geprüfte Gebrauchtwagen aller Marken zu fairen Festpreisen.",
 };
 
 export default function FahrzeugePage() {

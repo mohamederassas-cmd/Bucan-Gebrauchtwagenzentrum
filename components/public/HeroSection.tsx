@@ -82,7 +82,7 @@ export default function HeroSection() {
               <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
             ))}
           </div>
-          <span className="text-slate-700 font-semibold text-sm">5,0 · 91 Google-Bewertungen</span>
+          <span className="text-slate-700 font-semibold text-sm">5,0 · 56 Bewertungen</span>
         </div>
 
         {/* Headline */}
@@ -129,9 +129,9 @@ export default function HeroSection() {
         {/* Stats row */}
         <div className="flex flex-wrap gap-8 md:gap-16">
           {[
-            { value: "91", label: "Bewertungen" },
+            { value: "56", label: "Bewertungen" },
             { value: "5,0★", label: "Google Rating" },
-            { value: "100+", label: "Autos verkauft" },
+            { value: "+250", label: "Autos verkauft" },
             { value: "Hofolding", label: "Fichtenstr. 40" },
           ].map((stat) => (
             <div key={stat.label}>
