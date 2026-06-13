@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <clipPath id="badge-clip">
+      <circle cx="250" cy="250" r="222"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer ring — accent blue -->
+  <circle cx="250" cy="250" r="240" fill="none" stroke="#2563EB" stroke-width="8"/>
+  <!-- Inner ring — navy -->
+  <circle cx="250" cy="250" r="226" fill="none" stroke="#1E3A8A" stroke-width="4"/>
+
+  <g clip-path="url(#badge-clip)">
+
+    <!-- ═══ CAR SILHOUETTE ═══ -->
+    <!-- Main body + roof -->
+    <path d="
+      M82,265
+      L82,240
+      C84,224 96,213 114,207
+      L158,203
+      L182,158
+      C187,150 196,147 206,147
+      L294,147
+      C304,147 313,150 318,158
+      L342,203
+      L386,207
+      C404,213 416,224 418,240
+      L418,265
+      Z
+    " fill="#1E3A8A"/>
+
+    <!-- Front wheel: tire (navy) → rim (white) → hub (navy) -->
+    <circle cx="163" cy="273" r="35" fill="#1E3A8A"/>
+    <circle cx="163" cy="273" r="21" fill="white"/>
+    <circle cx="163" cy="273" r="7"  fill="#1E3A8A"/>
+
+    <!-- Rear wheel -->
+    <circle cx="350" cy="273" r="35" fill="#1E3A8A"/>
+    <circle cx="350" cy="273" r="21" fill="white"/>
+    <circle cx="350" cy="273"  r="7" fill="#1E3A8A"/>
+
+    <!-- ═══ DIVIDER LINES ═══ -->
+    <line x1="0"   y1="332" x2="500" y2="332" stroke="#1E3A8A" stroke-width="5"/>
+    <line x1="0"   y1="344" x2="500" y2="344" stroke="#2563EB" stroke-width="2.5"/>
+
+    <!-- ═══ BB GEBRAUCHTWAGEN ═══ -->
+    <text
+      x="250" y="396"
+      text-anchor="middle"
+      font-family="Impact, 'Arial Black', Arial, sans-serif"
+      font-size="38"
+      font-weight="900"
+    >
+      <tspan fill="#2563EB">BB</tspan><tspan fill="#1E3A8A"> GEBRAUCHTWAGEN</tspan>
+    </text>
+
+    <!-- ═══ 5 STARS ═══ -->
+    <text
+      x="250" y="454"
+      text-anchor="middle"
+      font-family="Arial, sans-serif"
+      font-size="28"
+      letter-spacing="5"
+      fill="#2563EB"
+    >★★★★★</text>
+
+  </g>
+</svg>

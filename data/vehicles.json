@@ -1,0 +1,308 @@
+[
+  {
+    "id": "1",
+    "created_at": "2026-06-13T10:00:00Z",
+    "updated_at": "2026-06-13T10:00:00Z",
+    "make": "Volkswagen",
+    "model": "Golf VII Lim. Cup BMT | Navi | Kamera",
+    "year": 2014,
+    "mileage": 136604,
+    "price": 10990,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 125,
+    "color": null,
+    "description": "Unfallfrei. Volkswagen Golf VII Limousine Cup BMT mit Navi und Rückfahrkamera. Gepflegter Zustand, sofort fahrbereit.",
+    "features": [
+      "Navi",
+      "Rückfahrkamera",
+      "Cup BMT",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/b0/b026db42-cd5b-4a75-bfed-374ab02233e5?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "2",
+    "created_at": "2026-06-13T10:01:00Z",
+    "updated_at": "2026-06-13T10:01:00Z",
+    "make": "BMW",
+    "model": "218i Gran Tourer Sport Line | 7-Sitzer",
+    "year": 2016,
+    "mileage": 118468,
+    "price": 12990,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 136,
+    "color": null,
+    "description": "Unfallfrei. BMW 218i Gran Tourer in der Sport Line mit 7 Sitzplätzen. Familienfreundlicher Van mit sportlichem Auftritt.",
+    "features": [
+      "7-Sitzer",
+      "Sport Line",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/72/7229bfd6-cf6b-4ff7-ad91-ab8c6ddcac21?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "3",
+    "created_at": "2026-06-13T10:02:00Z",
+    "updated_at": "2026-06-13T10:02:00Z",
+    "make": "BMW",
+    "model": "116i Limousine 5-trg. | Wenig-KM | TÜV Neu",
+    "year": 2011,
+    "mileage": 54642,
+    "price": 10990,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 136,
+    "color": null,
+    "description": "Unfallfrei. BMW 116i mit sehr niedrigem Kilometerstand und frischem TÜV. Gepflegtes Fahrzeug in Top-Zustand.",
+    "features": [
+      "TÜV Neu",
+      "Wenig KM",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/39/39c2c5e9-d8a7-4371-931b-3c48c6cd3564?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "4",
+    "created_at": "2026-06-13T10:03:00Z",
+    "updated_at": "2026-06-13T10:03:00Z",
+    "make": "Audi",
+    "model": "A6 Lim. 3.0 TDI quattro | Scheckheft | Euro 5",
+    "year": 2010,
+    "mileage": 150000,
+    "price": 11290,
+    "fuel_type": "Diesel",
+    "transmission": "Automatik",
+    "power_ps": 239,
+    "color": null,
+    "description": "Unfallfrei. Audi A6 3.0 TDI mit quattro-Allradantrieb, lückenlosem Scheckheft und Euro-5-Norm. Kraftvoll und komfortabel.",
+    "features": [
+      "quattro",
+      "Scheckheft",
+      "Euro 5",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/a2/a22ff12e-adce-413c-bc8b-d33341eca8a0?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "5",
+    "created_at": "2026-06-13T10:04:00Z",
+    "updated_at": "2026-06-13T10:04:00Z",
+    "make": "MINI",
+    "model": "Cooper S Countryman All4 | Harman-Kardon",
+    "year": 2011,
+    "mileage": 144110,
+    "price": 10990,
+    "fuel_type": "Benzin",
+    "transmission": "Automatik",
+    "power_ps": 184,
+    "color": null,
+    "description": "Unfallfrei. MINI Cooper S Countryman mit All4-Allradantrieb und Harman-Kardon-Soundsystem. Sportlicher Kompakt-SUV.",
+    "features": [
+      "All4 Allrad",
+      "Harman-Kardon",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/d7/d77dccb1-3df3-48d2-be2f-b535dff74b38?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "6",
+    "created_at": "2026-06-13T10:05:00Z",
+    "updated_at": "2026-06-13T10:05:00Z",
+    "make": "Volkswagen",
+    "model": "Golf VI Variant Trendline | Klima | TÜV bis 4-2028",
+    "year": 2009,
+    "mileage": 166453,
+    "price": 2890,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 80,
+    "color": null,
+    "description": "Unfallfrei. VW Golf VI Variant mit Klimaanlage und TÜV bis April 2028. Zuverlässiger Kombi zu einem top Preis.",
+    "features": [
+      "Klimaanlage",
+      "TÜV bis 04/2028",
+      "Kombi",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/53/53c447e1-71e3-461d-95ab-f12055a42d5c?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": true
+  },
+  {
+    "id": "7",
+    "created_at": "2026-06-13T10:06:00Z",
+    "updated_at": "2026-06-13T10:06:00Z",
+    "make": "Ford",
+    "model": "Fiesta Trend | TÜV neu | Allwetterreifen Neu",
+    "year": 2008,
+    "mileage": 106163,
+    "price": 2990,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 60,
+    "color": null,
+    "description": "Unfallfrei. Ford Fiesta mit frischem TÜV und neuen Allwetterreifen. Sparsam und zuverlässig – ideal als Stadtauto.",
+    "features": [
+      "TÜV Neu",
+      "Allwetterreifen Neu",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/bf/bfc7687e-483d-4394-9499-931f6047b2ca?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  },
+  {
+    "id": "8",
+    "created_at": "2026-06-13T10:07:00Z",
+    "updated_at": "2026-06-13T10:07:00Z",
+    "make": "Toyota",
+    "model": "Aygo Basis | Scheckheft | 5-Türig",
+    "year": 2009,
+    "mileage": 83437,
+    "price": 1690,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 68,
+    "color": null,
+    "description": "Unfallfrei. Toyota Aygo 5-türig mit lückenlosem Scheckheft. Günstiger und sparsamer Kleinwagen in gepflegtem Zustand.",
+    "features": [
+      "Scheckheft",
+      "5-Türig",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/16/162f9124-cc33-4dcb-90b6-967c1c65c369?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  },
+  {
+    "id": "9",
+    "created_at": "2026-06-13T10:08:00Z",
+    "updated_at": "2026-06-13T10:08:00Z",
+    "make": "Fiat",
+    "model": "Panda 1.2 8V Dynamic | 5-Türig | TÜV Neu",
+    "year": 2009,
+    "mileage": 81863,
+    "price": 1990,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 60,
+    "color": null,
+    "description": "Unfallfrei. Fiat Panda 1.2 Dynamic, 5-türig mit frischem TÜV. Wendiges Stadtauto mit niedrigem Verbrauch.",
+    "features": [
+      "TÜV Neu",
+      "5-Türig",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/41/41710e12-ea85-4578-89dc-f2b066439d87?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  },
+  {
+    "id": "10",
+    "created_at": "2026-06-13T10:09:00Z",
+    "updated_at": "2026-06-13T10:09:00Z",
+    "make": "Toyota",
+    "model": "Yaris Sol | Klima | 5-Türig | Scheckheft",
+    "year": 2007,
+    "mileage": 118293,
+    "price": 3090,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 87,
+    "color": null,
+    "description": "Unfallfrei. Toyota Yaris Sol mit Klimaanlage, 5 Türen und vollständigem Scheckheft. Zuverlässig und sparsam.",
+    "features": [
+      "Klimaanlage",
+      "Scheckheft",
+      "5-Türig",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/b9/b9e1da39-711f-46e9-ac10-781b43beca51?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  },
+  {
+    "id": "11",
+    "created_at": "2026-06-13T10:10:00Z",
+    "updated_at": "2026-06-13T10:10:00Z",
+    "make": "Skoda",
+    "model": "Octavia Lim. Elegance | Automatik | Klima",
+    "year": 2005,
+    "mileage": 183607,
+    "price": 3990,
+    "fuel_type": "Benzin",
+    "transmission": "Automatik",
+    "power_ps": 102,
+    "color": null,
+    "description": "Unfallfrei. Skoda Octavia Elegance mit Automatikgetriebe und Klimaanlage. Komfortables Fahrzeug in der Top-Ausstattung.",
+    "features": [
+      "Automatik",
+      "Klimaanlage",
+      "Elegance",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/53/53194964-0478-4e08-be3f-e79996268cb4?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  },
+  {
+    "id": "12",
+    "created_at": "2026-06-13T10:11:00Z",
+    "updated_at": "2026-06-13T10:11:00Z",
+    "make": "Audi",
+    "model": "A6 Lim. 2.4 | Sportsitze | Klimaautomatik | V6",
+    "year": 2004,
+    "mileage": 206113,
+    "price": 1490,
+    "fuel_type": "Benzin",
+    "transmission": "Manuell",
+    "power_ps": 177,
+    "color": null,
+    "description": "Unfallfrei. Audi A6 2.4 V6 mit Sportsitzen und Klimaautomatik. Kraftvoller Klassiker zu einem unschlagbaren Preis.",
+    "features": [
+      "Sportsitze",
+      "Klimaautomatik",
+      "V6",
+      "Unfallfrei"
+    ],
+    "images": [
+      "https://img.classistatic.de/api/v1/mo-prod/images/96/964a0021-15a4-4b7d-ab3c-6f488b67e9b9?rule=mo-1600"
+    ],
+    "status": "available",
+    "featured": false
+  }
+]
