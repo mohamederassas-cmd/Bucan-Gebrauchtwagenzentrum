@@ -44,11 +44,11 @@ export default function AdminLoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Image
-              src="/logo.svg"
+              src="/bucan-logo-header.png"
               alt="BUCAN AUTOMOBILE"
-              width={180}
-              height={40}
-              className="h-9 w-auto mx-auto mb-3"
+              width={200}
+              height={133}
+              className="h-20 w-auto mx-auto mb-3 object-contain"
             />
             <p className="text-[#475569] text-sm font-accent tracking-wider">Admin-Bereich</p>
           </div>
