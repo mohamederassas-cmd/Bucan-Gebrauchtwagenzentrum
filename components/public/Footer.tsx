@@ -80,8 +80,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-accent flex-shrink-0" />
-                <a href="mailto:info@gebrauchtwagen-ankauf.de" className="text-slate-400 text-sm hover:text-white transition-colors">
-                  info@gebrauchtwagen-ankauf.de
+                <a href="mailto:info@bb-gebrauchtwagen.de" className="text-slate-400 text-sm hover:text-white transition-colors">
+                  info@bb-gebrauchtwagen.de
                 </a>
               </li>
             </ul>
@@ -93,7 +93,7 @@ export default function Footer() {
           <p className="text-slate-500 text-xs">
             © {new Date().getFullYear()} BB Gebrauchtwagen – Denis Bucan. Alle Rechte vorbehalten.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 items-center">
             <Link href="/impressum" className="text-slate-500 text-xs hover:text-slate-300 transition-colors">
               Impressum
             </Link>
@@ -101,6 +101,16 @@ export default function Footer() {
               Datenschutz
             </Link>
           </div>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <a
+            href="https://hybote.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-600 text-xs hover:text-slate-400 transition-colors"
+          >
+            Powered &amp; Designed by HYBOTE AI Systems LLC
+          </a>
         </div>
       </div>
     </footer>

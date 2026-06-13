@@ -59,7 +59,7 @@ export default function ContactSection() {
                 </a>
 
                 <a
-                  href="mailto:info@gebrauchtwagen-ankauf.de"
+                  href="mailto:info@bb-gebrauchtwagen.de"
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
@@ -68,7 +68,7 @@ export default function ContactSection() {
                   <div>
                     <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">E-Mail</div>
                     <div className="text-slate-900 font-semibold group-hover:text-accent transition-colors text-sm">
-                      info@gebrauchtwagen-ankauf.de
+                      info@bb-gebrauchtwagen.de
                     </div>
                   </div>
                 </a>

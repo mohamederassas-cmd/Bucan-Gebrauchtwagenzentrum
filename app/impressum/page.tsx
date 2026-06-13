@@ -37,8 +37,8 @@ export default function ImpressumPage() {
               </p>
               <p>
                 E-Mail:{" "}
-                <a href="mailto:info@gebrauchtwagen-ankauf.de" className="text-accent hover:text-navy transition-colors">
-                  info@gebrauchtwagen-ankauf.de
+                <a href="mailto:info@bb-gebrauchtwagen.de" className="text-accent hover:text-navy transition-colors">
+                  info@bb-gebrauchtwagen.de
                 </a>
               </p>
             </section>

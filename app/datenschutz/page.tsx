@@ -43,8 +43,8 @@ export default function DatenschutzPage() {
                 </p>
                 <p>
                   E-Mail:{" "}
-                  <a href="mailto:info@gebrauchtwagen-ankauf.de" className="text-accent">
-                    info@gebrauchtwagen-ankauf.de
+                  <a href="mailto:info@bb-gebrauchtwagen.de" className="text-accent">
+                    info@bb-gebrauchtwagen.de
                   </a>
                 </p>
               </div>

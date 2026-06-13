@@ -109,8 +109,8 @@ export default function HeroSection() {
         </div>
 
         <p className="text-slate-600 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed animate-slide-up">
-          Alle Marken, alle Modelle – geprüft, fair bewertet und mit persönlichem
-          Service. Direkt von Denis Bucan in München.
+          Alle Marken, alle Modelle – sorgfältig geprüft, fair bewertet und
+          persönlich betreut. Qualität und Vertrauen direkt aus München.
         </p>
 
         {/* CTAs */}
