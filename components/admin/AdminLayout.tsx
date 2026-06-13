@@ -31,11 +31,11 @@ export default function AdminLayout({ children }: Props) {
       {/* Logo */}
       <div className="p-6 border-b border-[#E2E8F0]">
         <Image
-          src="/logo.svg"
+          src="/bucan-logo-header.png"
           alt="BUCAN AUTOMOBILE"
           width={160}
-          height={36}
-          className="h-8 w-auto"
+          height={107}
+          className="h-16 w-auto object-contain"
         />
         <p className="text-xs text-[#475569] mt-2 font-accent tracking-wider">Admin</p>
       </div>
