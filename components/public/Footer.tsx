@@ -26,11 +26,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Image
-              src="/bucan-logo.jpg"
+              src="/bucan-logo-transparent.png"
               alt="Bucan Automobile"
-              width={160}
-              height={80}
-              className="h-20 w-auto mb-6 object-contain"
+              width={220}
+              height={110}
+              className="h-28 w-auto mb-6 object-contain"
             />
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
               Ihr vertrauensvoller Partner für Gebrauchtwagen aller Marken in München.
