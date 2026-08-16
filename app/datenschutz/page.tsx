@@ -92,6 +92,18 @@ export default function DatenschutzPage() {
                 Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in
                 den USA übertragen und dort gespeichert.
               </p>
+              <p className="mt-3">
+                Die Karte wird deshalb <span className="text-slate-900 font-semibold">nicht automatisch geladen</span>.
+                Stattdessen sehen Sie zunächst einen Platzhalter mit unserer Anschrift. Erst wenn Sie ausdrücklich auf
+                &bdquo;Karte laden&ldquo; klicken oder der Kategorie &bdquo;Externe Karten&ldquo; in den
+                Cookie-Einstellungen zustimmen, wird eine Verbindung zu Google hergestellt und eine Datenübertragung
+                ausgelöst.
+              </p>
+              <p className="mt-3">
+                Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO in Verbindung mit § 25 Abs. 1
+                TDDDG. Sie können diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem Sie die
+                gespeicherten Einstellungen in Ihrem Browser löschen.
+              </p>
             </section>
 
             <section>

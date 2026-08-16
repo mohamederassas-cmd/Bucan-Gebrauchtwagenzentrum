@@ -3,31 +3,47 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-
-type ConsentState = {
-  necessary: true;
-  analytics: boolean;
-};
+import { CONSENT_EVENT, ConsentState, readConsent, writeConsent } from "@/lib/consent";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [analytics, setAnalytics] = useState(false);
+  const [maps, setMaps] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cookie-consent");
-    if (!saved) setVisible(true);
+    const saved = readConsent();
+    if (!saved) {
+      setVisible(true);
+      return;
+    }
+    // Bereits getroffene Teil-Entscheidungen (z. B. „Karte laden“) vorbelegen.
+    setAnalytics(saved.analytics);
+    setMaps(saved.maps);
+  }, []);
+
+  // Der Besucher kann die Karte auch direkt über „Karte laden“ freigeben,
+  // während dieser Banner noch offen ist – dann die Schalter nachziehen.
+  useEffect(() => {
+    const sync = () => {
+      const current = readConsent();
+      if (!current) return;
+      setAnalytics(current.analytics);
+      setMaps(current.maps);
+    };
+    window.addEventListener(CONSENT_EVENT, sync);
+    return () => window.removeEventListener(CONSENT_EVENT, sync);
   }, []);
 
   const save = (consent: ConsentState) => {
-    localStorage.setItem("cookie-consent", JSON.stringify(consent));
+    writeConsent(consent);
     setVisible(false);
     setShowSettings(false);
   };
 
-  const acceptAll = () => save({ necessary: true, analytics: true });
-  const declineAll = () => save({ necessary: true, analytics: false });
-  const saveSettings = () => save({ necessary: true, analytics });
+  const acceptAll = () => save({ necessary: true, analytics: true, maps: true });
+  const declineAll = () => save({ necessary: true, analytics: false, maps: false });
+  const saveSettings = () => save({ necessary: true, analytics, maps });
 
   if (!visible) return null;
 
@@ -117,6 +133,20 @@ export default function CookieBanner() {
                   <div className="text-slate-900 font-semibold text-sm">Analyse-Cookies</div>
                   <div className="text-slate-500 text-xs mt-0.5">
                     Helfen uns, die Nutzung der Website zu verstehen und zu verbessern.
+                  </div>
+                </div>
+              </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={maps}
+                  onChange={(e) => setMaps(e.target.checked)}
+                  className="mt-1 accent-accent"
+                />
+                <div>
+                  <div className="text-slate-900 font-semibold text-sm">Externe Karten (Google Maps)</div>
+                  <div className="text-slate-500 text-xs mt-0.5">
+                    Zeigt unseren Standort als interaktive Karte. Dabei werden Daten an Google übertragen.
                   </div>
                 </div>
               </label>

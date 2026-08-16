@@ -108,6 +108,49 @@ export default function ImpressumPage() {
                 bzw. Erstellers.
               </p>
             </section>
+
+            <section>
+              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">
+                Hinweis zum Einsatz Künstlicher Intelligenz
+              </h2>
+              <p>
+                Bei der Gestaltung und Erstellung dieser Website wurden KI-gestützte Werkzeuge eingesetzt. Dies
+                betrifft die technische Umsetzung, das Layout sowie die sprachliche Ausarbeitung der allgemeinen
+                Informations- und Servicetexte. Die technische Umsetzung erfolgte durch die HYBOTE AI Systems LLC.
+              </p>
+              <p className="mt-3">
+                Ausdrücklich <span className="text-slate-900 font-semibold">nicht</span> mit Künstlicher Intelligenz
+                erstellt sind:
+              </p>
+              <ul className="list-disc list-inside space-y-1 mt-2">
+                <li>
+                  die Kundenbewertungen – dabei handelt es sich um echte, unveränderte Rückmeldungen von Käuferinnen
+                  und Käufern über mobile.de
+                </li>
+                <li>
+                  sämtliche Fahrzeugangaben und Fahrzeugbeschreibungen einschließlich Zustand, Laufleistung,
+                  Ausstattung und Preisen – diese stammen ausschließlich von uns
+                </li>
+                <li>die Kontakt- und Unternehmensangaben</li>
+                <li>die rechtlichen Hinweise auf dieser Seite sowie in der Datenschutzerklärung</li>
+              </ul>
+              <p className="mt-3">
+                Alle veröffentlichten Inhalte wurden vor der Veröffentlichung von uns geprüft, inhaltlich freigegeben
+                und werden laufend gepflegt. Die redaktionelle Verantwortung für sämtliche Inhalte liegt bei Denis
+                Bucan.
+              </p>
+              <p className="mt-3">
+                Auf dieser Website findet keine Interaktion mit einem KI-System statt. Es ist weder ein Chatbot noch
+                ein KI-Assistent eingebunden. Ihre Eingaben und Besucherdaten werden nicht an KI-Dienste übermittelt
+                oder von diesen ausgewertet. Eine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO
+                findet nicht statt.
+              </p>
+              <p className="mt-3">
+                Dieser Hinweis erfolgt freiwillig im Sinne größtmöglicher Transparenz gegenüber unseren Kundinnen und
+                Kunden. Eine Kennzeichnungspflicht nach Art. 50 der Verordnung (EU) 2024/1689 (KI-Verordnung) besteht
+                für die hier veröffentlichten Inhalte nicht.
+              </p>
+            </section>
           </div>
         </div>
       </div>
