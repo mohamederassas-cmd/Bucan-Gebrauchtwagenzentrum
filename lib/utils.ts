@@ -1,17 +1,23 @@
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("de-DE", {
+import { intlLocale, type Locale } from "./i18n/config";
+
+export function formatPrice(price: number, locale: Locale = "de"): string {
+  return new Intl.NumberFormat(intlLocale(locale), {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
   }).format(price);
 }
 
-export function formatMileage(km: number): string {
-  return new Intl.NumberFormat("de-DE").format(km) + " km";
+export function formatNumber(value: number, locale: Locale = "de"): string {
+  return new Intl.NumberFormat(intlLocale(locale)).format(value);
 }
 
-export function formatDate(iso: string): string {
-  return new Intl.DateTimeFormat("de-DE", {
+export function formatMileage(km: number, locale: Locale = "de"): string {
+  return `${formatNumber(km, locale)} km`;
+}
+
+export function formatDate(iso: string, locale: Locale = "de"): string {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",

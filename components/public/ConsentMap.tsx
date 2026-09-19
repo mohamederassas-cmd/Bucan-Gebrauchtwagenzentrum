@@ -5,11 +5,13 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { CONSENT_EVENT, readConsent, writeConsent, DEFAULT_CONSENT } from "@/lib/consent";
 import { SITE } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
 
 const MAP_SRC =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2674.2!2d11.8065!3d47.9776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDU4JzM5LjQiTiAxMcKwNDgnMjMuNCJF!5e0!3m2!1sde!2sde!4v1699000000000!5m2!1sde!2sde";
 
 export default function ConsentMap() {
+  const { t } = useI18n();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function ConsentMap() {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Bucan Automobile Standort"
+          title={t.contact.map.title}
         />
       ) : (
         <div
@@ -54,9 +56,9 @@ export default function ConsentMap() {
             85649 Hofolding
           </p>
           <p className="text-slate-500 text-xs leading-relaxed mt-5 max-w-xs">
-            Beim Laden der Karte werden Daten an Google übertragen. Näheres dazu in unserer{" "}
+            {t.contact.map.consent}{" "}
             <Link href="/datenschutz" className="text-accent hover:underline">
-              Datenschutzerklärung
+              {t.contact.map.privacy}
             </Link>
             .
           </p>
@@ -65,7 +67,7 @@ export default function ConsentMap() {
             onClick={loadMap}
             className="btn-primary mt-6 px-6 py-2.5 rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
-            Karte laden
+            {t.contact.map.load}
           </button>
           <a
             href={SITE.mapsDirections}
@@ -73,7 +75,7 @@ export default function ConsentMap() {
             rel="noopener noreferrer"
             className="text-slate-500 text-xs underline mt-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded transition-colors"
           >
-            Stattdessen Route in Google Maps öffnen
+            {t.contact.map.route}
           </a>
         </div>
       )}

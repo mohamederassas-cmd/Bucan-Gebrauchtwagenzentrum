@@ -4,6 +4,7 @@ import WhatsAppButton from "@/components/public/WhatsAppButton";
 
 export const metadata = {
   title: "Datenschutzerklärung – BUCAN AUTOMOBILE München",
+  alternates: { canonical: "/datenschutz" },
 };
 
 export default function DatenschutzPage() {

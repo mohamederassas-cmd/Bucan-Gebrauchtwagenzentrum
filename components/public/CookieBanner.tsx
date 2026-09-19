@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { CONSENT_EVENT, ConsentState, readConsent, writeConsent } from "@/lib/consent";
+import { useI18n } from "@/lib/i18n/context";
 
 export default function CookieBanner() {
+  const { t } = useI18n();
+  const c = t.cookies;
   const [visible, setVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [analytics, setAnalytics] = useState(false);
@@ -55,13 +58,12 @@ export default function CookieBanner() {
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
                 <h3 className="text-slate-900 font-bold text-base mb-1">
-                  Wir nutzen Cookies 🍪
+                  {c.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed">
-                  Wir verwenden Cookies, um Ihnen die bestmögliche Nutzererfahrung zu bieten.
-                  Weitere Informationen finden Sie in unserer{" "}
+                  {c.text}{" "}
                   <Link href="/datenschutz" className="text-accent underline hover:text-accent-hover">
-                    Datenschutzerklärung
+                    {c.privacyLink}
                   </Link>
                   .
                 </p>
@@ -69,7 +71,7 @@ export default function CookieBanner() {
               <button
                 onClick={declineAll}
                 className="text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0 mt-0.5"
-                aria-label="Ablehnen"
+                aria-label={c.decline}
               >
                 <X size={18} />
               </button>
@@ -79,30 +81,30 @@ export default function CookieBanner() {
                 onClick={acceptAll}
                 className="btn-primary w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm"
               >
-                Alle akzeptieren
+                {c.acceptAll}
               </button>
               <button
                 onClick={declineAll}
                 className="btn-outline w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm"
               >
-                Nur notwendige
+                {c.necessaryOnly}
               </button>
               <button
                 onClick={() => setShowSettings(true)}
                 className="text-slate-500 hover:text-accent text-sm underline transition-colors"
               >
-                Einstellungen
+                {c.settings}
               </button>
             </div>
           </>
         ) : (
           <>
             <div className="flex items-center justify-between mb-5">
-              <h3 className="text-slate-900 font-bold text-base">Cookie-Einstellungen</h3>
+              <h3 className="text-slate-900 font-bold text-base">{c.settingsTitle}</h3>
               <button
                 onClick={() => setShowSettings(false)}
                 className="text-slate-400 hover:text-slate-600 transition-colors"
-                aria-label="Zurück"
+                aria-label={c.back}
               >
                 <X size={18} />
               </button>
@@ -116,9 +118,9 @@ export default function CookieBanner() {
                   className="mt-1 accent-accent"
                 />
                 <div>
-                  <div className="text-slate-900 font-semibold text-sm">Notwendige Cookies</div>
+                  <div className="text-slate-900 font-semibold text-sm">{c.necessary.title}</div>
                   <div className="text-slate-500 text-xs mt-0.5">
-                    Technisch erforderlich für den Betrieb der Website. Können nicht deaktiviert werden.
+                    {c.necessary.desc}
                   </div>
                 </div>
               </label>
@@ -130,9 +132,9 @@ export default function CookieBanner() {
                   className="mt-1 accent-accent"
                 />
                 <div>
-                  <div className="text-slate-900 font-semibold text-sm">Analyse-Cookies</div>
+                  <div className="text-slate-900 font-semibold text-sm">{c.analytics.title}</div>
                   <div className="text-slate-500 text-xs mt-0.5">
-                    Helfen uns, die Nutzung der Website zu verstehen und zu verbessern.
+                    {c.analytics.desc}
                   </div>
                 </div>
               </label>
@@ -144,9 +146,9 @@ export default function CookieBanner() {
                   className="mt-1 accent-accent"
                 />
                 <div>
-                  <div className="text-slate-900 font-semibold text-sm">Externe Karten (Google Maps)</div>
+                  <div className="text-slate-900 font-semibold text-sm">{c.maps.title}</div>
                   <div className="text-slate-500 text-xs mt-0.5">
-                    Zeigt unseren Standort als interaktive Karte. Dabei werden Daten an Google übertragen.
+                    {c.maps.desc}
                   </div>
                 </div>
               </label>
@@ -155,7 +157,7 @@ export default function CookieBanner() {
               onClick={saveSettings}
               className="btn-primary w-full py-2.5 rounded-lg text-sm"
             >
-              Auswahl speichern
+              {c.save}
             </button>
           </>
         )}

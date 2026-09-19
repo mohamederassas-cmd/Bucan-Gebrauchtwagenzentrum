@@ -4,6 +4,7 @@ import WhatsAppButton from "@/components/public/WhatsAppButton";
 
 export const metadata = {
   title: "Impressum – BUCAN AUTOMOBILE München",
+  alternates: { canonical: "/impressum" },
 };
 
 export default function ImpressumPage() {

@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown, Star } from "lucide-react";
 import { TEL_HREF } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
 
 export default function HeroSection() {
+  const { t, path } = useI18n();
   const headlineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export default function HeroSection() {
               <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
             ))}
           </div>
-          <span className="text-slate-700 font-semibold text-sm">5,0 · 56 Bewertungen</span>
+          <span className="text-slate-700 font-semibold text-sm">{t.hero.badge}</span>
         </div>
 
         {/* Headline */}
@@ -101,39 +103,38 @@ export default function HeroSection() {
             }
           `}</style>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-none mb-4 tracking-tight">
-            <span className="word text-slate-900">Ihr</span>{" "}
-            <span className="word text-slate-900">Gebrauchtwagen</span>
+            <span className="word text-slate-900">{t.hero.headline[0]}</span>{" "}
+            <span className="word text-slate-900">{t.hero.headline[1]}</span>
             <br />
-            <span className="word text-navy">aus</span>{" "}
-            <span className="word text-accent">München.</span>
+            <span className="word text-navy">{t.hero.headline[2]}</span>{" "}
+            <span className="word text-accent">{t.hero.headline[3]}</span>
           </h1>
         </div>
 
         <p className="text-slate-600 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed animate-slide-up">
-          Alle Marken, alle Modelle – sorgfältig geprüft, fair bewertet und
-          persönlich betreut. Qualität und Vertrauen direkt aus München.
+          {t.hero.subline}
         </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
-          <Link href="/fahrzeuge" className="btn-primary px-8 py-4 rounded-xl text-base text-center">
-            Fahrzeuge entdecken
+          <Link href={path("/fahrzeuge")} className="btn-primary px-8 py-4 rounded-xl text-base text-center">
+            {t.hero.ctaVehicles}
           </Link>
           <a
             href={TEL_HREF}
             className="btn-outline px-8 py-4 rounded-xl text-base text-center"
           >
-            Jetzt anrufen
+            {t.hero.ctaCall}
           </a>
         </div>
 
         {/* Stats row */}
         <div className="flex flex-wrap gap-8 md:gap-16">
           {[
-            { value: "56", label: "Bewertungen" },
-            { value: "5,0★", label: "Google Rating" },
-            { value: "500+", label: "Zufriedene Kunden" },
-            { value: "Hofolding", label: "Fichtenstr. 40" },
+            { value: "56", label: t.hero.stats.reviews },
+            { value: t.hero.badge.startsWith("5.") ? "5.0★" : "5,0★", label: t.hero.stats.rating },
+            { value: "500+", label: t.hero.stats.customers },
+            { value: "Hofolding", label: t.hero.stats.location },
           ].map((stat) => (
             <div key={stat.label}>
               <div className="text-2xl font-bold text-navy">{stat.value}</div>
@@ -147,7 +148,7 @@ export default function HeroSection() {
       <button
         onClick={scrollDown}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-accent opacity-60 hover:opacity-100 transition-opacity animate-bounce"
-        aria-label="Scroll down"
+        aria-label={t.hero.scrollDown}
       >
         <ChevronDown size={28} />
       </button>

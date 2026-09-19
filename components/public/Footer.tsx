@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { SITE, TEL_HREF, MAIL_HREF } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
 
 function InstagramIcon() {
   return (
@@ -20,6 +23,10 @@ function FacebookIcon() {
 }
 
 export default function Footer() {
+  const { t, path } = useI18n();
+  const f = t.footer;
+  const [weekdays, saturday] = SITE.openingHours;
+
   return (
     <footer className="bg-slate-900 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -34,8 +41,7 @@ export default function Footer() {
               className="h-44 w-auto mb-6 object-contain"
             />
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-              Ihr vertrauensvoller Partner für Gebrauchtwagen aller Marken in München.
-              Faire Preise, transparente Abwicklung, persönlicher Service.
+              {f.tagline}
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a
@@ -61,15 +67,15 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="text-xs text-slate-300 font-semibold tracking-widest uppercase mb-4">Navigation</h4>
+            <h4 className="text-xs text-slate-300 font-semibold tracking-widest uppercase mb-4">{f.navigation}</h4>
             <ul className="space-y-3">
               {[
-                { href: "/fahrzeuge", label: "Alle Fahrzeuge" },
-                { href: "/#ueber-uns", label: "Über uns" },
-                { href: "/#bewertungen", label: "Kundenstimmen" },
-                { href: "/#kontakt", label: "Kontakt" },
-                { href: "/impressum", label: "Impressum" },
-                { href: "/datenschutz", label: "Datenschutz" },
+                { href: path("/fahrzeuge"), label: f.allVehicles },
+                { href: path("/#ueber-uns"), label: f.about },
+                { href: path("/#bewertungen"), label: f.reviews },
+                { href: path("/#kontakt"), label: f.contactLink },
+                { href: "/impressum", label: f.imprint },
+                { href: "/datenschutz", label: f.privacy },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -85,7 +91,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs text-slate-300 font-semibold tracking-widest uppercase mb-4">Kontakt</h4>
+            <h4 className="text-xs text-slate-300 font-semibold tracking-widest uppercase mb-4">{f.contact}</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-accent mt-0.5 flex-shrink-0" />
@@ -95,7 +101,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-slate-400 text-sm hover:text-white transition-colors"
                 >
-                  Fichtenstrasse 40<br />85649 Hofolding
+                  {SITE.address.street}<br />{SITE.address.zip} {SITE.address.city}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -113,9 +119,9 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Clock size={16} className="text-accent mt-0.5 flex-shrink-0" />
                 <div className="text-slate-400 text-sm">
-                  <span className="block text-slate-300 text-xs font-semibold tracking-widest uppercase mb-1">Öffnungszeiten</span>
-                  Mo – Fr: 09:00 – 18:00 Uhr<br />
-                  Sa: 10:00 – 15:00 Uhr
+                  <span className="block text-slate-300 text-xs font-semibold tracking-widest uppercase mb-1">{f.hours}</span>
+                  {t.contact.weekdays}: {weekdays.opens} – {weekdays.closes}{t.contact.timeSuffix}<br />
+                  {t.contact.saturday}: {saturday.opens} – {saturday.closes}{t.contact.timeSuffix}
                 </div>
               </li>
             </ul>
@@ -125,14 +131,14 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-xs">
-            © {new Date().getFullYear()} Bucan Automobile – Denis Bucan. Alle Rechte vorbehalten.
+            © {new Date().getFullYear()} {SITE.legalName}. {f.rights}
           </p>
           <div className="flex gap-6 items-center">
             <Link href="/impressum" className="text-slate-500 text-xs hover:text-slate-300 transition-colors">
-              Impressum
+              {f.imprint}
             </Link>
             <Link href="/datenschutz" className="text-slate-500 text-xs hover:text-slate-300 transition-colors">
-              Datenschutz
+              {f.privacy}
             </Link>
           </div>
         </div>

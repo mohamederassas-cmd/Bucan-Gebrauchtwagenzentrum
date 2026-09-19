@@ -3,10 +3,45 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { SITE, TEL_HREF } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
+import { switchLocalePath, LOCALES, type Locale } from "@/lib/i18n/config";
+
+function LanguageSwitch({ className = "" }: { className?: string }) {
+  const { locale, t } = useI18n();
+  const pathname = usePathname() ?? "/";
+  return (
+    <div
+      className={`inline-flex items-center rounded-full border border-slate-200 bg-white p-0.5 text-xs font-semibold tracking-wider ${className}`}
+      role="group"
+      aria-label="Sprache / Language"
+    >
+      {LOCALES.map((l: Locale) => {
+        const active = l === locale;
+        return (
+          <Link
+            key={l}
+            href={switchLocalePath(pathname, l)}
+            hrefLang={l}
+            lang={l}
+            aria-current={active ? "true" : undefined}
+            aria-label={active ? undefined : t.nav.switchAria}
+            className={`px-2.5 py-1 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${
+              active ? "bg-navy text-white" : "text-slate-400 hover:text-navy active:text-navy-dark"
+            }`}
+          >
+            {l.toUpperCase()}
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Navbar() {
+  const { t, path } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -17,10 +52,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: "/fahrzeuge", label: "Fahrzeuge" },
-    { href: "/#ueber-uns", label: "Über uns" },
-    { href: "/#bewertungen", label: "Bewertungen" },
-    { href: "/#kontakt", label: "Kontakt" },
+    { href: path("/fahrzeuge"), label: t.nav.vehicles },
+    { href: path("/#ueber-uns"), label: t.nav.about },
+    { href: path("/#bewertungen"), label: t.nav.reviews },
+    { href: path("/#kontakt"), label: t.nav.contact },
   ];
 
   return (
@@ -34,7 +69,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+          <Link href={path("/")} className="flex-shrink-0">
             <Image
               src="/bucan-logo-header.png"
               alt="Bucan Automobile"
@@ -60,6 +95,7 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitch />
             <a
               href={TEL_HREF}
               className="flex items-center gap-2 text-navy font-semibold text-sm hover:text-accent transition-colors"
@@ -67,22 +103,23 @@ export default function Navbar() {
               <Phone size={15} />
               {SITE.phoneDisplay}
             </a>
-            <Link
-              href="/fahrzeuge"
-              className="btn-primary px-5 py-2.5 rounded-lg text-sm"
-            >
-              Jetzt entdecken
+            <Link href={path("/fahrzeuge")} className="btn-primary px-5 py-2.5 rounded-lg text-sm">
+              {t.nav.cta}
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-slate-600 hover:text-navy transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menü"
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: language + menu button */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageSwitch />
+            <button
+              className="text-slate-600 hover:text-navy transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={t.nav.menu}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -100,10 +137,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={TEL_HREF}
-              className="flex items-center gap-2 text-navy font-semibold text-sm pt-4 px-2"
-            >
+            <a href={TEL_HREF} className="flex items-center gap-2 text-navy font-semibold text-sm pt-4 px-2">
               <Phone size={15} />
               {SITE.phoneDisplay}
             </a>

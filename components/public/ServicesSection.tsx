@@ -2,61 +2,27 @@
 
 import { CreditCard, Truck, RefreshCw, ShieldCheck, ArrowRight } from "lucide-react";
 import { SITE } from "@/lib/site";
-
-const services = [
-  {
-    icon: CreditCard,
-    iconBg: "bg-blue-50",
-    iconColor: "text-accent",
-    title: "Flexible Finanzierung",
-    description:
-      "Wir helfen Ihnen, die passende Finanzierungslösung für Ihr Wunschfahrzeug zu finden – schnell, unkompliziert und transparent.",
-    link: null,
-    linkLabel: null,
-  },
-  {
-    icon: Truck,
-    iconBg: "bg-emerald-50",
-    iconColor: "text-emerald-600",
-    title: "Direktlieferung",
-    description:
-      "Auf Wunsch liefern wir Ihr neues Fahrzeug nach Vereinbarung direkt zu Ihnen nach Hause – bequem und ohne zusätzlichen Aufwand in München und Umgebung.",
-    link: null,
-    linkLabel: null,
-  },
-  {
-    icon: ShieldCheck,
-    iconBg: "bg-violet-50",
-    iconColor: "text-violet-600",
-    title: "Garantie",
-    description:
-      "Für zusätzliche Sicherheit bieten wir zu unseren Fahrzeugen eine Gebrauchtwagen-Garantie an. Sprechen Sie uns an – wir beraten Sie gerne.",
-    link: null,
-    linkLabel: null,
-  },
-  {
-    icon: RefreshCw,
-    iconBg: "bg-orange-50",
-    iconColor: "text-orange-500",
-    title: "Fahrzeug Ankauf",
-    description:
-      "Wir kaufen Ihr Fahrzeug an und nehmen es in Zahlung – faire Preise, sofortige Abwicklung, kein Aufwand für Sie.",
-    link: SITE.ankaufPortal,
-    linkLabel: "Zum Ankauf-Portal",
-  },
-];
+import { useI18n } from "@/lib/i18n/context";
 
 export default function ServicesSection() {
+  const { t } = useI18n();
+  const services = [
+    { icon: CreditCard, iconBg: "bg-blue-50", iconColor: "text-accent", ...t.services.financing, link: null, linkLabel: null },
+    { icon: Truck, iconBg: "bg-emerald-50", iconColor: "text-emerald-600", ...t.services.delivery, link: null, linkLabel: null },
+    { icon: ShieldCheck, iconBg: "bg-violet-50", iconColor: "text-violet-600", ...t.services.warranty, link: null, linkLabel: null },
+    { icon: RefreshCw, iconBg: "bg-orange-50", iconColor: "text-orange-500", title: t.services.purchase.title, desc: t.services.purchase.desc, link: SITE.ankaufPortal, linkLabel: t.services.purchase.link },
+  ];
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-accent font-semibold text-sm tracking-widest uppercase mb-4">
-            Unsere Leistungen
+            {t.services.eyebrow}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-            Was wir für Sie tun
+            {t.services.title}
           </h2>
         </div>
 
@@ -75,7 +41,7 @@ export default function ServicesSection() {
                   <Icon size={26} className={service.iconColor} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                <p className="text-slate-600 leading-relaxed flex-1">{service.description}</p>
+                <p className="text-slate-600 leading-relaxed flex-1">{service.desc}</p>
                 {service.link && (
                   <div className="mt-6 flex items-center gap-2 text-orange-500 font-semibold text-sm group-hover:gap-3 transition-all">
                     {service.linkLabel}

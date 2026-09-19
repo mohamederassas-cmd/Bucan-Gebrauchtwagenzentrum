@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Vehicle, VehicleStatus, FuelType, TransmissionType } from "@/lib/types";
+import { Vehicle, VehicleStatus, FuelType, TransmissionType, FUEL_TYPES, TRANSMISSION_TYPES } from "@/lib/types";
+import { useI18n } from "@/lib/i18n/context";
+import { fmt } from "@/lib/i18n";
+import { formatNumber } from "@/lib/utils";
 import CarCard from "./CarCard";
 import { SlidersHorizontal, X } from "lucide-react";
 
@@ -10,6 +13,8 @@ interface Props {
 }
 
 export default function VehicleList({ vehicles }: Props) {
+  const { t, locale } = useI18n();
+  const f = t.vehicles.filters;
   const [status, setStatus] = useState<VehicleStatus | "all">("all");
   const [fuel, setFuel] = useState<FuelType | "all">("all");
   const [transmission, setTransmission] = useState<TransmissionType | "all">("all");
@@ -60,29 +65,30 @@ export default function VehicleList({ vehicles }: Props) {
               className="flex items-center gap-2 text-slate-600 hover:text-accent transition-colors font-medium text-sm"
             >
               <SlidersHorizontal size={16} />
-              Filter {showFilters ? "ausblenden" : "einblenden"}
+              {showFilters ? f.hide : f.show}
             </button>
             {hasFilters && (
               <button
                 onClick={resetFilters}
                 className="flex items-center gap-1 text-xs text-accent hover:text-accent-hover transition-colors ml-4"
               >
-                <X size={13} /> Zurücksetzen
+                <X size={13} /> {f.reset}
               </button>
             )}
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-slate-500 text-sm hidden sm:block">Sortieren:</span>
+            <span className="text-slate-500 text-sm hidden sm:block">{f.sort}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+              aria-label={f.sort}
               className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-accent"
             >
-              <option value="newest">Neueste zuerst</option>
-              <option value="price-asc">Preis aufsteigend</option>
-              <option value="price-desc">Preis absteigend</option>
-              <option value="mileage">Geringste Laufleistung</option>
+              <option value="newest">{f.newest}</option>
+              <option value="price-asc">{f.priceAsc}</option>
+              <option value="price-desc">{f.priceDesc}</option>
+              <option value="mileage">{f.mileage}</option>
             </select>
           </div>
         </div>
@@ -91,13 +97,13 @@ export default function VehicleList({ vehicles }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
             {/* Status */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">Status</label>
+              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.status}</label>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { value: "all", label: "Alle" },
-                  { value: "available", label: "Verfügbar" },
-                  { value: "reserved", label: "Reserviert" },
-                  { value: "sold", label: "Verkauft" },
+                  { value: "all", label: f.all },
+                  { value: "available", label: t.vehicles.status.available },
+                  { value: "reserved", label: t.vehicles.status.reserved },
+                  { value: "sold", label: t.vehicles.status.sold },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -116,27 +122,27 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Fuel */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">Kraftstoff</label>
+              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.fuel}</label>
               <select
                 value={fuel}
                 onChange={(e) => setFuel(e.target.value as typeof fuel)}
+                aria-label={f.fuel}
                 className="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-accent"
               >
-                <option value="all">Alle</option>
-                {["Benzin", "Diesel", "Elektro", "Hybrid", "Erdgas"].map((f) => (
-                  <option key={f} value={f}>{f}</option>
+                <option value="all">{f.all}</option>
+                {FUEL_TYPES.map((fuelType) => (
+                  <option key={fuelType} value={fuelType}>{t.vehicles.fuel[fuelType]}</option>
                 ))}
               </select>
             </div>
 
             {/* Transmission */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">Getriebe</label>
+              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.transmission}</label>
               <div className="flex gap-2">
                 {[
-                  { value: "all", label: "Alle" },
-                  { value: "Automatik", label: "Automatik" },
-                  { value: "Manuell", label: "Manuell" },
+                  { value: "all", label: f.all },
+                  ...TRANSMISSION_TYPES.map((tr) => ({ value: tr, label: t.vehicles.transmission[tr] })),
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -156,7 +162,7 @@ export default function VehicleList({ vehicles }: Props) {
             {/* Max Price */}
             <div>
               <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">
-                Max. Preis: <span className="text-accent font-semibold">{new Intl.NumberFormat("de-DE").format(maxPrice)} €</span>
+                {f.maxPrice} <span className="text-accent font-semibold">{formatNumber(maxPrice, locale)} €</span>
               </label>
               <input
                 type="range"
@@ -165,6 +171,7 @@ export default function VehicleList({ vehicles }: Props) {
                 step={1000}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
+                aria-label={f.maxPrice}
                 className="w-full accent-blue-600"
               />
             </div>
@@ -174,7 +181,7 @@ export default function VehicleList({ vehicles }: Props) {
 
       {/* Results Count */}
       <div className="text-slate-500 text-sm mb-6 font-medium">
-        {filtered.length} Fahrzeug{filtered.length !== 1 ? "e" : ""} gefunden
+        {filtered.length === 1 ? t.vehicles.foundOne : fmt(t.vehicles.found, { count: filtered.length })}
       </div>
 
       {/* Grid */}
@@ -187,10 +194,10 @@ export default function VehicleList({ vehicles }: Props) {
       ) : (
         <div className="text-center py-24">
           <div className="text-5xl mb-4">🚗</div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Keine Fahrzeuge gefunden</h3>
-          <p className="text-slate-500 text-sm mb-6">Passen Sie die Filter an oder setzen Sie sie zurück.</p>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">{t.vehicles.empty}</h3>
+          <p className="text-slate-500 text-sm mb-6">{t.vehicles.emptyHint}</p>
           <button onClick={resetFilters} className="btn-outline px-6 py-3 rounded-xl text-sm">
-            Filter zurücksetzen
+            {t.vehicles.resetFilters}
           </button>
         </div>
       )}

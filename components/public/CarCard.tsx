@@ -6,7 +6,8 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Gauge, Zap, Fuel, ArrowRight } from "lucide-react";
-import { Vehicle, STATUS_LABELS, STATUS_COLORS } from "@/lib/types";
+import { Vehicle, STATUS_COLORS } from "@/lib/types";
+import { useI18n } from "@/lib/i18n/context";
 import { formatPrice, formatMileage } from "@/lib/utils";
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function CarCard({ vehicle }: Props) {
+  const { t, locale, path } = useI18n();
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,7 +38,7 @@ export default function CarCard({ vehicle }: Props) {
   };
 
   const statusColor = STATUS_COLORS[vehicle.status];
-  const statusLabel = STATUS_LABELS[vehicle.status];
+  const statusLabel = t.vehicles.status[vehicle.status];
   const mainImage = vehicle.images[0] || placeholderImage(600, 400);
 
   return (
@@ -47,7 +49,7 @@ export default function CarCard({ vehicle }: Props) {
       onMouseLeave={handleMouseLeave}
       style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
     >
-      <Link href={`/fahrzeuge/${vehicle.id}`} className="block">
+      <Link href={path(`/fahrzeuge/${vehicle.id}`)} className="block">
         <div className="card rounded-xl overflow-hidden hover:shadow-card-hover">
           {/* Image */}
           <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
@@ -83,7 +85,7 @@ export default function CarCard({ vehicle }: Props) {
             {/* Price overlay */}
             <div className="absolute bottom-3 left-3">
               <div className="text-white font-bold text-xl drop-shadow-lg">
-                {formatPrice(vehicle.price)}
+                {formatPrice(vehicle.price, locale)}
               </div>
             </div>
           </div>
@@ -98,27 +100,27 @@ export default function CarCard({ vehicle }: Props) {
             <div className="flex items-center gap-4 mt-3">
               <div className="flex items-center gap-1.5 text-slate-500 text-xs">
                 <Gauge size={13} className="text-accent" />
-                {formatMileage(vehicle.mileage)}
+                {formatMileage(vehicle.mileage, locale)}
               </div>
               {vehicle.power_ps && (
                 <div className="flex items-center gap-1.5 text-slate-500 text-xs">
                   <Zap size={13} className="text-accent" />
-                  {vehicle.power_ps} PS
+                  {vehicle.power_ps} {t.units.ps}
                 </div>
               )}
               <div className="flex items-center gap-1.5 text-slate-500 text-xs">
                 <Fuel size={13} className="text-accent" />
-                {vehicle.fuel_type}
+                {t.vehicles.fuel[vehicle.fuel_type] ?? vehicle.fuel_type}
               </div>
             </div>
 
             {/* CTA */}
             <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
               <span className="text-slate-400 text-xs font-medium tracking-wide uppercase">
-                {vehicle.transmission}
+                {t.vehicles.transmission[vehicle.transmission] ?? vehicle.transmission}
               </span>
               <div className="flex items-center gap-1 text-accent text-sm font-semibold group-hover:gap-2 transition-all">
-                Details <ArrowRight size={14} />
+                {t.vehicles.details} <ArrowRight size={14} />
               </div>
             </div>
           </div>
