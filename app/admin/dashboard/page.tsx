@@ -1,13 +1,20 @@
 import { getVehicleStats, getAllVehicles } from "@/lib/vehicles";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { formatPrice } from "@/lib/utils";
-import { Car, CheckCircle, Clock, TrendingUp } from "lucide-react";
+import { Car, CheckCircle, Clock, TrendingUp, AlertTriangle } from "lucide-react";
+import { requireAdmin } from "@/lib/auth";
+import { isUsingBootstrapPassword } from "@/lib/settings";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [stats, allVehicles] = await Promise.all([getVehicleStats(), getAllVehicles()]);
+  await requireAdmin();
+  const [stats, allVehicles, usingDefault] = await Promise.all([
+    getVehicleStats(),
+    getAllVehicles(),
+    isUsingBootstrapPassword(),
+  ]);
   const vehicles = allVehicles.slice(0, 5);
 
   const cards = [
@@ -24,6 +31,18 @@ export default async function DashboardPage() {
           <h1 className="font-display text-2xl text-[#0F172A] font-bold">Dashboard</h1>
           <p className="text-[#475569] text-sm mt-1">Übersicht Ihres Fahrzeugbestands</p>
         </div>
+
+        {usingDefault && (
+          <div role="alert" className="mb-8 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 text-sm">
+            <AlertTriangle size={18} className="flex-shrink-0 mt-0.5" />
+            <span className="flex-1">
+              Sie verwenden noch das Standardpasswort.{" "}
+              <Link href="/admin/einstellungen" className="font-semibold underline hover:text-amber-900">
+                Jetzt eigenes Passwort festlegen
+              </Link>
+            </span>
+          </div>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

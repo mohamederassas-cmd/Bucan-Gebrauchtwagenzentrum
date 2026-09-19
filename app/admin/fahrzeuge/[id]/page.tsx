@@ -4,10 +4,12 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import VehicleForm from "@/components/admin/VehicleForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { requireAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function EditVehiclePage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
   const { id } = await params;
   const vehicle = await getVehicleById(id);
   if (!vehicle) notFound();

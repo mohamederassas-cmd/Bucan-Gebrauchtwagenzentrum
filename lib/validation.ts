@@ -98,3 +98,34 @@ export function validateVehiclePatch(input: unknown): Partial<VehicleFormData> {
   }
   return out;
 }
+
+export const PASSWORD_MIN_LENGTH = 10;
+export const PASSWORD_MAX_LENGTH = 128;
+const DEFAULT_PASSWORD_LITERAL = "bucan2024admin";
+
+/**
+ * Prüft eine Passwortänderung. Erwartet currentPassword, newPassword, confirmPassword.
+ */
+export function validatePasswordChange(input: unknown): { currentPassword: string; newPassword: string } {
+  if (!input || typeof input !== "object") throw new ValidationError("Ungültige Daten.");
+  const b = input as Record<string, unknown>;
+  const currentPassword = typeof b.currentPassword === "string" ? b.currentPassword : "";
+  const newPassword = typeof b.newPassword === "string" ? b.newPassword : "";
+  const confirmPassword = typeof b.confirmPassword === "string" ? b.confirmPassword : "";
+
+  if (!currentPassword) throw new ValidationError("Bitte geben Sie Ihr aktuelles Passwort ein.");
+  if (newPassword.length < PASSWORD_MIN_LENGTH) {
+    throw new ValidationError(`Das neue Passwort muss mindestens ${PASSWORD_MIN_LENGTH} Zeichen lang sein.`);
+  }
+  if (newPassword.length > PASSWORD_MAX_LENGTH) {
+    throw new ValidationError(`Das neue Passwort darf höchstens ${PASSWORD_MAX_LENGTH} Zeichen lang sein.`);
+  }
+  if (newPassword !== confirmPassword) throw new ValidationError("Die Passwörter stimmen nicht überein.");
+  if (newPassword === currentPassword) {
+    throw new ValidationError("Das neue Passwort muss sich vom aktuellen Passwort unterscheiden.");
+  }
+  if (newPassword === DEFAULT_PASSWORD_LITERAL) {
+    throw new ValidationError("Das Standardpasswort kann nicht erneut verwendet werden.");
+  }
+  return { currentPassword, newPassword };
+}

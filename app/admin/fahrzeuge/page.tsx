@@ -3,10 +3,12 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import AdminVehicleTable from "@/components/admin/AdminVehicleTable";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { requireAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminVehiclesPage() {
+  await requireAdmin();
   const vehicles = await getAllVehicles();
 
   return (

@@ -1,118 +1,33 @@
-import { get, put, del, list } from "@vercel/blob";
-import { unstable_cache, revalidateTag } from "next/cache";
-import fs from "fs";
-import path from "path";
+import { del } from "@vercel/blob";
+import path from "node:path";
 import { Vehicle, VehicleFormData } from "./types";
+import { createVersionedJsonStore, blobEnabled } from "./blob-json-store";
 
 /**
  * Datenschicht für den Fahrzeugbestand.
  *
- * Produktion (Vercel): Das Dateisystem ist schreibgeschützt (EROFS), deshalb liegt
- * der Bestand im Vercel-Blob-Store (BLOB_READ_WRITE_TOKEN).
- *
- * WICHTIG: Ein Blob darf NICHT an Ort und Stelle überschrieben werden – der Store
- * liefert nach einem Overwrite bis zu ~15 s den alten Inhalt, selbst mit
- * useCache:false (gemessen am 19.09.2026). Deshalb schreibt jede Änderung eine
- * neue, unveränderliche Versionsdatei (data/vehicles/v<zeitstempel>-<zufall>.json);
- * gelesen wird immer die lexikografisch neueste. Alte Versionen werden nach dem
- * Schreiben aufgeräumt (die letzten KEEP_VERSIONS bleiben als Sicherung).
- *
- * Lesezugriffe laufen über den Next-Data-Cache (Tag "vehicles"), damit die
- * öffentlichen Seiten nicht bei jedem Aufruf list+get bezahlen. Jede Änderung
- * ruft revalidateTag("vehicles") auf; als Sicherheitsnetz läuft der Cache nach
- * CACHE_SECONDS ohnehin ab.
- *
- * Lokal (kein BLOB_READ_WRITE_TOKEN): data/vehicles.json wird per fs gelesen und
- * geschrieben. Dieselbe Datei dient in Produktion als Startbestand, solange im
- * Store noch keine Version existiert.
+ * Produktion: versionierte JSON-Dateien im Vercel-Blob-Store (data/vehicles/v*.json),
+ * lokal: data/vehicles.json. Details und Begründung (Blob-Overwrite ist ~15 s stale)
+ * in lib/blob-json-store.ts.
  */
-
-const VERSION_PREFIX = "data/vehicles/v";
-const KEEP_VERSIONS = 5;
-const CACHE_TAG = "vehicles";
-const CACHE_SECONDS = 300;
-const LOCAL_FILE = path.join(process.cwd(), "data", "vehicles.json");
-
-function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
 
 function parseVehicles(text: string): Vehicle[] {
   const parsed = JSON.parse(text);
   return Array.isArray(parsed) ? parsed : [];
 }
 
-function readLocalFile(): Vehicle[] {
-  try {
-    return parseVehicles(fs.readFileSync(LOCAL_FILE, "utf-8"));
-  } catch {
-    return [];
-  }
-}
-
-async function listVersionPathnames(): Promise<string[]> {
-  const pathnames: string[] = [];
-  let cursor: string | undefined;
-  do {
-    const page = await list({ prefix: VERSION_PREFIX, cursor, limit: 1000 });
-    pathnames.push(...page.blobs.map((b) => b.pathname));
-    cursor = page.hasMore ? page.cursor : undefined;
-  } while (cursor);
-  return pathnames.sort();
-}
-
-async function readVehiclesUncached(): Promise<Vehicle[]> {
-  if (!blobEnabled()) return readLocalFile();
-
-  const versions = await listVersionPathnames();
-  const newest = versions[versions.length - 1];
-  if (!newest) return readLocalFile(); // Store noch leer → Startbestand aus dem Repo
-
-  const result = await get(newest, { access: "public", useCache: false });
-  if (!result || result.statusCode !== 200) {
-    throw new Error(`Fahrzeugdaten konnten nicht gelesen werden (${newest})`);
-  }
-  return parseVehicles(await new Response(result.stream).text());
-}
-
-const readVehiclesCached = unstable_cache(readVehiclesUncached, ["vehicles-store"], {
-  tags: [CACHE_TAG],
-  revalidate: CACHE_SECONDS,
+const store = createVersionedJsonStore<Vehicle[]>({
+  prefix: "data/vehicles/v",
+  localFile: path.join(process.cwd(), "data", "vehicles.json"),
+  cacheTag: "vehicles",
+  keepVersions: 5,
+  revalidateSeconds: 300,
+  parse: parseVehicles,
+  empty: [],
 });
 
-async function readVehicles(): Promise<Vehicle[]> {
-  // Lokal ohne Blob direkt von der Platte lesen – kein Cache nötig.
-  if (!blobEnabled()) return readLocalFile();
-  return readVehiclesCached();
-}
-
-async function writeVehicles(vehicles: Vehicle[]): Promise<void> {
-  const json = JSON.stringify(vehicles, null, 2);
-
-  if (!blobEnabled()) {
-    fs.writeFileSync(LOCAL_FILE, json, "utf-8");
-    return;
-  }
-
-  const stamp = String(Date.now()).padStart(15, "0");
-  const pathname = `${VERSION_PREFIX}${stamp}-${Math.random().toString(36).slice(2, 8)}.json`;
-  await put(pathname, json, {
-    access: "public",
-    addRandomSuffix: false,
-    contentType: "application/json",
-    cacheControlMaxAge: 60,
-  });
-  revalidateTag(CACHE_TAG);
-
-  // Alte Versionen aufräumen (best effort, blockiert die Antwort nicht bei Fehlern)
-  try {
-    const versions = await listVersionPathnames();
-    const stale = versions.filter((p) => p < pathname).slice(0, -KEEP_VERSIONS + 1);
-    if (stale.length > 0) await del(stale);
-  } catch (err) {
-    console.error("Alte Bestandsversionen konnten nicht gelöscht werden:", err);
-  }
-}
+const readVehicles = store.read;
+const writeVehicles = store.write;
 
 /** Liegt die Bild-URL im eigenen Blob-Store? (Nur dann darf sie mitgelöscht werden.) */
 function isOwnBlobUrl(url: string): boolean {

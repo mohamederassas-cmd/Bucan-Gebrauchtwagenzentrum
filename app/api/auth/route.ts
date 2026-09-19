@@ -1,22 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validatePassword, SESSION_COOKIE, SESSION_VALUE } from "@/lib/auth";
+import { verifyPassword, currentSessionToken, sessionCookie, SESSION_COOKIE } from "@/lib/auth";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  const { password } = await req.json();
-
-  if (!validatePassword(password)) {
-    return NextResponse.json({ error: "Ungültig" }, { status: 401 });
+  let password = "";
+  try {
+    const body = await req.json();
+    password = typeof body?.password === "string" ? body.password : "";
+  } catch {
+    return NextResponse.json({ error: "Ungültige Anfrage" }, { status: 400 });
   }
 
-  const res = NextResponse.json({ ok: true });
-  res.cookies.set(SESSION_COOKIE, SESSION_VALUE, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7, // 7 Tage
-    path: "/",
-  });
-  return res;
+  try {
+    if (!password || !(await verifyPassword(password))) {
+      // Kleine Bremse gegen automatisiertes Durchprobieren
+      await new Promise((r) => setTimeout(r, 300));
+      return NextResponse.json({ error: "Ungültig" }, { status: 401 });
+    }
+
+    const res = NextResponse.json({ ok: true });
+    res.cookies.set(sessionCookie(await currentSessionToken()));
+    return res;
+  } catch (err) {
+    console.error("POST /api/auth fehlgeschlagen:", err);
+    return NextResponse.json(
+      { error: "Anmeldung derzeit nicht möglich. Bitte später erneut versuchen." },
+      { status: 500 }
+    );
+  }
 }
 
 export async function DELETE() {

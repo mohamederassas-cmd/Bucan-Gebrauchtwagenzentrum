@@ -2,8 +2,12 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import VehicleForm from "@/components/admin/VehicleForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { requireAdmin } from "@/lib/auth";
 
-export default function NewVehiclePage() {
+export const dynamic = "force-dynamic";
+
+export default async function NewVehiclePage() {
+  await requireAdmin();
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
