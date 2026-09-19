@@ -8,6 +8,7 @@ const nextConfig = {
       { protocol: "https", hostname: "**.cloudinary.com" },
       { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "img.classistatic.de" },
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
 };

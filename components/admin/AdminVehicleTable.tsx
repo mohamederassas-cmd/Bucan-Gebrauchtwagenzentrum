@@ -3,55 +3,99 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Vehicle, STATUS_COLORS } from "@/lib/types";
+import { Vehicle, VehicleStatus, STATUS_COLORS, STATUS_LABELS } from "@/lib/types";
 import { formatPrice, formatMileage } from "@/lib/utils";
-import { Pencil, Trash2, Star, StarOff, ChevronDown } from "lucide-react";
+import { Pencil, Trash2, Star, StarOff, ChevronDown, AlertCircle, X } from "lucide-react";
 
 interface Props {
   vehicles: Vehicle[];
 }
 
+const STATUS_OPTIONS = (Object.keys(STATUS_LABELS) as VehicleStatus[]).map((value) => ({
+  value,
+  label: STATUS_LABELS[value],
+}));
+
+/** Liest die deutsche Fehlermeldung aus einer API-Antwort. */
+async function errorMessage(res: Response, fallback: string): Promise<string> {
+  if (res.status === 401) return "Sitzung abgelaufen. Bitte erneut anmelden.";
+  try {
+    const data = await res.json();
+    if (data?.error) return data.error;
+  } catch {
+    // keine JSON-Antwort
+  }
+  return fallback;
+}
+
 export default function AdminVehicleTable({ vehicles }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const updateStatus = async (id: string, status: string) => {
-    setLoading(id + "-status");
-    await fetch(`/api/vehicles/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-    setLoading(null);
-    router.refresh();
+  /** Führt eine Änderung aus und zeigt Fehler an, statt sie zu verschlucken. */
+  const run = async (key: string, fallback: string, request: () => Promise<Response>) => {
+    setLoading(key);
+    setError(null);
+    try {
+      const res = await request();
+      if (!res.ok) {
+        setError(await errorMessage(res, fallback));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setError("Verbindungsfehler. Bitte erneut versuchen.");
+    } finally {
+      setLoading(null);
+    }
   };
 
-  const toggleFeatured = async (id: string, featured: boolean) => {
-    setLoading(id + "-featured");
-    await fetch(`/api/vehicles/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ featured: !featured }),
-    });
-    setLoading(null);
-    router.refresh();
-  };
+  const updateStatus = (id: string, status: string) =>
+    run(id + "-status", "Status konnte nicht geändert werden.", () =>
+      fetch(`/api/vehicles/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      })
+    );
 
-  const deleteVehicle = async (id: string, name: string) => {
-    if (!confirm(`„${name}" wirklich löschen?`)) return;
-    setLoading(id + "-delete");
-    await fetch(`/api/vehicles/${id}`, { method: "DELETE" });
-    setLoading(null);
-    router.refresh();
-  };
+  const toggleFeatured = (id: string, featured: boolean) =>
+    run(id + "-featured", "Highlight konnte nicht geändert werden.", () =>
+      fetch(`/api/vehicles/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featured: !featured }),
+      })
+    );
 
-  const statusOptions = [
-    { value: "available", label: "Verfügbar", color: "#22c55e" },
-    { value: "reserved", label: "Reserviert", color: "#f59e0b" },
-    { value: "sold", label: "Verkauft", color: "#ef4444" },
-  ];
+  const deleteVehicle = (id: string, name: string) => {
+    if (!confirm(`„${name}“ wirklich löschen? Das kann nicht rückgängig gemacht werden.`)) return;
+    return run(id + "-delete", "Fahrzeug konnte nicht gelöscht werden.", () =>
+      fetch(`/api/vehicles/${id}`, { method: "DELETE" })
+    );
+  };
 
   return (
+    <div>
+      {error && (
+        <div
+          role="alert"
+          className="mb-4 flex items-start gap-3 bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm"
+        >
+          <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+          <span className="flex-1">{error}</span>
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            aria-label="Meldung schließen"
+            className="text-red-400 hover:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 rounded"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
+
     <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-card overflow-hidden">
       {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
@@ -113,7 +157,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                           color: STATUS_COLORS[v.status],
                         }}
                       >
-                        {statusOptions.map((opt) => (
+                        {STATUS_OPTIONS.map((opt) => (
                           <option key={opt.value} value={opt.value}>
                             {opt.label}
                           </option>
@@ -126,8 +170,10 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                   {/* Featured */}
                   <td className="px-5 py-4">
                     <button
+                      type="button"
                       onClick={() => toggleFeatured(v.id, v.featured)}
                       disabled={!!loading}
+                      aria-label={v.featured ? "Von Highlights entfernen" : "Als Highlight setzen"}
                       title={v.featured ? "Von Highlights entfernen" : "Als Highlight setzen"}
                       className="transition-colors"
                     >
@@ -149,8 +195,11 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                         <Pencil size={14} />
                       </Link>
                       <button
+                        type="button"
                         onClick={() => deleteVehicle(v.id, `${v.make} ${v.model}`)}
                         disabled={!!loading}
+                        aria-label={`${v.make} ${v.model} löschen`}
+                        title="Löschen"
                         className="w-8 h-8 bg-[#F1F5F9] border border-[#E2E8F0] rounded-lg flex items-center justify-center text-[#475569] hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all"
                       >
                         <Trash2 size={14} />
@@ -176,7 +225,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
       {/* Mobile Cards */}
       <div className="md:hidden divide-y divide-[#E2E8F0]">
         {vehicles.map((v) => (
-          <div key={v.id} className="p-4">
+          <div key={v.id} className={`p-4 ${loading?.startsWith(v.id) ? "opacity-50" : ""}`}>
             <div className="flex items-start justify-between gap-3 mb-3">
               <div>
                 <div className="text-[#0F172A] font-semibold">{v.make} {v.model}</div>
@@ -188,6 +237,8 @@ export default function AdminVehicleTable({ vehicles }: Props) {
               <select
                 value={v.status}
                 onChange={(e) => updateStatus(v.id, e.target.value)}
+                disabled={!!loading}
+                aria-label="Status"
                 className="flex-1 text-xs font-accent rounded-lg px-2 py-1.5 focus:outline-none"
                 style={{
                   background: `${STATUS_COLORS[v.status]}15`,
@@ -195,7 +246,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                   color: STATUS_COLORS[v.status],
                 }}
               >
-                {statusOptions.map((opt) => (
+                {STATUS_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
@@ -208,7 +259,10 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                 <Pencil size={14} />
               </Link>
               <button
+                type="button"
                 onClick={() => deleteVehicle(v.id, `${v.make} ${v.model}`)}
+                disabled={!!loading}
+                aria-label={`${v.make} ${v.model} löschen`}
                 className="w-8 h-8 bg-[#F1F5F9] border border-[#E2E8F0] rounded-lg flex items-center justify-center text-[#475569] hover:text-red-600 transition-all"
               >
                 <Trash2 size={14} />
@@ -217,6 +271,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

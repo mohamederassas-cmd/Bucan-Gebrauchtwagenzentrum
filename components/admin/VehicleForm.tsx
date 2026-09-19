@@ -173,7 +173,17 @@ export default function VehicleForm({ vehicle, mode }: Props) {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        let message = "Fehler beim Speichern.";
+        try {
+          const data = await res.json();
+          if (data?.error) message = data.error;
+        } catch {
+          // keine JSON-Antwort
+        }
+        if (res.status === 401) message = "Sitzung abgelaufen. Bitte erneut anmelden.";
+        throw new Error(message);
+      }
 
       router.push("/admin/fahrzeuge");
       router.refresh();

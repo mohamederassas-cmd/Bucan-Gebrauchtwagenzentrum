@@ -6,8 +6,8 @@ import { Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminVehiclesPage() {
-  const vehicles = getAllVehicles();
+export default async function AdminVehiclesPage() {
+  const vehicles = await getAllVehicles();
 
   return (
     <AdminLayout>

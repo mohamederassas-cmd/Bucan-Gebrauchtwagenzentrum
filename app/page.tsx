@@ -11,8 +11,11 @@ import { getFeaturedVehicles } from "@/lib/vehicles";
 import Link from "next/link";
 import { Shield, Award, Clock, CheckCircle, ArrowRight } from "lucide-react";
 
-export default function Home() {
-  const featuredVehicles = getFeaturedVehicles();
+// Bestand ändert sich im Admin → Seite immer serverseitig frisch rendern
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const featuredVehicles = await getFeaturedVehicles();
 
   return (
     <main className="bg-slate-50 min-h-screen">

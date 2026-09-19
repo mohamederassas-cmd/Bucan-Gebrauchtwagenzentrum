@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const stats = getVehicleStats();
-  const vehicles = getAllVehicles().slice(0, 5);
+export default async function DashboardPage() {
+  const [stats, allVehicles] = await Promise.all([getVehicleStats(), getAllVehicles()]);
+  const vehicles = allVehicles.slice(0, 5);
 
   const cards = [
     { label: "Gesamt", value: stats.total, icon: <Car size={24} />, color: "#2563EB" },

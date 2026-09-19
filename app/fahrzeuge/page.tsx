@@ -9,8 +9,11 @@ export const metadata = {
   description: "Alle verfügbaren Fahrzeuge bei Bucan Automobile München. Geprüfte Gebrauchtwagen aller Marken zu fairen Festpreisen.",
 };
 
-export default function FahrzeugePage() {
-  const vehicles = getAllVehicles();
+// Bestand ändert sich im Admin → Seite immer serverseitig frisch rendern
+export const dynamic = "force-dynamic";
+
+export default async function FahrzeugePage() {
+  const vehicles = await getAllVehicles();
 
   return (
     <main className="bg-slate-50 min-h-screen">

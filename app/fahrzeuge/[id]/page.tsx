@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getVehicleById, getAllVehicles } from "@/lib/vehicles";
+import { getVehicleById } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/utils";
 import { STATUS_LABELS, STATUS_COLORS } from "@/lib/types";
 import Navbar from "@/components/public/Navbar";
@@ -9,14 +9,12 @@ import ImageGallery from "@/components/public/ImageGallery";
 import { Phone, MessageCircle, Gauge, Zap, Fuel, Settings, Palette, Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export async function generateStaticParams() {
-  const vehicles = getAllVehicles();
-  return vehicles.map((v) => ({ id: v.id }));
-}
+// Keine Vorab-Generierung mehr: neue/gelöschte Fahrzeuge müssen sofort sichtbar sein
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const vehicle = getVehicleById(id);
+  const vehicle = await getVehicleById(id);
   if (!vehicle) return { title: "Fahrzeug nicht gefunden" };
   return {
     title: `${vehicle.make} ${vehicle.model} ${vehicle.year} – Bucan Automobile`,
@@ -26,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const vehicle = getVehicleById(id);
+  const vehicle = await getVehicleById(id);
   if (!vehicle) notFound();
 
   const statusColor = STATUS_COLORS[vehicle.status];
