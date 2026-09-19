@@ -28,6 +28,32 @@ export function blobEnabled(): boolean {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
+/** Alle Pfade unter einem Prefix, lexikografisch sortiert (paginiert). */
+export async function listPathnames(prefix: string): Promise<string[]> {
+  const pathnames: string[] = [];
+  let cursor: string | undefined;
+  do {
+    const page = await list({ prefix, cursor, limit: 1000 });
+    pathnames.push(...page.blobs.map((b) => b.pathname));
+    cursor = page.hasMore ? page.cursor : undefined;
+  } while (cursor);
+  return pathnames.sort();
+}
+
+/** Inhalt eines Blobs als Text – immer am Cache vorbei (siehe Overwrite-Hinweis oben). */
+export async function readBlobText(pathname: string): Promise<string> {
+  const result = await get(pathname, { access: "public", useCache: false });
+  if (!result || result.statusCode !== 200) {
+    throw new Error(`Daten konnten nicht gelesen werden (${pathname})`);
+  }
+  return new Response(result.stream).text();
+}
+
+/** Zeitstempel-Präfix für versionierte Dateinamen (lexikografisch sortierbar). */
+export function versionStamp(): string {
+  return `${String(Date.now()).padStart(15, "0")}-${randomBytes(8).toString("hex")}`;
+}
+
 export interface VersionedJsonStoreOptions<T> {
   /** z. B. "data/vehicles/v" */
   prefix: string;

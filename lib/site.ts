@@ -31,7 +31,14 @@ export const SITE = {
     instagram: "https://www.instagram.com/bucanautomobile?igsh=NTU5M3QzOWZxcHFq&utm_source=qr",
   },
   mapsDirections: "https://www.google.com/maps/dir/?api=1&destination=Fichtenstrasse+40%2C+85649+Hofolding",
-  ankaufPortal: "https://gebrauchtwagen-ankauf.de",
+  /** Kennzahlen für Badge, Trust-Leiste, Über-uns und strukturierte Daten – nur hier pflegen. */
+  trust: {
+    rating: 5,
+    ratingDisplay: { de: "5,0", en: "5.0" },
+    reviewCount: 56,
+    reviewsSource: "mobile.de",
+    customers: "500+",
+  },
 } as const;
 
 export const TEL_HREF = `tel:${SITE.phoneE164}`;
@@ -45,5 +52,5 @@ export function whatsappUrl(text?: string): string {
 
 /** Platzhalterbild, wenn ein Fahrzeug keine Fotos hat. */
 export function placeholderImage(width: number, height: number): string {
-  return `https://placehold.co/${width}x${height}/EFF6FF/1E3A8A?text=Bucan+Automobile`;
+  return `https://placehold.co/${width}x${height}/1A1D21/C2A057?text=Bucan+Automobile`;
 }

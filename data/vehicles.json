@@ -23,7 +23,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/b0/b026db42-cd5b-4a75-bfed-374ab02233e5?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": false
   },
   {
     "id": "2",
@@ -48,7 +49,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/72/7229bfd6-cf6b-4ff7-ad91-ab8c6ddcac21?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": true
   },
   {
     "id": "3",
@@ -73,7 +75,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/39/39c2c5e9-d8a7-4371-931b-3c48c6cd3564?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": false
   },
   {
     "id": "4",
@@ -99,7 +102,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/a2/a22ff12e-adce-413c-bc8b-d33341eca8a0?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": false
   },
   {
     "id": "5",
@@ -124,7 +128,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/d7/d77dccb1-3df3-48d2-be2f-b535dff74b38?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": false
   },
   {
     "id": "6",
@@ -150,7 +155,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/53/53c447e1-71e3-461d-95ab-f12055a42d5c?rule=mo-1600"
     ],
     "status": "available",
-    "featured": true
+    "featured": true,
+    "spotlight": false
   },
   {
     "id": "7",
@@ -175,7 +181,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/bf/bfc7687e-483d-4394-9499-931f6047b2ca?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   },
   {
     "id": "8",
@@ -200,7 +207,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/16/162f9124-cc33-4dcb-90b6-967c1c65c369?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   },
   {
     "id": "9",
@@ -225,7 +233,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/41/41710e12-ea85-4578-89dc-f2b066439d87?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   },
   {
     "id": "10",
@@ -251,7 +260,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/b9/b9e1da39-711f-46e9-ac10-781b43beca51?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   },
   {
     "id": "11",
@@ -277,7 +287,8 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/53/53194964-0478-4e08-be3f-e79996268cb4?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   },
   {
     "id": "12",
@@ -303,6 +314,7 @@
       "https://img.classistatic.de/api/v1/mo-prod/images/96/964a0021-15a4-4b7d-ab3c-6f488b67e9b9?rule=mo-1600"
     ],
     "status": "available",
-    "featured": false
+    "featured": false,
+    "spotlight": false
   }
 ]

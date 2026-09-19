@@ -1,6 +1,4 @@
-import Navbar from "@/components/public/Navbar";
-import Footer from "@/components/public/Footer";
-import WhatsAppButton from "@/components/public/WhatsAppButton";
+import PageHeader from "@/components/public/PageHeader";
 
 export const metadata = {
   title: "Impressum – BUCAN AUTOMOBILE München",
@@ -9,52 +7,49 @@ export const metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main className="bg-slate-50 min-h-screen">
-      <Navbar />
+    <main className="bg-ivory-100 min-h-screen">
+      <PageHeader eyebrow="Rechtliches" title="Impressum" />
 
-      <div className="pt-32 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">Impressum</h1>
-          <div className="section-divider mb-10" style={{ margin: "1.5rem 0" }} />
-
-          <div className="space-y-8 text-slate-600 leading-relaxed">
+      <div className="py-16 sm:py-20">
+        <div className="max-w-3xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="space-y-10 text-ink-700 leading-relaxed">
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">
+              <h2 className="eyebrow eyebrow-left mb-4">
                 Angaben gemäß § 5 TMG
               </h2>
-              <p className="text-slate-900 font-semibold text-lg mb-1">Denis Bucan</p>
+              <p className="text-ink font-semibold text-lg mb-1">Denis Bucan</p>
               <p>BUCAN AUTOMOBILE</p>
               <p>Fichtenstrasse 40</p>
               <p>85649 Hofolding</p>
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Kontakt</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Kontakt</h2>
               <p>
                 Telefon:{" "}
-                <a href="tel:+491783022999" className="text-accent hover:text-navy transition-colors">
+                <a href="tel:+491783022999" className="link-gold">
                   0178 302 2999
                 </a>
               </p>
               <p>
                 E-Mail:{" "}
-                <a href="mailto:info@bucan-automobile.de" className="text-accent hover:text-navy transition-colors">
+                <a href="mailto:info@bucan-automobile.de" className="link-gold">
                   info@bucan-automobile.de
                 </a>
               </p>
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Umsatzsteuer-ID</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Umsatzsteuer-ID</h2>
               <p>
                 Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
                 <br />
-                <span className="text-slate-900 font-semibold">DE331172770</span>
+                <span className="text-ink font-semibold">DE331172770</span>
               </p>
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">
+              <h2 className="eyebrow eyebrow-left mb-4">
                 Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
               </h2>
               <p>Denis Bucan</p>
@@ -63,14 +58,14 @@ export default function ImpressumPage() {
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Streitschlichtung</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Streitschlichtung</h2>
               <p>
                 Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
                 <a
                   href="https://ec.europa.eu/consumers/odr/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent hover:underline"
+                  className="link-gold"
                 >
                   https://ec.europa.eu/consumers/odr/
                 </a>
@@ -82,7 +77,7 @@ export default function ImpressumPage() {
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Haftung für Inhalte</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Haftung für Inhalte</h2>
               <p>
                 Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den
                 allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
@@ -92,7 +87,7 @@ export default function ImpressumPage() {
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Haftung für Links</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Haftung für Links</h2>
               <p>
                 Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss
                 haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte
@@ -101,7 +96,7 @@ export default function ImpressumPage() {
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Urheberrecht</h2>
+              <h2 className="eyebrow eyebrow-left mb-4">Urheberrecht</h2>
               <p>
                 Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
                 deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung
@@ -111,7 +106,7 @@ export default function ImpressumPage() {
             </section>
 
             <section>
-              <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">
+              <h2 className="eyebrow eyebrow-left mb-4">
                 Hinweis zum Einsatz Künstlicher Intelligenz
               </h2>
               <p>
@@ -120,7 +115,7 @@ export default function ImpressumPage() {
                 Informations- und Servicetexte. Die technische Umsetzung erfolgte durch die HYBOTE AI Systems LLC.
               </p>
               <p className="mt-3">
-                Ausdrücklich <span className="text-slate-900 font-semibold">nicht</span> mit Künstlicher Intelligenz
+                Ausdrücklich <span className="text-ink font-semibold">nicht</span> mit Künstlicher Intelligenz
                 erstellt sind:
               </p>
               <ul className="list-disc list-inside space-y-1 mt-2">
@@ -155,9 +150,6 @@ export default function ImpressumPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
-      <WhatsAppButton />
     </main>
   );
 }

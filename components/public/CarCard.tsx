@@ -1,12 +1,10 @@
 "use client";
 
-import { placeholderImage } from "@/lib/site";
-
-import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Gauge, Zap, Fuel, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Vehicle, STATUS_COLORS } from "@/lib/types";
+import { placeholderImage } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
 import { formatPrice, formatMileage } from "@/lib/utils";
 
@@ -16,116 +14,71 @@ interface Props {
 
 export default function CarCard({ vehicle }: Props) {
   const { t, locale, path } = useI18n();
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
-  };
-
-  const handleMouseLeave = () => {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)";
-  };
-
   const statusColor = STATUS_COLORS[vehicle.status];
   const statusLabel = t.vehicles.status[vehicle.status];
   const mainImage = vehicle.images[0] || placeholderImage(600, 400);
 
+  const specs = [
+    String(vehicle.year),
+    formatMileage(vehicle.mileage, locale),
+    vehicle.power_ps ? `${vehicle.power_ps} ${t.units.ps}` : null,
+    t.vehicles.fuel[vehicle.fuel_type] ?? vehicle.fuel_type,
+    t.vehicles.transmission[vehicle.transmission] ?? vehicle.transmission,
+  ].filter(Boolean) as string[];
+
   return (
-    <div
-      ref={cardRef}
-      className="car-card-3d group cursor-pointer"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
+    <Link
+      href={path(`/fahrzeuge/${vehicle.id}`)}
+      className="group block h-full surface surface-hover overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-100 cursor-pointer"
     >
-      <Link href={path(`/fahrzeuge/${vehicle.id}`)} className="block">
-        <div className="card rounded-xl overflow-hidden hover:shadow-card-hover">
-          {/* Image */}
-          <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-            <Image
-              src={mainImage}
-              alt={`${vehicle.make} ${vehicle.model}`}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      {/* Bild */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-ivory-200">
+        <Image
+          src={mainImage}
+          alt={`${vehicle.make} ${vehicle.model}`}
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/55 via-transparent to-transparent" aria-hidden="true" />
 
-            {/* Status Badge */}
-            <div
-              className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold tracking-wide"
-              style={{
-                background: `${statusColor}20`,
-                border: `1px solid ${statusColor}60`,
-                color: statusColor,
-              }}
-            >
-              <span className={vehicle.status === "reserved" ? "status-reserved" : ""}>
-                ● {statusLabel}
-              </span>
-            </div>
-
-            {/* Year badge */}
-            <div className="absolute top-3 right-3 px-3 py-1 bg-white/85 backdrop-blur-sm rounded-full text-xs font-semibold text-slate-700">
-              {vehicle.year}
-            </div>
-
-            {/* Price overlay */}
-            <div className="absolute bottom-3 left-3">
-              <div className="text-white font-bold text-xl drop-shadow-lg">
-                {formatPrice(vehicle.price, locale)}
-              </div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="p-5">
-            <h3 className="text-lg font-bold text-slate-900 mb-1">
-              {vehicle.make} {vehicle.model}
-            </h3>
-
-            {/* Specs row */}
-            <div className="flex items-center gap-4 mt-3">
-              <div className="flex items-center gap-1.5 text-slate-500 text-xs">
-                <Gauge size={13} className="text-accent" />
-                {formatMileage(vehicle.mileage, locale)}
-              </div>
-              {vehicle.power_ps && (
-                <div className="flex items-center gap-1.5 text-slate-500 text-xs">
-                  <Zap size={13} className="text-accent" />
-                  {vehicle.power_ps} {t.units.ps}
-                </div>
-              )}
-              <div className="flex items-center gap-1.5 text-slate-500 text-xs">
-                <Fuel size={13} className="text-accent" />
-                {t.vehicles.fuel[vehicle.fuel_type] ?? vehicle.fuel_type}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-              <span className="text-slate-400 text-xs font-medium tracking-wide uppercase">
-                {t.vehicles.transmission[vehicle.transmission] ?? vehicle.transmission}
-              </span>
-              <div className="flex items-center gap-1 text-accent text-sm font-semibold group-hover:gap-2 transition-all">
-                {t.vehicles.details} <ArrowRight size={14} />
-              </div>
-            </div>
-          </div>
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-graphite-950/55 backdrop-blur text-[11px] font-semibold tracking-wide text-ivory-50">
+          <span
+            className={`w-1.5 h-1.5 rounded-full ${vehicle.status === "reserved" ? "status-reserved" : ""}`}
+            style={{ background: statusColor }}
+            aria-hidden="true"
+          />
+          {statusLabel}
         </div>
-      </Link>
-    </div>
+
+        <div className="absolute bottom-3 left-4 font-serif text-3xl text-ivory-50 tabular-nums drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">
+          {formatPrice(vehicle.price, locale)}
+        </div>
+      </div>
+
+      {/* Inhalt */}
+      <div className="p-5">
+        <h3 className="text-ink text-lg font-semibold leading-snug">
+          {vehicle.make} <span className="font-normal text-ink-700">{vehicle.model}</span>
+        </h3>
+
+        <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-ink-500 text-[13px] tabular-nums">
+          {specs.map((spec, i) => (
+            <li key={spec} className="flex items-center gap-x-3">
+              {i > 0 && <span className="w-px h-3 bg-sand" aria-hidden="true" />}
+              {spec}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-4 pt-4 border-t border-sand flex items-center justify-between text-sm">
+          <span className="text-gold-700 font-semibold inline-flex items-center gap-1.5">
+            {t.vehicles.details}
+            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+          <span className="hairline w-10 opacity-70" aria-hidden="true" />
+        </div>
+      </div>
+    </Link>
   );
 }

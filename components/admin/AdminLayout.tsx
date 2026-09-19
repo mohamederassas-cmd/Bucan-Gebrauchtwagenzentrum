@@ -3,14 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Car, Plus, Settings, LogOut, Home, Menu } from "lucide-react";
+import { LayoutDashboard, Car, Plus, Settings, LogOut, Home, Menu, Inbox } from "lucide-react";
 import { useState } from "react";
 
 interface Props {
   children: React.ReactNode;
+  /** Anzahl neuer Anfragen für den Zähler in der Navigation */
+  openInquiries?: number;
 }
 
-export default function AdminLayout({ children }: Props) {
+export default function AdminLayout({ children, openInquiries = 0 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,6 +26,7 @@ export default function AdminLayout({ children }: Props) {
     { href: "/admin/dashboard", icon: <LayoutDashboard size={20} />, label: "Dashboard" },
     { href: "/admin/fahrzeuge", icon: <Car size={20} />, label: "Fahrzeuge" },
     { href: "/admin/fahrzeuge/neu", icon: <Plus size={20} />, label: "Neu hinzufügen" },
+    { href: "/admin/anfragen", icon: <Inbox size={20} />, label: "Anfragen", badge: openInquiries },
     { href: "/admin/einstellungen", icon: <Settings size={20} />, label: "Einstellungen" },
   ];
 
@@ -57,7 +60,12 @@ export default function AdminLayout({ children }: Props) {
               }`}
             >
               {item.icon}
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {item.badge ? (
+                <span className={`min-w-[1.375rem] h-[1.375rem] px-1.5 rounded-full text-[11px] font-bold flex items-center justify-center ${active ? "bg-white text-[#2563EB]" : "bg-[#2563EB] text-white"}`}>
+                  {item.badge}
+                </span>
+              ) : null}
             </Link>
           );
         })}

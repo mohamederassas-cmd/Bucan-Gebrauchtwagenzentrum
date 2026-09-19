@@ -54,6 +54,7 @@ const defaultForm: VehicleFormData = {
   images: [],
   status: "available",
   featured: false,
+  spotlight: false,
 };
 
 export default function VehicleForm({ vehicle, mode }: Props) {
@@ -77,6 +78,7 @@ export default function VehicleForm({ vehicle, mode }: Props) {
           images: vehicle.images,
           status: vehicle.status,
           featured: vehicle.featured,
+          spotlight: vehicle.spotlight === true,
         }
       : defaultForm
   );
@@ -309,6 +311,22 @@ export default function VehicleForm({ vehicle, mode }: Props) {
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${form.featured ? "left-7" : "left-1"}`} />
               </div>
               <span className="text-[#475569] text-sm">{form.featured ? "Wird auf der Homepage angezeigt" : "Nicht auf Homepage"}</span>
+            </label>
+          </div>
+          <div className="sm:col-span-2">
+            <label className={labelCls}>Fahrzeug der Woche</label>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <div
+                onClick={() => update("spotlight", !form.spotlight)}
+                className={`w-12 h-6 rounded-full transition-all relative cursor-pointer ${form.spotlight ? "bg-[#C2A057]" : "bg-[#CBD5E1]"}`}
+              >
+                <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${form.spotlight ? "left-7" : "left-1"}`} />
+              </div>
+              <span className="text-[#475569] text-sm">
+                {form.spotlight
+                  ? "Wird groß im Showcase unter dem Hero gezeigt – ein bisheriges Fahrzeug der Woche wird ersetzt"
+                  : "Nicht als Fahrzeug der Woche"}
+              </span>
             </label>
           </div>
         </div>

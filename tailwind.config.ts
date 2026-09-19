@@ -9,76 +9,78 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          DEFAULT: "#1E3A8A",
-          dark: "#172554",
-          light: "#3B82F6",
+        // Öffentliche Website: Logo-Palette (Graphit · Elfenbein · Champagner-Gold)
+        graphite: {
+          950: "#0B0C0E",
+          900: "#121417",
+          800: "#1A1D21",
+          700: "#24282E",
+          600: "#2F343B",
+          500: "#4A5058",
+          400: "#6B727C",
+          300: "#9AA1AA",
         },
-        accent: {
-          DEFAULT: "#2563EB",
-          hover: "#1D4ED8",
-          light: "#EFF6FF",
+        ivory: {
+          DEFAULT: "#F6F2EA",
+          50: "#FBF9F4",
+          100: "#F6F2EA",
+          200: "#EFE8DB",
+          300: "#E4DACA",
         },
-        // Admin panel legacy tokens
+        sand: "#DED5C4",
+        ink: { DEFAULT: "#15171A", 700: "#3F444B", 500: "#6B7079" },
         gold: {
-          DEFAULT: "#C9A84C",
+          DEFAULT: "#C2A057",
+          50: "#FBF6E9",
+          100: "#F3E8C8",
+          200: "#E9D9A6",
+          300: "#DCC585",
+          400: "#CFB16A",
+          500: "#C2A057",
+          600: "#A98847",
+          700: "#8A6E38",
           light: "#E8C96A",
           dark: "#9A7A2E",
           muted: "rgba(201,168,76,0.15)",
         },
-        dark: {
-          DEFAULT: "#0A0A0A",
-          100: "#111111",
-          200: "#1A1A1A",
-          300: "#222222",
-          400: "#2D2D2D",
-        },
-        silver: "#A8A9AD",
+        // Admin-Panel nutzt Hex-Literale und die Klassen .card/.btn-primary/.btn-outline – keine Farbtokens.
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-display-serif)", "Georgia", "serif"],
         display: ["var(--font-inter)", "system-ui", "sans-serif"],
         accent: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
-      backgroundImage: {
-        "navy-gradient": "linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%)",
-        "hero-gradient": "linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%)",
-        "card-gradient": "linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%)",
-      },
       animation: {
-        "float": "float 6s ease-in-out infinite",
-        "pulse-accent": "pulseAccent 2s ease-in-out infinite",
-        "shine": "shine 3s ease-in-out infinite",
-        "slide-up": "slideUp 0.6s ease-out forwards",
         "fade-in": "fadeIn 0.8s ease-out forwards",
+        "hero-settle": "heroSettle 1.6s cubic-bezier(0.16,1,0.3,1) forwards",
+        "hero-sweep": "heroSweep 14s cubic-bezier(0.45,0,0.2,1) 1.1s infinite",
+        "rise": "rise 0.9s cubic-bezier(0.16,1,0.3,1) both",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
+        fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        heroSettle: {
+          "0%": { transform: "scale(1.06) translateX(1.5%)", opacity: "0.001" },
+          "100%": { transform: "scale(1) translateX(0)", opacity: "1" },
         },
-        pulseAccent: {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(37,99,235,0.4)" },
-          "50%": { boxShadow: "0 0 0 12px rgba(37,99,235,0)" },
+        heroSweep: {
+          "0%": { transform: "translateX(-130%) skewX(-14deg)", opacity: "0" },
+          "4%": { opacity: "1" },
+          "18%": { transform: "translateX(130%) skewX(-14deg)", opacity: "1" },
+          "19%, 100%": { transform: "translateX(130%) skewX(-14deg)", opacity: "0" },
         },
-        shine: {
-          "0%": { backgroundPosition: "-200% center" },
-          "100%": { backgroundPosition: "200% center" },
-        },
-        slideUp: {
-          "0%": { transform: "translateY(40px)", opacity: "0" },
+        rise: {
+          "0%": { transform: "translateY(28px)", opacity: "0.001" },
           "100%": { transform: "translateY(0)", opacity: "1" },
-        },
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
         },
       },
       boxShadow: {
         "card": "0 1px 3px rgba(15,23,42,0.06), 0 4px 16px rgba(15,23,42,0.04)",
         "card-hover": "0 4px 12px rgba(15,23,42,0.1), 0 16px 40px rgba(15,23,42,0.08)",
-        "accent": "0 4px 20px rgba(37,99,235,0.35)",
-        "accent-lg": "0 8px 40px rgba(37,99,235,0.4)",
+        "surface": "0 1px 2px rgba(21,23,26,0.05), 0 12px 32px -12px rgba(21,23,26,0.12)",
+        "surface-hover": "0 2px 4px rgba(21,23,26,0.06), 0 24px 48px -16px rgba(21,23,26,0.22)",
+        "gold": "0 8px 30px -8px rgba(194,160,87,0.55)",
+        "stage": "0 -24px 60px rgba(0,0,0,0.35)",
       },
     },
   },

@@ -55,14 +55,14 @@ export default function VehicleList({ vehicles }: Props) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
       {/* Filter Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-4 mb-8 shadow-sm">
+      <div className="surface p-4 sm:p-5 mb-8">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 text-slate-600 hover:text-accent transition-colors font-medium text-sm"
+              className="flex items-center gap-2 text-ink-700 hover:text-ink active:text-gold-700 transition-colors font-medium text-sm rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
             >
               <SlidersHorizontal size={16} />
               {showFilters ? f.hide : f.show}
@@ -70,7 +70,7 @@ export default function VehicleList({ vehicles }: Props) {
             {hasFilters && (
               <button
                 onClick={resetFilters}
-                className="flex items-center gap-1 text-xs text-accent hover:text-accent-hover transition-colors ml-4"
+                className="flex items-center gap-1 text-xs text-gold-700 hover:text-ink transition-colors ml-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
               >
                 <X size={13} /> {f.reset}
               </button>
@@ -78,12 +78,12 @@ export default function VehicleList({ vehicles }: Props) {
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-slate-500 text-sm hidden sm:block">{f.sort}</span>
+            <span className="text-ink-500 text-sm hidden sm:block">{f.sort}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               aria-label={f.sort}
-              className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-accent"
+              className="input !w-auto !py-2 !px-3 text-sm"
             >
               <option value="newest">{f.newest}</option>
               <option value="price-asc">{f.priceAsc}</option>
@@ -94,10 +94,10 @@ export default function VehicleList({ vehicles }: Props) {
         </div>
 
         {showFilters && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5 border-t border-sand">
             {/* Status */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.status}</label>
+              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.status}</label>
               <div className="flex flex-wrap gap-2">
                 {[
                   { value: "all", label: f.all },
@@ -108,10 +108,10 @@ export default function VehicleList({ vehicles }: Props) {
                   <button
                     key={opt.value}
                     onClick={() => setStatus(opt.value as typeof status)}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
                       status === opt.value
-                        ? "bg-accent text-white font-semibold"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        ? "bg-ink text-ivory-50 font-semibold"
+                        : "bg-ivory-200 text-ink-700 hover:bg-ivory-300 active:bg-sand"
                     }`}
                   >
                     {opt.label}
@@ -122,12 +122,12 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Fuel */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.fuel}</label>
+              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.fuel}</label>
               <select
                 value={fuel}
                 onChange={(e) => setFuel(e.target.value as typeof fuel)}
                 aria-label={f.fuel}
-                className="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-accent"
+                className="input !py-2.5 text-sm"
               >
                 <option value="all">{f.all}</option>
                 {FUEL_TYPES.map((fuelType) => (
@@ -138,7 +138,7 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Transmission */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">{f.transmission}</label>
+              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.transmission}</label>
               <div className="flex gap-2">
                 {[
                   { value: "all", label: f.all },
@@ -147,10 +147,10 @@ export default function VehicleList({ vehicles }: Props) {
                   <button
                     key={opt.value}
                     onClick={() => setTransmission(opt.value as typeof transmission)}
-                    className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    className={`flex-1 px-2 py-1.5 rounded-full text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
                       transmission === opt.value
-                        ? "bg-accent text-white font-semibold"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        ? "bg-ink text-ivory-50 font-semibold"
+                        : "bg-ivory-200 text-ink-700 hover:bg-ivory-300 active:bg-sand"
                     }`}
                   >
                     {opt.label}
@@ -161,8 +161,8 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Max Price */}
             <div>
-              <label className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-2 block">
-                {f.maxPrice} <span className="text-accent font-semibold">{formatNumber(maxPrice, locale)} €</span>
+              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">
+                {f.maxPrice} <span className="text-gold-700 font-semibold tabular-nums">{formatNumber(maxPrice, locale)} €</span>
               </label>
               <input
                 type="range"
@@ -172,7 +172,7 @@ export default function VehicleList({ vehicles }: Props) {
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
                 aria-label={f.maxPrice}
-                className="w-full accent-blue-600"
+                className="w-full accent-gold-500"
               />
             </div>
           </div>
@@ -180,23 +180,22 @@ export default function VehicleList({ vehicles }: Props) {
       </div>
 
       {/* Results Count */}
-      <div className="text-slate-500 text-sm mb-6 font-medium">
+      <div className="text-ink-500 text-sm mb-6 font-medium">
         {filtered.length === 1 ? t.vehicles.foundOne : fmt(t.vehicles.found, { count: filtered.length })}
       </div>
 
       {/* Grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((vehicle) => (
             <CarCard key={vehicle.id} vehicle={vehicle} />
           ))}
         </div>
       ) : (
         <div className="text-center py-24">
-          <div className="text-5xl mb-4">🚗</div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">{t.vehicles.empty}</h3>
-          <p className="text-slate-500 text-sm mb-6">{t.vehicles.emptyHint}</p>
-          <button onClick={resetFilters} className="btn-outline px-6 py-3 rounded-xl text-sm">
+          <h3 className="font-serif text-3xl text-ink mb-2">{t.vehicles.empty}</h3>
+          <p className="text-ink-500 text-sm mb-6">{t.vehicles.emptyHint}</p>
+          <button onClick={resetFilters} className="btn-outline-ink px-6 py-3 text-sm">
             {t.vehicles.resetFilters}
           </button>
         </div>

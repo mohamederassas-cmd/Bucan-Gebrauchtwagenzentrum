@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Vehicle, VehicleStatus, STATUS_COLORS, STATUS_LABELS } from "@/lib/types";
 import { formatPrice, formatMileage } from "@/lib/utils";
-import { Pencil, Trash2, Star, StarOff, ChevronDown, AlertCircle, X } from "lucide-react";
+import { Pencil, Trash2, Star, StarOff, Crown, ChevronDown, AlertCircle, X } from "lucide-react";
 
 interface Props {
   vehicles: Vehicle[];
@@ -69,6 +69,15 @@ export default function AdminVehicleTable({ vehicles }: Props) {
       })
     );
 
+  const setSpotlight = (id: string, spotlight: boolean) =>
+    run(id + "-spotlight", "Fahrzeug der Woche konnte nicht geändert werden.", () =>
+      fetch(`/api/vehicles/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spotlight: !spotlight }),
+      })
+    );
+
   const deleteVehicle = (id: string, name: string) => {
     if (!confirm(`„${name}“ wirklich löschen? Das kann nicht rückgängig gemacht werden.`)) return;
     return run(id + "-delete", "Fahrzeug konnte nicht gelöscht werden.", () =>
@@ -107,6 +116,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
               <th className="text-left px-5 py-4 text-xs font-accent text-[#475569] tracking-wider uppercase">km</th>
               <th className="text-left px-5 py-4 text-xs font-accent text-[#475569] tracking-wider uppercase">Status</th>
               <th className="text-left px-5 py-4 text-xs font-accent text-[#475569] tracking-wider uppercase">Featured</th>
+              <th className="text-left px-5 py-4 text-xs font-accent text-[#475569] tracking-wider uppercase">Woche</th>
               <th className="text-right px-5 py-4 text-xs font-accent text-[#475569] tracking-wider uppercase">Aktionen</th>
             </tr>
           </thead>
@@ -182,6 +192,23 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                       ) : (
                         <StarOff size={18} className="text-[#CBD5E1] hover:text-[#2563EB] transition-colors" />
                       )}
+                    </button>
+                  </td>
+
+                  {/* Fahrzeug der Woche */}
+                  <td className="px-5 py-4">
+                    <button
+                      type="button"
+                      onClick={() => setSpotlight(v.id, v.spotlight)}
+                      disabled={!!loading}
+                      aria-label={v.spotlight ? "Nicht mehr Fahrzeug der Woche" : "Als Fahrzeug der Woche setzen"}
+                      title={v.spotlight ? "Fahrzeug der Woche (klicken zum Entfernen)" : "Als Fahrzeug der Woche setzen"}
+                      className="transition-colors"
+                    >
+                      <Crown
+                        size={18}
+                        className={v.spotlight ? "fill-[#C2A057] text-[#C2A057]" : "text-[#CBD5E1] hover:text-[#C2A057] transition-colors"}
+                      />
                     </button>
                   </td>
 

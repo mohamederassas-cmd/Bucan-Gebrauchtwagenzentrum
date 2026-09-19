@@ -6,13 +6,10 @@ import { formatPrice, formatMileage } from "@/lib/utils";
 import { STATUS_COLORS } from "@/lib/types";
 import { getDictionary, toLocale, localePath, fmt } from "@/lib/i18n";
 import { SITE, TEL_HREF, whatsappUrl } from "@/lib/site";
-import Navbar from "@/components/public/Navbar";
-import Footer from "@/components/public/Footer";
-import WhatsAppButton from "@/components/public/WhatsAppButton";
 import ImageGallery from "@/components/public/ImageGallery";
 import JsonLd from "@/components/public/JsonLd";
 import { vehicleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
-import { Phone, MessageCircle, Gauge, Zap, Fuel, Settings, Palette, Calendar, ArrowLeft } from "lucide-react";
+import { Phone, MessageCircle, Gauge, Zap, Fuel, Settings, Palette, Calendar, ArrowLeft, ArrowRight } from "lucide-react";
 
 // Keine Vorab-Generierung: neue/gelöschte Fahrzeuge müssen sofort sichtbar sein
 export const dynamic = "force-dynamic";
@@ -66,7 +63,7 @@ export default async function VehicleDetailPage({ params }: Params) {
   ];
 
   return (
-    <main className="bg-slate-50 min-h-screen">
+    <main className="bg-ivory-100 min-h-screen">
       <JsonLd
         data={[
           vehicleJsonLd(vehicle, locale),
@@ -77,109 +74,101 @@ export default async function VehicleDetailPage({ params }: Params) {
           ]),
         ]}
       />
-      <Navbar />
 
-      <div className="pt-28 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
+      {/* Kopfband */}
+      <div className="relative bg-graphite-950 text-ivory-50">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_80%_20%,rgba(194,160,87,0.12),transparent_65%)]" aria-hidden="true" />
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-8">
           <Link
             href={localePath(locale, "/fahrzeuge")}
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-accent transition-colors text-sm font-medium mb-8"
+            className="inline-flex items-center gap-2 text-ivory-50/60 hover:text-ivory-50 active:text-gold-200 transition-colors text-sm font-medium rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
           >
             <ArrowLeft size={16} /> {d.back}
           </Link>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Image Gallery */}
-            <div>
+      <div className="relative">
+        {/* dunkle Fläche läuft hinter die Galerie */}
+        <div className="absolute inset-x-0 top-0 h-40 sm:h-56 bg-graphite-950" aria-hidden="true" />
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+            {/* Galerie */}
+            <div className="lg:col-span-7">
               <ImageGallery images={vehicle.images} title={`${vehicle.make} ${vehicle.model}`} />
             </div>
 
             {/* Details */}
-            <div>
-              {/* Status + Title */}
-              <div className="flex items-center gap-3 mb-4">
-                <span
-                  className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide"
-                  style={{
-                    background: `${statusColor}20`,
-                    border: `1px solid ${statusColor}60`,
-                    color: statusColor,
-                  }}
-                >
-                  ● {statusLabel}
+            <div className="lg:col-span-5 lg:pt-44">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ivory-200 border border-sand text-[11px] font-semibold tracking-[0.14em] uppercase text-ink-700">
+                  <span className={`w-1.5 h-1.5 rounded-full ${vehicle.status === "reserved" ? "status-reserved" : ""}`} style={{ background: statusColor }} aria-hidden="true" />
+                  {statusLabel}
                 </span>
-                <span className="text-slate-500 text-sm font-medium">{vehicle.year}</span>
+                <span className="text-ink-500 text-sm tabular-nums">{vehicle.year}</span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-                {vehicle.make} {vehicle.model}
+              <h1 className="mt-4 font-serif text-4xl sm:text-5xl leading-[1.02] text-ink">
+                {vehicle.make} <span className="text-ink-700">{vehicle.model}</span>
               </h1>
+              <div className="mt-4 font-serif text-4xl sm:text-5xl text-gold-700 tabular-nums">{formatPrice(vehicle.price, locale)}</div>
 
-              <div className="text-3xl font-bold text-accent mb-8">{formatPrice(vehicle.price, locale)}</div>
-
-              {/* Specs Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-8">
+              {/* Technische Daten */}
+              <dl className="mt-8 grid grid-cols-2 gap-3">
                 {specs.map((spec) => (
-                  <div key={spec.label} className="card p-4">
-                    <div className="flex items-center gap-2 text-accent mb-1">{spec.icon}</div>
-                    <div className="text-slate-500 text-xs font-medium tracking-wider uppercase">{spec.label}</div>
-                    <div className="text-slate-900 font-semibold mt-0.5">{spec.value}</div>
+                  <div key={spec.label} className="surface p-4">
+                    <div className="flex items-center gap-2 text-gold-600 mb-2">{spec.icon}</div>
+                    <dt className="text-ink-500 text-[11px] font-semibold tracking-[0.16em] uppercase">{spec.label}</dt>
+                    <dd className="text-ink font-semibold mt-0.5 tabular-nums">{spec.value}</dd>
                   </div>
                 ))}
-              </div>
+              </dl>
 
-              {/* Description */}
               {vehicle.description && (
-                <div className="mb-8">
-                  <h3 className="text-accent font-semibold tracking-wider text-xs uppercase mb-3">{d.description}</h3>
-                  <p className="text-slate-600 leading-relaxed">{vehicle.description}</p>
+                <div className="mt-10">
+                  <h3 className="eyebrow eyebrow-left mb-3">{d.description}</h3>
+                  <p className="text-ink-700 leading-relaxed whitespace-pre-line">{vehicle.description}</p>
                 </div>
               )}
 
-              {/* Features */}
               {vehicle.features.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-accent font-semibold tracking-wider text-xs uppercase mb-3">{d.features}</h3>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mt-8">
+                  <h3 className="eyebrow eyebrow-left mb-3">{d.features}</h3>
+                  <ul className="flex flex-wrap gap-2">
                     {vehicle.features.map((feature) => (
-                      <span key={feature} className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium">
+                      <li key={feature} className="bg-ivory-200 border border-sand text-ink-700 px-3 py-1.5 rounded-full text-xs font-medium">
                         {feature}
-                      </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               )}
 
-              {/* CTA Buttons */}
-              {vehicle.status !== "sold" && (
-                <div className="space-y-3">
+              {vehicle.status !== "sold" ? (
+                <div className="mt-10 space-y-3">
                   <a
                     href={whatsappUrl(fmt(d.whatsappPrefill, { vehicle: vehicleName }))}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 w-full py-4 rounded-xl font-semibold text-sm text-white transition-opacity hover:opacity-90 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366]"
-                    style={{ background: "#25D366" }}
+                    className="flex items-center justify-center gap-3 w-full py-4 rounded-full font-semibold text-sm text-white bg-[#25D366] transition-[opacity,transform] duration-200 hover:opacity-90 hover:-translate-y-px active:translate-y-0 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366]"
                   >
                     <MessageCircle size={18} />
                     {d.whatsapp}
                   </a>
-                  <a href={TEL_HREF} className="btn-primary flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm">
+                  <a href={TEL_HREF} className="btn-ink w-full py-4 text-sm">
                     <Phone size={18} />
                     {SITE.phoneDisplay}
                   </a>
-                  <a href={TEL_HREF} className="btn-outline flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm">
+                  <a href={TEL_HREF} className="btn-outline-ink w-full py-4 text-sm">
                     {d.testDrive}
                   </a>
                 </div>
-              )}
-              {vehicle.status === "sold" && (
-                <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 text-center">
-                  <div className="text-2xl mb-2">🚗</div>
-                  <p className="text-navy font-semibold">{d.sold}</p>
-                  <p className="text-slate-500 text-sm mt-1">{d.soldHint}</p>
-                  <Link href={localePath(locale, "/fahrzeuge")} className="inline-block mt-4 btn-primary px-6 py-3 rounded-xl text-sm">
-                    {d.more}
+              ) : (
+                <div className="mt-10 surface p-6 text-center">
+                  <p className="font-serif text-2xl text-ink">{d.sold}</p>
+                  <p className="text-ink-500 text-sm mt-1">{d.soldHint}</p>
+                  <Link href={localePath(locale, "/fahrzeuge")} className="btn-ink inline-flex mt-5 px-6 py-3 text-sm">
+                    {d.more} <ArrowRight size={15} />
                   </Link>
                 </div>
               )}
@@ -187,9 +176,6 @@ export default async function VehicleDetailPage({ params }: Params) {
           </div>
         </div>
       </div>
-
-      <Footer />
-      <WhatsAppButton />
     </main>
   );
 }

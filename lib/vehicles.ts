@@ -13,7 +13,15 @@ import { createVersionedJsonStore, blobEnabled } from "./blob-json-store";
 
 function parseVehicles(text: string): Vehicle[] {
   const parsed = JSON.parse(text);
-  return Array.isArray(parsed) ? parsed : [];
+  if (!Array.isArray(parsed)) return [];
+  // Ältere Datensätze kennen `spotlight` noch nicht → immer boolesch machen.
+  return parsed.map((v: Vehicle) => ({ ...v, spotlight: v.spotlight === true }));
+}
+
+/** Es gibt höchstens ein Fahrzeug der Woche: der Gewinner setzt alle anderen zurück (ein einziger Write). */
+function applySpotlight(list: Vehicle[], winnerId: string, wants: boolean): Vehicle[] {
+  if (!wants) return list;
+  return list.map((v) => (v.id === winnerId || !v.spotlight ? v : { ...v, spotlight: false }));
 }
 
 const store = createVersionedJsonStore<Vehicle[]>({
@@ -30,7 +38,7 @@ const readVehicles = store.read;
 const writeVehicles = store.write;
 
 /** Liegt die Bild-URL im eigenen Blob-Store? (Nur dann darf sie mitgelöscht werden.) */
-function isOwnBlobUrl(url: string): boolean {
+export function isOwnBlobUrl(url: string): boolean {
   return /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\//i.test(url);
 }
 
@@ -44,6 +52,16 @@ export async function getAllVehicles(): Promise<Vehicle[]> {
 export async function getFeaturedVehicles(): Promise<Vehicle[]> {
   const vehicles = await readVehicles();
   return vehicles.filter((v) => v.featured && v.status !== "sold");
+}
+
+/** Fahrzeug der Woche für den Startseiten-Showcase; Fallback: erstes Highlight. */
+export async function getSpotlightVehicle(): Promise<Vehicle | null> {
+  const vehicles = await readVehicles();
+  return (
+    vehicles.find((v) => v.spotlight && v.status !== "sold") ??
+    vehicles.find((v) => v.featured && v.status !== "sold") ??
+    null
+  );
 }
 
 export async function getVehicleById(id: string): Promise<Vehicle | null> {
@@ -60,7 +78,7 @@ export async function createVehicle(data: VehicleFormData): Promise<Vehicle> {
     created_at: now,
     updated_at: now,
   };
-  await writeVehicles([newVehicle, ...vehicles]);
+  await writeVehicles(applySpotlight([newVehicle, ...vehicles], newVehicle.id, newVehicle.spotlight));
   return newVehicle;
 }
 
@@ -80,7 +98,7 @@ export async function updateVehicle(
   };
   const next = [...vehicles];
   next[index] = updated;
-  await writeVehicles(next);
+  await writeVehicles(applySpotlight(next, updated.id, data.spotlight === true));
   return updated;
 }
 

@@ -1,7 +1,8 @@
-import { getVehicleStats, getAllVehicles } from "@/lib/vehicles";
+import { getVehicleStats, getAllVehicles, getSpotlightVehicle } from "@/lib/vehicles";
+import { getInquiryStats } from "@/lib/inquiries";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { formatPrice } from "@/lib/utils";
-import { Car, CheckCircle, Clock, TrendingUp, AlertTriangle } from "lucide-react";
+import { Car, CheckCircle, Clock, TrendingUp, AlertTriangle, Inbox, Crown } from "lucide-react";
 import { requireAdmin } from "@/lib/auth";
 import { isUsingBootstrapPassword } from "@/lib/settings";
 import Link from "next/link";
@@ -10,10 +11,12 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   await requireAdmin();
-  const [stats, allVehicles, usingDefault] = await Promise.all([
+  const [stats, allVehicles, usingDefault, inquiryStats, spotlight] = await Promise.all([
     getVehicleStats(),
     getAllVehicles(),
     isUsingBootstrapPassword(),
+    getInquiryStats().catch(() => ({ total: 0, open: 0, byType: { contact: 0, purchase: 0 } })),
+    getSpotlightVehicle(),
   ]);
   const vehicles = allVehicles.slice(0, 5);
 
@@ -22,10 +25,11 @@ export default async function DashboardPage() {
     { label: "Verfügbar", value: stats.available, icon: <CheckCircle size={24} />, color: "#22c55e" },
     { label: "Reserviert", value: stats.reserved, icon: <Clock size={24} />, color: "#f59e0b" },
     { label: "Verkauft", value: stats.sold, icon: <TrendingUp size={24} />, color: "#2563EB" },
+    { label: "Neue Anfragen", value: inquiryStats.open, icon: <Inbox size={24} />, color: "#C2A057", href: "/admin/anfragen" },
   ];
 
   return (
-    <AdminLayout>
+    <AdminLayout openInquiries={inquiryStats.open}>
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="font-display text-2xl text-[#0F172A] font-bold">Dashboard</h1>
@@ -45,9 +49,10 @@ export default async function DashboardPage() {
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {cards.map((card) => (
-            <div key={card.label} className="bg-white rounded-xl border border-[#E2E8F0] shadow-card p-6">
+            <div key={card.label} className="bg-white rounded-xl border border-[#E2E8F0] shadow-card p-6 relative">
+              {card.href && <Link href={card.href} className="absolute inset-0 rounded-xl" aria-label={card.label} />}
               <div className="flex items-center justify-between mb-4">
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -61,6 +66,17 @@ export default async function DashboardPage() {
             </div>
           ))}
         </div>
+
+        {spotlight && (
+          <div className="mb-6 flex items-center gap-3 bg-[#FBF6E9] border border-[#E9D9A6] rounded-lg p-4 text-sm text-[#5C4A1E]">
+            <Crown size={18} className="text-[#C2A057] flex-shrink-0" />
+            <span className="flex-1">
+              Fahrzeug der Woche: <strong>{spotlight.make} {spotlight.model}</strong>
+              {!spotlight.spotlight && " (automatisch – kein Fahrzeug markiert)"}
+            </span>
+            <Link href={`/admin/fahrzeuge/${spotlight.id}`} className="font-semibold underline hover:text-[#8A6E38]">Bearbeiten</Link>
+          </div>
+        )}
 
         {/* Recent Vehicles */}
         <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-card overflow-hidden">

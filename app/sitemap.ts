@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     ...bilingual("", 1, "weekly"),
     ...bilingual("/fahrzeuge", 0.9, "daily"),
+    ...bilingual("/ankauf", 0.8, "monthly"),
     { url: `${base}/impressum`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: `${base}/datenschutz`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ];

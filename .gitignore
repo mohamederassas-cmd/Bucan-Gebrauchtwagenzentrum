@@ -38,3 +38,7 @@ next-env.d.ts
 
 # lokale Admin-Einstellungen (Passwort-Hash)
 /data/settings.json
+
+# Anfragen (lokaler Fallback ohne Blob-Store)
+/data/inquiries/
+/public/uploads/inquiries/

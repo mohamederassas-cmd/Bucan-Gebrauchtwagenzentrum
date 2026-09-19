@@ -10,13 +10,13 @@ import { useI18n } from "@/lib/i18n/context";
 const MAP_SRC =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2674.2!2d11.8065!3d47.9776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDU4JzM5LjQiTiAxMcKwNDgnMjMuNCJF!5e0!3m2!1sde!2sde!4v1699000000000!5m2!1sde!2sde";
 
-export default function ConsentMap() {
+export default function ConsentMap({ compact = false }: { compact?: boolean }) {
   const { t } = useI18n();
   const [loaded, setLoaded] = useState(false);
+  const minHeight = compact ? 300 : 450;
 
   useEffect(() => {
     setLoaded(readConsent()?.maps === true);
-
     const onConsentChange = () => setLoaded(readConsent()?.maps === true);
     window.addEventListener(CONSENT_EVENT, onConsentChange);
     return () => window.removeEventListener(CONSENT_EVENT, onConsentChange);
@@ -28,52 +28,44 @@ export default function ConsentMap() {
   };
 
   return (
-    <div
-      className="rounded-xl overflow-hidden border border-slate-200 shadow-card"
-      style={{ minHeight: 450 }}
-    >
+    <div className="surface overflow-hidden" style={{ minHeight }}>
       {loaded ? (
         <iframe
           src={MAP_SRC}
           width="100%"
           height="100%"
-          style={{ border: 0, minHeight: 450 }}
+          style={{ border: 0, minHeight, filter: "grayscale(0.35) contrast(1.05)" }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title={t.contact.map.title}
         />
       ) : (
-        <div
-          className="bg-slate-100 h-full flex flex-col items-center justify-center text-center px-6 py-12"
-          style={{ minHeight: 450 }}
-        >
-          <MapPin size={36} className="text-accent mb-4" />
-          <p className="text-slate-900 font-semibold">Bucan Automobile</p>
-          <p className="text-slate-600 text-sm mt-1">
-            Fichtenstrasse 40
+        <div className="bg-ivory-200 h-full flex flex-col items-center justify-center text-center px-6 py-10" style={{ minHeight }}>
+          <div className="w-11 h-11 rounded-full border border-gold-300 text-gold-600 flex items-center justify-center mb-4">
+            <MapPin size={18} strokeWidth={1.75} />
+          </div>
+          <p className="text-ink font-semibold">{SITE.name}</p>
+          <p className="text-ink-700 text-sm mt-1">
+            {SITE.address.street}
             <br />
-            85649 Hofolding
+            {SITE.address.zip} {SITE.address.city}
           </p>
-          <p className="text-slate-500 text-xs leading-relaxed mt-5 max-w-xs">
+          <p className="text-ink-500 text-xs leading-relaxed mt-5 max-w-xs">
             {t.contact.map.consent}{" "}
-            <Link href="/datenschutz" className="text-accent hover:underline">
+            <Link href="/datenschutz" className="link-gold">
               {t.contact.map.privacy}
             </Link>
             .
           </p>
-          <button
-            type="button"
-            onClick={loadMap}
-            className="btn-primary mt-6 px-6 py-2.5 rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
+          <button type="button" onClick={loadMap} className="btn-ink mt-6 px-6 py-3 text-sm">
             {t.contact.map.load}
           </button>
           <a
             href={SITE.mapsDirections}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-500 text-xs underline mt-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded transition-colors"
+            className="link-gold text-xs mt-4"
           >
             {t.contact.map.route}
           </a>

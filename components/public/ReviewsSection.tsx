@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
 import { fmt } from "@/lib/i18n";
 import Reveal from "./Reveal";
@@ -72,105 +73,74 @@ const reviews = [
 export default function ReviewsSection() {
   const { t, locale } = useI18n();
   const [current, setCurrent] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout>();
   const perSlide = 3;
   const total = Math.ceil(reviews.length / perSlide);
 
-  useEffect(() => {
-    if (isAutoPlaying) {
-      intervalRef.current = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % total);
-      }, 4500);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [isAutoPlaying, total]);
-
-  const go = (dir: number) => {
-    setIsAutoPlaying(false);
-    setCurrent((prev) => (prev + dir + total) % total);
-  };
-
+  // Kein Autoplay: der Besucher behält die Kontrolle.
+  const go = (dir: number) => setCurrent((prev) => (prev + dir + total) % total);
   const visible = reviews.slice(current * perSlide, current * perSlide + perSlide);
 
+  const navBtn =
+    "w-11 h-11 rounded-full border border-white/12 flex items-center justify-center text-ivory-50/70 hover:text-ivory-50 hover:border-gold-500/60 active:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70";
+
   return (
-    <section id="bewertungen" className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <Reveal className="text-center mb-16">
-          <p className="text-accent font-semibold text-sm tracking-widest uppercase mb-4">
-            {t.reviews.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            {t.reviews.title}
-          </h2>
-          <div className="section-divider mb-6" />
-          <div className="flex items-center justify-center gap-3">
-            <div className="flex gap-1">
+    <section id="bewertungen" className="relative py-20 sm:py-28 bg-graphite-900 text-ivory-50 overflow-hidden">
+      <div className="absolute inset-x-0 top-0 hairline" aria-hidden="true" />
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative">
+        <Reveal className="text-center mb-14">
+          <p className="eyebrow eyebrow-dark">{t.reviews.eyebrow}</p>
+          <h2 className="mt-4 font-serif text-4xl sm:text-5xl">{t.reviews.title}</h2>
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <span className="flex gap-1" aria-hidden="true">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={20} className="fill-amber-400 text-amber-400" />
+                <Star key={i} size={18} className="fill-gold-400 text-gold-400" />
               ))}
-            </div>
-            <span className="text-slate-900 font-bold text-xl">{locale === "en" ? "5.0" : "5,0"}</span>
-            <span className="text-slate-500 text-sm">{t.reviews.count}</span>
+            </span>
+            <span className="font-serif text-2xl">{SITE.trust.ratingDisplay[locale]}</span>
+            <span className="text-ivory-50/55 text-sm">
+              · {fmt(t.reviews.count, { count: SITE.trust.reviewCount, source: SITE.trust.reviewsSource })}
+            </span>
           </div>
         </Reveal>
 
-        {/* Reviews grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12" aria-live="polite">
           {visible.map((review, i) => (
-            <div key={i} className="card p-6 relative group hover:border-accent/30">
-              {/* Quote mark */}
-              <div className="absolute top-4 right-4 text-5xl leading-none font-bold text-accent opacity-15 select-none">
-                &ldquo;
-              </div>
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
+            <figure key={`${current}-${i}`} className="surface-dark p-7 flex flex-col">
+              <div className="flex gap-1 mb-5" aria-label={`${review.rating} / 5`}>
                 {[...Array(review.rating)].map((_, j) => (
-                  <Star key={j} size={14} className="fill-amber-400 text-amber-400" />
+                  <Star key={j} size={13} className="fill-gold-400 text-gold-400" />
                 ))}
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4 italic">
-                &ldquo;{review.text}&rdquo;
-              </p>
-              <div className="border-t border-slate-100 pt-4">
-                <div className="font-semibold text-slate-900 text-sm">{review.name === "mobile.de Nutzer" ? t.reviews.anonymous : review.name}</div>
-                <div className="text-xs text-slate-400 mt-0.5">{t.reviews.badge}</div>
-                <div className="text-xs text-slate-300 mt-0.5">{review.date}</div>
-              </div>
-            </div>
+              <blockquote className="font-serif text-xl leading-snug text-ivory-50/90 flex-1">
+                &bdquo;{review.text}&ldquo;
+              </blockquote>
+              <figcaption className="mt-6 pt-5 border-t border-white/8">
+                <div className="font-semibold text-sm">{review.name === "mobile.de Nutzer" ? t.reviews.anonymous : review.name}</div>
+                <div className="text-xs text-ivory-50/45 mt-1">{t.reviews.badge} · {review.date}</div>
+              </figcaption>
+            </figure>
           ))}
         </div>
 
-        {/* Controls */}
         <div className="flex items-center justify-center gap-4">
-          <button
-            onClick={() => go(-1)}
-            aria-label={t.reviews.prev}
-            className="w-10 h-10 bg-white border border-slate-200 shadow-sm rounded-full flex items-center justify-center text-slate-600 hover:text-accent hover:border-accent transition-colors"
-          >
+          <button type="button" onClick={() => go(-1)} aria-label={t.reviews.prev} className={navBtn}>
             <ChevronLeft size={18} />
           </button>
-          {[...Array(total)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => { setIsAutoPlaying(false); setCurrent(i); }}
-              aria-label={fmt(t.reviews.goTo, { n: i + 1 })}
-              aria-current={i === current ? "true" : undefined}
-              className={`h-2 rounded-full transition-all ${
-                i === current ? "bg-accent w-6" : "bg-slate-300 w-2 hover:bg-slate-400"
-              }`}
-            />
-          ))}
-          <button
-            onClick={() => go(1)}
-            aria-label={t.reviews.next}
-            className="w-10 h-10 bg-white border border-slate-200 shadow-sm rounded-full flex items-center justify-center text-slate-600 hover:text-accent hover:border-accent transition-colors"
-          >
+          <div className="flex items-center gap-2">
+            {[...Array(total)].map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setCurrent(i)}
+                aria-label={fmt(t.reviews.goTo, { n: i + 1 })}
+                aria-current={i === current ? "true" : undefined}
+                className={`h-1.5 rounded-full transition-[background-color,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 ${
+                  i === current ? "bg-gold-400 w-7" : "bg-white/20 w-1.5 hover:bg-white/40 scale-100"
+                }`}
+              />
+            ))}
+          </div>
+          <button type="button" onClick={() => go(1)} aria-label={t.reviews.next} className={navBtn}>
             <ChevronRight size={18} />
           </button>
         </div>

@@ -1,20 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
-import { SITE, TEL_HREF } from "@/lib/site";
+import { Menu, X, Phone, ArrowUpRight } from "lucide-react";
+import { SITE, TEL_HREF, whatsappUrl } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
-import { switchLocalePath, LOCALES, type Locale } from "@/lib/i18n/config";
+import { switchLocalePath, stripLocale, LOCALES, type Locale } from "@/lib/i18n/config";
 
-function LanguageSwitch({ className = "" }: { className?: string }) {
+function LanguageSwitch({ onDark, className = "" }: { onDark: boolean; className?: string }) {
   const { locale, t } = useI18n();
   const pathname = usePathname() ?? "/";
   return (
     <div
-      className={`inline-flex items-center rounded-full border border-slate-200 bg-white p-0.5 text-xs font-semibold tracking-wider ${className}`}
+      className={`inline-flex items-center rounded-full p-0.5 text-[11px] font-semibold tracking-[0.14em] ${
+        onDark ? "border border-white/15 bg-white/5" : "border border-sand bg-white/60"
+      } ${className}`}
       role="group"
       aria-label="Sprache / Language"
     >
@@ -28,8 +30,14 @@ function LanguageSwitch({ className = "" }: { className?: string }) {
             lang={l}
             aria-current={active ? "true" : undefined}
             aria-label={active ? undefined : t.nav.switchAria}
-            className={`px-2.5 py-1 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${
-              active ? "bg-navy text-white" : "text-slate-400 hover:text-navy active:text-navy-dark"
+            className={`px-2.5 py-1 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
+              active
+                ? onDark
+                  ? "bg-ivory-50 text-ink"
+                  : "bg-ink text-ivory-50"
+                : onDark
+                  ? "text-ivory-50/60 hover:text-ivory-50"
+                  : "text-ink-500 hover:text-ink"
             }`}
           >
             {l.toUpperCase()}
@@ -42,108 +50,188 @@ function LanguageSwitch({ className = "" }: { className?: string }) {
 
 export default function Navbar() {
   const { t, path } = useI18n();
+  const pathname = usePathname() ?? "/";
+  const isHome = stripLocale(pathname) === "/";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const close = useCallback(() => {
+    setMenuOpen(false);
+    toggleRef.current?.focus();
+  }, []);
+
+  // Mobile-Menü: Body-Scroll sperren, Escape schließt, Routenwechsel schließt
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen, close]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Über dem Hero transparent, sonst dunkles Glas. Alle Seiten beginnen mit einer dunklen Bühne.
+  const solid = scrolled || !isHome || menuOpen;
+
   const navLinks = [
     { href: path("/fahrzeuge"), label: t.nav.vehicles },
+    { href: path("/ankauf"), label: t.nav.purchase },
     { href: path("/#ueber-uns"), label: t.nav.about },
     { href: path("/#bewertungen"), label: t.nav.reviews },
     { href: path("/#kontakt"), label: t.nav.contact },
   ];
 
+  const current = stripLocale(pathname);
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-28">
+    <>
+      <header className="fixed top-3 sm:top-4 inset-x-3 sm:inset-x-4 z-50 flex justify-center pointer-events-none">
+        <nav
+          aria-label="Hauptnavigation"
+          className={`pointer-events-auto w-full max-w-7xl rounded-full pl-4 pr-2 sm:pl-6 sm:pr-2.5 h-16 flex items-center justify-between transition-[background-color,border-color,box-shadow] duration-300 ${
+            solid ? "glass-dark shadow-stage" : "bg-transparent border border-transparent"
+          }`}
+        >
           {/* Logo */}
-          <Link href={path("/")} className="flex-shrink-0">
+          <Link
+            href={path("/")}
+            className="flex-shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
+            aria-label={SITE.name}
+          >
             <Image
-              src="/bucan-logo-header.png"
+              src="/bucan-logo-transparent.png"
               alt="Bucan Automobile"
               width={320}
-              height={160}
-              className="h-24 w-auto object-contain"
+              height={212}
+              className="h-11 sm:h-12 w-auto object-contain"
               priority
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-slate-600 hover:text-navy transition-colors duration-200 font-medium text-sm"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop-Links */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const active = !link.href.includes("#") && current.startsWith(stripLocale(link.href));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative px-3.5 py-2 text-[13px] font-medium tracking-wide rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
+                    active ? "text-gold-300" : "text-ivory-50/80 hover:text-ivory-50 active:text-gold-200"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            <LanguageSwitch />
+          {/* Rechts: Sprache, Telefon */}
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitch onDark />
             <a
               href={TEL_HREF}
-              className="flex items-center gap-2 text-navy font-semibold text-sm hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 h-11 pl-4 pr-5 rounded-full bg-ivory-50 text-ink text-sm font-semibold hover:bg-white active:bg-ivory-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
             >
-              <Phone size={15} />
+              <Phone size={15} className="text-gold-600" />
               {SITE.phoneDisplay}
             </a>
-            <Link href={path("/fahrzeuge")} className="btn-primary px-5 py-2.5 rounded-lg text-sm">
-              {t.nav.cta}
-            </Link>
           </div>
 
-          {/* Mobile: language + menu button */}
-          <div className="md:hidden flex items-center gap-3">
-            <LanguageSwitch />
-            <button
-              className="text-slate-600 hover:text-navy transition-colors"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={t.nav.menu}
-              aria-expanded={menuOpen}
+          {/* Mobile */}
+          <div className="lg:hidden flex items-center gap-2">
+            <a
+              href={TEL_HREF}
+              aria-label={t.nav.callUs}
+              className="w-11 h-11 rounded-full bg-ivory-50 text-ink flex items-center justify-center hover:bg-white active:bg-ivory-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
             >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+              <Phone size={17} />
+            </a>
+            <button
+              ref={toggleRef}
+              type="button"
+              className="w-11 h-11 rounded-full text-ivory-50 border border-white/15 bg-white/5 flex items-center justify-center hover:bg-white/10 active:bg-white/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
+              onClick={() => (menuOpen ? close() : setMenuOpen(true))}
+              aria-label={menuOpen ? t.nav.close : t.nav.menu}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile-Overlay */}
+      <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t.nav.menu}
+        className={`lg:hidden fixed inset-0 z-40 bg-graphite-950/96 backdrop-blur-xl transition-opacity duration-300 ${
+          menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="h-full flex flex-col pt-28 pb-10 px-8 overflow-y-auto">
+          <ul className="space-y-1">
+            {navLinks.map((link, i) => (
+              <li key={link.href} style={{ transitionDelay: `${i * 40}ms` }} className={`transition-[opacity,transform] duration-500 ${menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}>
+                <Link
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-3 font-serif text-4xl text-ivory-50 hover:text-gold-300 active:text-gold-200 transition-colors focus-visible:outline-none focus-visible:text-gold-300"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="hairline my-8" />
+
+          <div className="space-y-4">
+            <a href={TEL_HREF} className="flex items-center gap-3 text-ivory-50 text-lg font-medium">
+              <Phone size={18} className="text-gold-400" /> {SITE.phoneDisplay}
+            </a>
+            <a
+              href={whatsappUrl(t.whatsapp.prefill)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-ivory-50/80 text-base"
+            >
+              <ArrowUpRight size={18} className="text-gold-400" /> WhatsApp
+            </a>
+            <p className="text-ivory-50/50 text-sm leading-relaxed pt-2">
+              {SITE.address.street}
+              <br />
+              {SITE.address.zip} {SITE.address.city}
+            </p>
+          </div>
+
+          <div className="mt-auto pt-8 flex items-center justify-between">
+            <LanguageSwitch onDark />
+            <span className="text-[11px] tracking-[0.2em] uppercase text-gold-400/80">Est. 2020</span>
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200 shadow-lg">
-          <div className="px-4 py-6 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-slate-700 hover:text-navy font-medium text-sm py-3 px-2 border-b border-slate-100 last:border-0"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <a href={TEL_HREF} className="flex items-center gap-2 text-navy font-semibold text-sm pt-4 px-2">
-              <Phone size={15} />
-              {SITE.phoneDisplay}
-            </a>
-          </div>
-        </div>
-      )}
-    </nav>
+    </>
   );
 }

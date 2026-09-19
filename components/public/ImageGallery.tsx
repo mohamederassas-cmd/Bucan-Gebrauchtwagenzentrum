@@ -30,7 +30,7 @@ export default function ImageGallery({ images, title }: Props) {
       {/* Main Gallery */}
       <div className="space-y-3">
         {/* Main Image */}
-        <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 group">
+        <div className="relative aspect-[4/3] rounded-[1.25rem] overflow-hidden bg-ivory-200 border border-sand group">
           <Image
             src={imgs[current]}
             alt={fmt(g.image, { title, n: current + 1 })}
@@ -44,7 +44,7 @@ export default function ImageGallery({ images, title }: Props) {
             <button
               onClick={() => setLightbox(true)}
               aria-label={g.open}
-              className="bg-white/90 border border-slate-200 p-3 rounded-full text-slate-700 hover:text-accent hover:scale-110 transition-all"
+              className="bg-ivory-50/95 p-3 rounded-full text-ink hover:text-gold-700 transition-[transform,color] duration-200 hover:scale-105 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
             >
               <Expand size={20} />
             </button>
@@ -55,14 +55,14 @@ export default function ImageGallery({ images, title }: Props) {
               <button
                 onClick={prev}
                 aria-label={g.prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 border border-slate-200 w-9 h-9 rounded-full flex items-center justify-center text-slate-600 hover:text-accent hover:scale-110 transition-all"
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 aria-label={g.next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 border border-slate-200 w-9 h-9 rounded-full flex items-center justify-center text-slate-600 hover:text-accent hover:scale-110 transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
               >
                 <ChevronRight size={18} />
               </button>
@@ -70,7 +70,7 @@ export default function ImageGallery({ images, title }: Props) {
           )}
           {/* Counter */}
           {imgs.length > 1 && (
-            <div className="absolute bottom-3 right-3 bg-white/90 px-2 py-1 rounded-lg text-xs text-slate-700 font-medium">
+            <div className="absolute bottom-3 right-3 bg-graphite-950/70 backdrop-blur px-2.5 py-1 rounded-full text-xs text-ivory-50 font-medium tabular-nums">
               {current + 1} / {imgs.length}
             </div>
           )}
@@ -83,8 +83,9 @@ export default function ImageGallery({ images, title }: Props) {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                  i === current ? "border-accent" : "border-transparent opacity-60 hover:opacity-100"
+                aria-current={i === current ? "true" : undefined}
+                className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-[opacity,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 ${
+                  i === current ? "border-gold-500" : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
                 <Image
@@ -108,7 +109,7 @@ export default function ImageGallery({ images, title }: Props) {
         >
           <button
             aria-label={g.close}
-            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-colors"
+            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
             onClick={() => setLightbox(false)}
           >
             <X size={24} />
