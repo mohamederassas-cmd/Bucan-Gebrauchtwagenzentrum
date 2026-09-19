@@ -8,6 +8,7 @@ import WhatsAppButton from "@/components/public/WhatsAppButton";
 import ImageGallery from "@/components/public/ImageGallery";
 import { Phone, MessageCircle, Gauge, Zap, Fuel, Settings, Palette, Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { SITE, TEL_HREF, whatsappUrl } from "@/lib/site";
 
 // Keine Vorab-Generierung mehr: neue/gelöschte Fahrzeuge müssen sofort sichtbar sein
 export const dynamic = "force-dynamic";
@@ -124,7 +125,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
               {vehicle.status !== "sold" && (
                 <div className="space-y-3">
                   <a
-                    href={`https://wa.me/491734414474?text=Hallo%20BB%20Gebrauchtwagen%2C%20ich%20interessiere%20mich%20f%C3%BCr%20den%20${encodeURIComponent(vehicle.make + " " + vehicle.model + " " + vehicle.year)}.`}
+                    href={whatsappUrl(`Hallo Bucan Automobile, ich interessiere mich für den ${vehicle.make} ${vehicle.model} ${vehicle.year}.`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-3 w-full py-4 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90"
@@ -134,14 +135,14 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                     WhatsApp – Jetzt anfragen
                   </a>
                   <a
-                    href="tel:+491734414474"
+                    href={TEL_HREF}
                     className="btn-primary flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm"
                   >
                     <Phone size={18} />
-                    0173 441 4474
+                    {SITE.phoneDisplay}
                   </a>
                   <a
-                    href="tel:+491734414474"
+                    href={TEL_HREF}
                     className="btn-outline flex items-center justify-center gap-3 w-full py-4 rounded-xl text-sm"
                   >
                     Probefahrt vereinbaren

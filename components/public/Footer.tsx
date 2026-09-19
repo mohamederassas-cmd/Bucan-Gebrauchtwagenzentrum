@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { SITE, TEL_HREF, MAIL_HREF } from "@/lib/site";
 
 function InstagramIcon() {
   return (
@@ -38,7 +39,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a
-                href="https://www.facebook.com/profile.php?id=61590425339745&mibextid=wwXIfr&rdid=oTKduCK8B9FXcXB7&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BTqK665S5%2F%3Fmibextid%3DwwXIfr%26ref%3D1"
+                href={SITE.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-800 hover:bg-blue-600 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors"
@@ -47,7 +48,7 @@ export default function Footer() {
                 <FacebookIcon />
               </a>
               <a
-                href="https://www.instagram.com/bucanautomobile?igsh=NTU5M3QzOWZxcHFq&utm_source=qr"
+                href={SITE.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-800 hover:bg-pink-600 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors"
@@ -89,7 +90,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-accent mt-0.5 flex-shrink-0" />
                 <a
-                  href="https://www.google.com/maps/dir/?api=1&destination=Fichtenstrasse+40%2C+85649+Hofolding"
+                  href={SITE.mapsDirections}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 text-sm hover:text-white transition-colors"
@@ -99,15 +100,23 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-accent flex-shrink-0" />
-                <a href="tel:+491783022999" className="text-slate-400 text-sm hover:text-white transition-colors">
-                  0178 302 2999
+                <a href={TEL_HREF} className="text-slate-400 text-sm hover:text-white transition-colors">
+                  {SITE.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-accent flex-shrink-0" />
-                <a href="mailto:info@bucan-automobile.de" className="text-slate-400 text-sm hover:text-white transition-colors">
-                  info@bucan-automobile.de
+                <a href={MAIL_HREF} className="text-slate-400 text-sm hover:text-white transition-colors">
+                  {SITE.email}
                 </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Clock size={16} className="text-accent mt-0.5 flex-shrink-0" />
+                <div className="text-slate-400 text-sm">
+                  <span className="block text-slate-300 text-xs font-semibold tracking-widest uppercase mb-1">Öffnungszeiten</span>
+                  Mo – Fr: 09:00 – 18:00 Uhr<br />
+                  Sa: 10:00 – 15:00 Uhr
+                </div>
               </li>
             </ul>
           </div>

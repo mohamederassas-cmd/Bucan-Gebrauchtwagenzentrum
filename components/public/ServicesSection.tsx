@@ -1,6 +1,7 @@
 "use client";
 
-import { CreditCard, Truck, RefreshCw, ArrowRight } from "lucide-react";
+import { CreditCard, Truck, RefreshCw, ShieldCheck, ArrowRight } from "lucide-react";
+import { SITE } from "@/lib/site";
 
 const services = [
   {
@@ -19,7 +20,17 @@ const services = [
     iconColor: "text-emerald-600",
     title: "Direktlieferung",
     description:
-      "Ihr neues Fahrzeug kommt direkt zu Ihnen nach Hause – bequem und ohne zusätzlichen Aufwand in München und Umgebung.",
+      "Auf Wunsch liefern wir Ihr neues Fahrzeug nach Vereinbarung direkt zu Ihnen nach Hause – bequem und ohne zusätzlichen Aufwand in München und Umgebung.",
+    link: null,
+    linkLabel: null,
+  },
+  {
+    icon: ShieldCheck,
+    iconBg: "bg-violet-50",
+    iconColor: "text-violet-600",
+    title: "Garantie",
+    description:
+      "Für zusätzliche Sicherheit bieten wir zu unseren Fahrzeugen eine Gebrauchtwagen-Garantie an. Sprechen Sie uns an – wir beraten Sie gerne.",
     link: null,
     linkLabel: null,
   },
@@ -30,7 +41,7 @@ const services = [
     title: "Fahrzeug Ankauf",
     description:
       "Wir kaufen Ihr Fahrzeug an und nehmen es in Zahlung – faire Preise, sofortige Abwicklung, kein Aufwand für Sie.",
-    link: "https://gebrauchtwagen-ankauf.de",
+    link: SITE.ankaufPortal,
     linkLabel: "Zum Ankauf-Portal",
   },
 ];
@@ -50,7 +61,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, i) => {
             const Icon = service.icon;
             const content = (

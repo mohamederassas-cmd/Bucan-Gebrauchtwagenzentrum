@@ -1,5 +1,7 @@
 "use client";
 
+import { placeholderImage } from "@/lib/site";
+
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
@@ -13,7 +15,7 @@ export default function ImageGallery({ images, title }: Props) {
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
-  const fallback = "https://placehold.co/800x600/EFF6FF/1E3A8A?text=BB+Gebrauchtwagen";
+  const fallback = placeholderImage(800, 600);
   const imgs = images.length > 0 ? images : [fallback];
 
   const prev = () => setCurrent((c) => (c - 1 + imgs.length) % imgs.length);

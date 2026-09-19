@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown, Star } from "lucide-react";
+import { TEL_HREF } from "@/lib/site";
 
 export default function HeroSection() {
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -119,7 +120,7 @@ export default function HeroSection() {
             Fahrzeuge entdecken
           </Link>
           <a
-            href="tel:+491734414474"
+            href={TEL_HREF}
             className="btn-outline px-8 py-4 rounded-xl text-base text-center"
           >
             Jetzt anrufen
@@ -131,7 +132,7 @@ export default function HeroSection() {
           {[
             { value: "56", label: "Bewertungen" },
             { value: "5,0★", label: "Google Rating" },
-            { value: "+250", label: "Autos verkauft" },
+            { value: "500+", label: "Zufriedene Kunden" },
             { value: "Hofolding", label: "Fichtenstr. 40" },
           ].map((stat) => (
             <div key={stat.label}>

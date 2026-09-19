@@ -9,7 +9,7 @@ import WhatsAppButton from "@/components/public/WhatsAppButton";
 import CookieBanner from "@/components/public/CookieBanner";
 import { getFeaturedVehicles } from "@/lib/vehicles";
 import Link from "next/link";
-import { Shield, Award, Clock, CheckCircle, ArrowRight } from "lucide-react";
+import { Shield, ShieldCheck, Clock, CheckCircle, ArrowRight } from "lucide-react";
 
 // Bestand ändert sich im Admin → Seite immer serverseitig frisch rendern
 export const dynamic = "force-dynamic";
@@ -83,14 +83,14 @@ export default async function Home() {
               </p>
               <p className="text-slate-600 leading-relaxed mb-8">
                 Jedes Fahrzeug in unserem Bestand wird sorgfältig geprüft, transparent
-                beschrieben und zu einem fairen Festpreis angeboten. Kein versteckter
-                Aufwand, kein Risiko für Sie.
+                beschrieben und fair bewertet. Keine versteckten Kosten, kein Risiko für Sie.
               </p>
               <div className="flex flex-wrap gap-8">
                 {[
+                  { value: "500+", label: "Zufriedene Kunden" },
+                  { value: "5,0★", label: "Bewertung" },
                   { value: "56", label: "Bewertungen" },
-                  { value: "5,0★", label: "Google Rating" },
-                  { value: "München", label: "Standort" },
+                  { value: "Hofolding", label: "bei München" },
                 ].map((s) => (
                   <div key={s.label} className="text-center">
                     <div className="text-2xl font-bold text-navy">{s.value}</div>
@@ -108,9 +108,9 @@ export default async function Home() {
                   desc: "Jedes Auto wird vor dem Verkauf gründlich geprüft.",
                 },
                 {
-                  icon: <Award size={24} className="text-accent" />,
-                  title: "Festpreise",
-                  desc: "Keine versteckten Kosten. Was Sie sehen, ist was Sie zahlen.",
+                  icon: <ShieldCheck size={24} className="text-accent" />,
+                  title: "Garantie",
+                  desc: "Gebrauchtwagen-Garantie für ein sicheres Gefühl nach dem Kauf.",
                 },
                 {
                   icon: <Clock size={24} className="text-accent" />,

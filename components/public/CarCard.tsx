@@ -1,5 +1,7 @@
 "use client";
 
+import { placeholderImage } from "@/lib/site";
+
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,7 +37,7 @@ export default function CarCard({ vehicle }: Props) {
 
   const statusColor = STATUS_COLORS[vehicle.status];
   const statusLabel = STATUS_LABELS[vehicle.status];
-  const mainImage = vehicle.images[0] || "https://placehold.co/600x400/EFF6FF/1E3A8A?text=BB+Gebrauchtwagen";
+  const mainImage = vehicle.images[0] || placeholderImage(600, 400);
 
   return (
     <div

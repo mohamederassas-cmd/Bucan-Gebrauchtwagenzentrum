@@ -31,8 +31,8 @@ export default function ImpressumPage() {
               <h2 className="text-accent font-semibold tracking-widest text-xs uppercase mb-3">Kontakt</h2>
               <p>
                 Telefon:{" "}
-                <a href="tel:+491734414474" className="text-accent hover:text-navy transition-colors">
-                  0173 4414474
+                <a href="tel:+491783022999" className="text-accent hover:text-navy transition-colors">
+                  0178 302 2999
                 </a>
               </p>
               <p>

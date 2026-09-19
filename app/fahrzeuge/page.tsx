@@ -6,7 +6,7 @@ import VehicleList from "@/components/public/VehicleList";
 
 export const metadata = {
   title: "Fahrzeuge – Bucan Automobile München",
-  description: "Alle verfügbaren Fahrzeuge bei Bucan Automobile München. Geprüfte Gebrauchtwagen aller Marken zu fairen Festpreisen.",
+  description: "Alle verfügbaren Fahrzeuge bei Bucan Automobile München. Geprüfte Gebrauchtwagen aller Marken zu fairen Preisen.",
 };
 
 // Bestand ändert sich im Admin → Seite immer serverseitig frisch rendern

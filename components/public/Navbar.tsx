@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
+import { SITE, TEL_HREF } from "@/lib/site";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -60,11 +61,11 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="tel:+491783022999"
+              href={TEL_HREF}
               className="flex items-center gap-2 text-navy font-semibold text-sm hover:text-accent transition-colors"
             >
               <Phone size={15} />
-              0178 302 2999
+              {SITE.phoneDisplay}
             </a>
             <Link
               href="/fahrzeuge"
@@ -100,11 +101,11 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="tel:+491783022999"
+              href={TEL_HREF}
               className="flex items-center gap-2 text-navy font-semibold text-sm pt-4 px-2"
             >
               <Phone size={15} />
-              0178 302 2999
+              {SITE.phoneDisplay}
             </a>
           </div>
         </div>

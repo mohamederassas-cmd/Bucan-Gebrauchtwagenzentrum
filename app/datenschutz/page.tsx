@@ -39,7 +39,7 @@ export default function DatenschutzPage() {
                 <p>Fichtenstrasse 40, 85649 Hofolding</p>
                 <p>
                   Telefon:{" "}
-                  <a href="tel:+491734414474" className="text-accent">0173 4414474</a>
+                  <a href="tel:+491783022999" className="text-accent">0178 302 2999</a>
                 </p>
                 <p>
                   E-Mail:{" "}

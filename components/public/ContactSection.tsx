@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, MessageCircle, Clock } from "lucide-react";
 import ConsentMap from "@/components/public/ConsentMap";
+import { SITE, TEL_HREF, MAIL_HREF, whatsappUrl } from "@/lib/site";
 
 export default function ContactSection() {
   return (
@@ -25,7 +26,7 @@ export default function ContactSection() {
               </h3>
               <div className="space-y-5">
                 <a
-                  href="tel:+491783022999"
+                  href={TEL_HREF}
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
@@ -34,13 +35,13 @@ export default function ContactSection() {
                   <div>
                     <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">Telefon</div>
                     <div className="text-slate-900 font-semibold group-hover:text-accent transition-colors">
-                      0178 302 2999
+                      {SITE.phoneDisplay}
                     </div>
                   </div>
                 </a>
 
                 <a
-                  href="https://wa.me/491783022999"
+                  href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group"
@@ -60,7 +61,7 @@ export default function ContactSection() {
                 </a>
 
                 <a
-                  href="mailto:info@bucan-automobile.de"
+                  href={MAIL_HREF}
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
@@ -69,7 +70,7 @@ export default function ContactSection() {
                   <div>
                     <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">E-Mail</div>
                     <div className="text-slate-900 font-semibold group-hover:text-accent transition-colors text-sm">
-                      info@bucan-automobile.de
+                      {SITE.email}
                     </div>
                   </div>
                 </a>
@@ -92,10 +93,11 @@ export default function ContactSection() {
                     <Clock size={20} className="text-accent" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">Erreichbarkeit</div>
+                    <div className="text-xs text-slate-500 tracking-wider uppercase font-medium mb-0.5">Öffnungszeiten</div>
                     <div className="text-slate-900 font-semibold">
-                      Mo – Sa: 8:00 – 19:00 Uhr<br />
-                      <span className="font-normal text-slate-500 text-sm">Terminvereinbarung empfohlen</span>
+                      Mo – Fr: 09:00 – 18:00 Uhr<br />
+                      Sa: 10:00 – 15:00 Uhr<br />
+                      <span className="font-normal text-slate-500 text-sm">Termine auch außerhalb der Öffnungszeiten nach Vereinbarung</span>
                     </div>
                   </div>
                 </div>
@@ -105,13 +107,13 @@ export default function ContactSection() {
             {/* Quick CTA */}
             <div className="flex gap-4">
               <a
-                href="tel:+491783022999"
+                href={TEL_HREF}
                 className="btn-primary flex-1 py-4 rounded-xl text-center text-sm"
               >
                 Jetzt anrufen
               </a>
               <a
-                href="https://wa.me/491783022999?text=Hallo%20BB%20Gebrauchtwagen%2C%20ich%20interessiere%20mich%20f%C3%BCr%20einen%20Ihrer%20Fahrzeuge."
+                href={whatsappUrl("Hallo Bucan Automobile, ich interessiere mich für eines Ihrer Fahrzeuge.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline flex-1 py-4 rounded-xl text-center text-sm"

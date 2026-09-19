@@ -1,12 +1,13 @@
 "use client";
 
 import { Phone } from "lucide-react";
+import { TEL_HREF, whatsappUrl } from "@/lib/site";
 
 export default function WhatsAppButton() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-center">
       <a
-        href="tel:+491783022999"
+        href={TEL_HREF}
         aria-label="Jetzt anrufen"
         className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
         style={{ background: "#1e3a5f" }}
@@ -14,7 +15,7 @@ export default function WhatsAppButton() {
         <Phone size={24} color="white" />
       </a>
       <a
-        href="https://wa.me/491783022999?text=Hallo%20BB%20Gebrauchtwagen%2C%20ich%20interessiere%20mich%20f%C3%BCr%20einen%20Ihrer%20Fahrzeuge."
+        href={whatsappUrl("Hallo Bucan Automobile, ich interessiere mich für eines Ihrer Fahrzeuge.")}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp Kontakt"
