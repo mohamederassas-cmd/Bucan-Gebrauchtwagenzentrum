@@ -9,14 +9,12 @@ import { SITE, TEL_HREF, whatsappUrl } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
 import { switchLocalePath, stripLocale, LOCALES, type Locale } from "@/lib/i18n/config";
 
-function LanguageSwitch({ onDark, className = "" }: { onDark: boolean; className?: string }) {
+function LanguageSwitch({ className = "" }: { className?: string }) {
   const { locale, t } = useI18n();
   const pathname = usePathname() ?? "/";
   return (
     <div
-      className={`inline-flex items-center rounded-full p-0.5 text-[11px] font-semibold tracking-[0.14em] ${
-        onDark ? "border border-white/15 bg-white/5" : "border border-sand bg-white/60"
-      } ${className}`}
+      className={`inline-flex items-center rounded-full p-0.5 text-[11px] font-semibold tracking-[0.14em] border border-white/15 bg-white/5 ${className}`}
       role="group"
       aria-label="Sprache / Language"
     >
@@ -31,13 +29,7 @@ function LanguageSwitch({ onDark, className = "" }: { onDark: boolean; className
             aria-current={active ? "true" : undefined}
             aria-label={active ? undefined : t.nav.switchAria}
             className={`px-2.5 py-1 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
-              active
-                ? onDark
-                  ? "bg-ivory-50 text-ink"
-                  : "bg-ink text-ivory-50"
-                : onDark
-                  ? "text-ivory-50/60 hover:text-ivory-50"
-                  : "text-ink-500 hover:text-ink"
+              active ? "bg-ivory-50 text-ink" : "text-ivory-50/60 hover:text-ivory-50"
             }`}
           >
             {l.toUpperCase()}
@@ -51,7 +43,6 @@ function LanguageSwitch({ onDark, className = "" }: { onDark: boolean; className
 export default function Navbar() {
   const { t, path } = useI18n();
   const pathname = usePathname() ?? "/";
-  const isHome = stripLocale(pathname) === "/";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -87,8 +78,8 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [pathname]);
 
-  // Über dem Hero transparent, sonst dunkles Glas. Alle Seiten beginnen mit einer dunklen Bühne.
-  const solid = scrolled || !isHome || menuOpen;
+  // Oben transparent über der Bühne, nach 24px Scroll dunkles Glas. Jede Seite beginnt mit derselben Bühne.
+  const solid = scrolled || menuOpen;
 
   const navLinks = [
     { href: path("/fahrzeuge"), label: t.nav.vehicles },
@@ -146,7 +137,7 @@ export default function Navbar() {
 
           {/* Rechts: Sprache, Telefon */}
           <div className="hidden lg:flex items-center gap-3">
-            <LanguageSwitch onDark />
+            <LanguageSwitch />
             <a
               href={TEL_HREF}
               className="inline-flex items-center gap-2 h-11 pl-4 pr-5 rounded-full bg-ivory-50 text-ink text-sm font-semibold hover:bg-white active:bg-ivory-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
@@ -227,7 +218,7 @@ export default function Navbar() {
           </div>
 
           <div className="mt-auto pt-8 flex items-center justify-between">
-            <LanguageSwitch onDark />
+            <LanguageSwitch />
             <span className="text-[11px] tracking-[0.2em] uppercase text-gold-400/80">Est. 2020</span>
           </div>
         </div>

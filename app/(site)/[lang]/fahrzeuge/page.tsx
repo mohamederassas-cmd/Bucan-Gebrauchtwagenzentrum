@@ -29,7 +29,7 @@ export default async function FahrzeugePage({ params }: Params) {
   const availableCount = vehicles.filter((v) => v.status !== "sold").length;
 
   return (
-    <main className="bg-ivory-100 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <PageHeader
         eyebrow={t.vehicles.eyebrow}
         title={t.vehicles.title}

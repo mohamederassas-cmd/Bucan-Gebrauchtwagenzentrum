@@ -107,16 +107,16 @@ export default function PhotoUploader({ token, clientUpload, photos, onChange, d
 
   return (
     <div>
-      <p className="text-ink-500 text-sm leading-relaxed">{fmt(p.hint, { max: MAX_INQUIRY_PHOTOS })}</p>
+      <p className="text-ivory-50/60 text-sm leading-relaxed">{fmt(p.hint, { max: MAX_INQUIRY_PHOTOS })}</p>
 
       <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
         {photos.map((photo, i) => (
-          <div key={photo.url} className="relative aspect-square rounded-xl overflow-hidden border border-sand bg-ivory-200">
+          <div key={photo.url} className="relative aspect-square rounded-xl overflow-hidden border border-white/10 bg-graphite-800">
             {photo.preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={photo.preview} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center text-ink-500 gap-1 px-1 text-center">
+              <div className="w-full h-full flex flex-col items-center justify-center text-ivory-50/55 gap-1 px-1 text-center">
                 <FileImage size={20} />
                 <span className="text-[10px] leading-tight">{p.noPreview}</span>
               </div>
@@ -132,7 +132,7 @@ export default function PhotoUploader({ token, clientUpload, photos, onChange, d
           </div>
         ))}
         {busy.map((name) => (
-          <div key={name} className="aspect-square rounded-xl border border-dashed border-sand bg-ivory-200 flex flex-col items-center justify-center text-ink-500 gap-1">
+          <div key={name} className="aspect-square rounded-xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-ivory-50/55 gap-1">
             <Loader2 size={18} className="animate-spin" />
             <span className="text-[10px]">{p.uploading}</span>
           </div>
@@ -142,7 +142,7 @@ export default function PhotoUploader({ token, clientUpload, photos, onChange, d
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={disabled || busy.length > 0}
-            className="aspect-square rounded-xl border border-dashed border-gold-400 bg-gold-50/60 text-gold-700 flex flex-col items-center justify-center gap-1.5 hover:bg-gold-100 active:bg-gold-200 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
+            className="aspect-square rounded-xl border border-dashed border-gold-500/50 bg-gold-500/10 text-gold-300 flex flex-col items-center justify-center gap-1.5 hover:bg-gold-500/15 active:bg-gold-500/25 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
           >
             <ImagePlus size={20} />
             <span className="text-[11px] font-semibold">{p.add}</span>
@@ -150,7 +150,7 @@ export default function PhotoUploader({ token, clientUpload, photos, onChange, d
         )}
       </div>
 
-      <div className="mt-3 flex items-center justify-between text-xs text-ink-500">
+      <div className="mt-3 flex items-center justify-between text-xs text-ivory-50/55">
         <span>{fmt(p.count, { n: photos.length, max: MAX_INQUIRY_PHOTOS })}</span>
       </div>
 

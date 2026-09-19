@@ -48,7 +48,7 @@ export default function SpotlightSection({ vehicle }: Props) {
   return (
     <section
       id="fahrzeug-der-woche"
-      className="relative z-20 bg-graphite-900 text-ivory-50 rounded-t-[2rem] sm:rounded-t-[2.5rem] shadow-stage"
+      className="relative text-ivory-50"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">

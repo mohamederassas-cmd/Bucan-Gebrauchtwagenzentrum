@@ -7,17 +7,17 @@ export const metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="bg-ivory-100 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <PageHeader eyebrow="Rechtliches" title="Datenschutzerklärung" />
 
       <div className="py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="space-y-10 text-ink-700 leading-relaxed">
+          <div className="space-y-10 text-ivory-50/75 leading-relaxed">
             <section>
               <h2 className="eyebrow eyebrow-left mb-4">
                 1. Datenschutz auf einen Blick
               </h2>
-              <h3 className="text-ink font-semibold mb-2">Allgemeine Hinweise</h3>
+              <h3 className="text-ivory-50 font-semibold mb-2">Allgemeine Hinweise</h3>
               <p>
                 Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten
                 passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie
@@ -30,8 +30,8 @@ export default function DatenschutzPage() {
                 2. Verantwortliche Stelle
               </h2>
               <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
-              <div className="bg-ivory-200 border border-sand rounded-xl p-4 mt-3">
-                <p className="text-ink font-semibold">Denis Bucan – BUCAN AUTOMOBILE</p>
+              <div className="surface p-4 mt-3">
+                <p className="text-ivory-50 font-semibold">Denis Bucan – BUCAN AUTOMOBILE</p>
                 <p>Fichtenstrasse 40, 85649 Hofolding</p>
                 <p>
                   Telefon:{" "}
@@ -50,13 +50,13 @@ export default function DatenschutzPage() {
               <h2 className="eyebrow eyebrow-left mb-4">
                 3. Datenerfassung auf dieser Website
               </h2>
-              <h3 className="text-ink font-semibold mb-2">Cookies</h3>
+              <h3 className="text-ivory-50 font-semibold mb-2">Cookies</h3>
               <p>
                 Unsere Internetseiten verwenden so genannte &bdquo;Cookies&ldquo;. Cookies sind kleine Datenpakete und richten
                 auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung
                 (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.
               </p>
-              <h3 className="text-ink font-semibold mb-2 mt-4">Server-Log-Dateien</h3>
+              <h3 className="text-ivory-50 font-semibold mb-2 mt-4">Server-Log-Dateien</h3>
               <p>
                 Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten
                 Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind: Browsertyp und
@@ -78,7 +78,7 @@ export default function DatenschutzPage() {
               <p className="mt-3">
                 Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung oder vorvertragliche Maßnahmen).
               </p>
-              <h3 className="text-ink font-semibold mb-2 mt-5">Kontaktformular und Ankauf-Anfrage</h3>
+              <h3 className="text-ivory-50 font-semibold mb-2 mt-5">Kontaktformular und Ankauf-Anfrage</h3>
               <p>
                 Über das Kontaktformular und das Formular &bdquo;Fahrzeug anbieten&ldquo; erheben wir die von Ihnen
                 eingegebenen Angaben (Name, E-Mail-Adresse, Telefonnummer, Nachricht sowie beim Ankauf die
@@ -110,7 +110,7 @@ export default function DatenschutzPage() {
                 den USA übertragen und dort gespeichert.
               </p>
               <p className="mt-3">
-                Die Karte wird deshalb <span className="text-ink font-semibold">nicht automatisch geladen</span>.
+                Die Karte wird deshalb <span className="text-ivory-50 font-semibold">nicht automatisch geladen</span>.
                 Stattdessen sehen Sie zunächst einen Platzhalter mit unserer Anschrift. Erst wenn Sie ausdrücklich auf
                 &bdquo;Karte laden&ldquo; klicken oder der Kategorie &bdquo;Externe Karten&ldquo; in den
                 Cookie-Einstellungen zustimmen, wird eine Verbindung zu Google hergestellt und eine Datenübertragung
@@ -140,7 +140,7 @@ export default function DatenschutzPage() {
               </p>
             </section>
 
-            <p className="text-xs text-ink-500 mt-8">
+            <p className="text-xs text-ivory-50/50 mt-8">
               Stand: {new Date().toLocaleDateString("de-DE", { month: "long", year: "numeric" })}
             </p>
           </div>

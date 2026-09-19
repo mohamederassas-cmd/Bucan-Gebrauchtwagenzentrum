@@ -33,7 +33,7 @@ export default function Footer() {
   const rating = SITE.trust.ratingDisplay[locale];
 
   return (
-    <footer className="relative bg-graphite-950 text-ivory-50">
+    <footer className="relative z-10 text-ivory-50">
       <div className="hairline" />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">

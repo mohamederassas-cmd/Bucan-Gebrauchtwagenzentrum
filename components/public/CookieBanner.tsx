@@ -48,17 +48,17 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   const iconBtn =
-    "text-ink-500 hover:text-ink active:text-gold-700 transition-colors flex-shrink-0 rounded-full p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60";
+    "text-ivory-50/55 hover:text-ivory-50 active:text-gold-300 transition-colors flex-shrink-0 rounded-full p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[200] flex justify-center px-4 pb-4 sm:pb-6" role="region" aria-label={c.title}>
-      <div className="surface p-6 w-full max-w-2xl shadow-surface-hover">
+      <div className="glass-dark rounded-[1.25rem] p-6 w-full max-w-2xl shadow-stage">
         {!showSettings ? (
           <>
             <div className="flex items-start justify-between gap-4 mb-5">
               <div>
-                <h3 className="font-serif text-2xl text-ink mb-1">{c.title}</h3>
-                <p className="text-ink-700 text-sm leading-relaxed">
+                <h3 className="font-serif text-2xl text-ivory-50 mb-1">{c.title}</h3>
+                <p className="text-ivory-50/75 text-sm leading-relaxed">
                   {c.text}{" "}
                   <Link href="/datenschutz" className="link-gold">
                     {c.privacyLink}
@@ -71,15 +71,15 @@ export default function CookieBanner() {
               </button>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3">
-              <button onClick={acceptAll} className="btn-ink w-full sm:w-auto px-6 py-3 text-sm">
+              <button onClick={acceptAll} className="btn-gold w-full sm:w-auto px-6 py-3 text-sm">
                 {c.acceptAll}
               </button>
-              <button onClick={declineAll} className="btn-outline-ink w-full sm:w-auto px-6 py-3 text-sm">
+              <button onClick={declineAll} className="btn-ghost-light w-full sm:w-auto px-6 py-3 text-sm">
                 {c.necessaryOnly}
               </button>
               <button
                 onClick={() => setShowSettings(true)}
-                className="text-ink-500 hover:text-ink text-sm underline underline-offset-4 transition-colors sm:ml-auto focus-visible:outline-none focus-visible:text-gold-700"
+                className="text-ivory-50/55 hover:text-ivory-50 text-sm underline underline-offset-4 transition-colors sm:ml-auto focus-visible:outline-none focus-visible:text-gold-300"
               >
                 {c.settings}
               </button>
@@ -88,7 +88,7 @@ export default function CookieBanner() {
         ) : (
           <>
             <div className="flex items-center justify-between mb-5">
-              <h3 className="font-serif text-2xl text-ink">{c.settingsTitle}</h3>
+              <h3 className="font-serif text-2xl text-ivory-50">{c.settingsTitle}</h3>
               <button onClick={() => setShowSettings(false)} className={iconBtn} aria-label={c.back}>
                 <X size={18} />
               </button>
@@ -97,26 +97,26 @@ export default function CookieBanner() {
               <label className="flex items-start gap-3 cursor-not-allowed">
                 <input type="checkbox" checked disabled className="checkbox-gold" />
                 <div>
-                  <div className="text-ink font-semibold text-sm">{c.necessary.title}</div>
-                  <div className="text-ink-500 text-xs mt-0.5">{c.necessary.desc}</div>
+                  <div className="text-ivory-50 font-semibold text-sm">{c.necessary.title}</div>
+                  <div className="text-ivory-50/55 text-xs mt-0.5">{c.necessary.desc}</div>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" checked={analytics} onChange={(e) => setAnalytics(e.target.checked)} className="checkbox-gold" />
                 <div>
-                  <div className="text-ink font-semibold text-sm">{c.analytics.title}</div>
-                  <div className="text-ink-500 text-xs mt-0.5">{c.analytics.desc}</div>
+                  <div className="text-ivory-50 font-semibold text-sm">{c.analytics.title}</div>
+                  <div className="text-ivory-50/55 text-xs mt-0.5">{c.analytics.desc}</div>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" checked={maps} onChange={(e) => setMaps(e.target.checked)} className="checkbox-gold" />
                 <div>
-                  <div className="text-ink font-semibold text-sm">{c.maps.title}</div>
-                  <div className="text-ink-500 text-xs mt-0.5">{c.maps.desc}</div>
+                  <div className="text-ivory-50 font-semibold text-sm">{c.maps.title}</div>
+                  <div className="text-ivory-50/55 text-xs mt-0.5">{c.maps.desc}</div>
                 </div>
               </label>
             </div>
-            <button onClick={saveSettings} className="btn-ink w-full py-3 text-sm">
+            <button onClick={saveSettings} className="btn-gold w-full py-3 text-sm">
               {c.save}
             </button>
           </>

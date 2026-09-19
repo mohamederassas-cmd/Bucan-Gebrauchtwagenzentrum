@@ -97,19 +97,19 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
     const vehicleName = `${form.make} ${form.model}`.trim();
     return (
       <div className="surface p-8 sm:p-12 text-center" role="status">
-        <CheckCircle2 size={44} className="text-gold-600 mx-auto mb-5" strokeWidth={1.5} />
-        <h2 className="font-serif text-3xl sm:text-4xl text-ink">{p.success.title}</h2>
-        <p className="mt-4 text-ink-700 leading-relaxed max-w-lg mx-auto">{p.success.text}</p>
+        <CheckCircle2 size={44} className="text-gold-300 mx-auto mb-5" strokeWidth={1.5} />
+        <h2 className="font-serif text-3xl sm:text-4xl text-ivory-50">{p.success.title}</h2>
+        <p className="mt-4 text-ivory-50/75 leading-relaxed max-w-lg mx-auto">{p.success.text}</p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href={whatsappUrl(fmt(p.success.whatsappPrefill, { vehicle: vehicleName }))}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-ink px-6 py-3.5 text-sm"
+            className="btn-gold px-6 py-3.5 text-sm"
           >
             <MessageCircle size={16} /> {p.success.whatsapp}
           </a>
-          <Link href={locale === "en" ? "/en" : "/"} className="btn-outline-ink px-6 py-3.5 text-sm">
+          <Link href={locale === "en" ? "/en" : "/"} className="btn-ghost-light px-6 py-3.5 text-sm">
             {p.success.home}
           </Link>
         </div>
@@ -117,16 +117,16 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
     );
   }
 
-  const label = "block text-[13px] font-semibold text-ink mb-1.5";
-  const req = <span className="text-gold-700" aria-hidden="true"> *</span>;
-  const sectionTitle = "font-serif text-2xl text-ink";
+  const label = "block text-[13px] font-semibold text-ivory-50 mb-1.5";
+  const req = <span className="text-gold-300" aria-hidden="true"> *</span>;
+  const sectionTitle = "font-serif text-2xl text-ivory-50";
   const busy = status === "sending";
 
   return (
     <form onSubmit={submit} noValidate className="surface p-6 sm:p-9 space-y-10">
       <div>
-        <h2 className="font-serif text-3xl text-ink">{p.formTitle}</h2>
-        <p className="mt-2 text-ink-500 text-sm">{p.formIntro}</p>
+        <h2 className="font-serif text-3xl text-ivory-50">{p.formTitle}</h2>
+        <p className="mt-2 text-ivory-50/60 text-sm">{p.formIntro}</p>
       </div>
 
       <div className="hp-field" aria-hidden="true">
@@ -170,7 +170,7 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
             <label htmlFor="pf-mileage" className={label}>{f.mileage}{req}</label>
             <div className="relative">
               <input id="pf-mileage" required type="number" inputMode="numeric" min={0} max={2000000} step={1} className="input pr-12" value={form.mileage} onChange={(e) => set("mileage", e.target.value)} placeholder="120000" />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-500 text-sm">{t.units.km}</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-ivory-50/55 text-sm">{t.units.km}</span>
             </div>
           </div>
         </div>
@@ -202,9 +202,9 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
           <label htmlFor="pf-price" className={label}>{f.price}</label>
           <div className="relative">
             <input id="pf-price" type="number" inputMode="numeric" min={0} step={100} className="input pr-10" value={form.price_expectation} onChange={(e) => set("price_expectation", e.target.value)} placeholder="8500" />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-500 text-sm">€</span>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-ivory-50/55 text-sm">€</span>
           </div>
-          <p className="text-ink-500 text-xs mt-1.5">{f.priceHint}</p>
+          <p className="text-ivory-50/55 text-xs mt-1.5">{f.priceHint}</p>
         </div>
       </fieldset>
 
@@ -236,7 +236,7 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
           <textarea id="pf-message" rows={3} maxLength={2000} className="input resize-y" placeholder={f.messagePlaceholder} value={form.message} onChange={(e) => set("message", e.target.value)} />
         </div>
 
-        <label className="flex items-start gap-3 cursor-pointer text-sm text-ink-700 leading-relaxed">
+        <label className="flex items-start gap-3 cursor-pointer text-sm text-ivory-50/75 leading-relaxed">
           <input type="checkbox" required className="checkbox-gold" checked={form.consent} onChange={(e) => set("consent", e.target.checked)} />
           <span>
             {t.contactForm.consent.split("{privacy}")[0]}
@@ -247,12 +247,12 @@ export default function AnkaufForm({ token, clientUpload }: Props) {
       </fieldset>
 
       {error && (
-        <p role="alert" className="input-error text-sm bg-[#FBEDEB] border border-[#EAC2BD] rounded-xl px-4 py-3">
+        <p role="alert" className="input-error error-box text-sm">
           {error}
         </p>
       )}
 
-      <button type="submit" disabled={busy} className="btn-ink px-8 py-4 text-[15px] w-full sm:w-auto disabled:opacity-60 disabled:cursor-wait">
+      <button type="submit" disabled={busy} className="btn-gold px-8 py-4 text-[15px] w-full sm:w-auto disabled:opacity-60 disabled:cursor-wait">
         {busy ? <Loader2 size={17} className="animate-spin" /> : <Send size={16} />}
         {busy ? p.sending : p.submit}
       </button>

@@ -84,7 +84,7 @@ export default function ReviewsSection() {
     "w-11 h-11 rounded-full border border-white/12 flex items-center justify-center text-ivory-50/70 hover:text-ivory-50 hover:border-gold-500/60 active:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70";
 
   return (
-    <section id="bewertungen" className="relative py-20 sm:py-28 bg-graphite-900 text-ivory-50 overflow-hidden">
+    <section id="bewertungen" className="relative py-20 sm:py-28 text-ivory-50">
       <div className="absolute inset-x-0 top-0 hairline" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative">
         <Reveal className="text-center mb-14">

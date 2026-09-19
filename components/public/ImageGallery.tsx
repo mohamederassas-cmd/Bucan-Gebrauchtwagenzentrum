@@ -30,7 +30,7 @@ export default function ImageGallery({ images, title }: Props) {
       {/* Main Gallery */}
       <div className="space-y-3">
         {/* Main Image */}
-        <div className="relative aspect-[4/3] rounded-[1.25rem] overflow-hidden bg-ivory-200 border border-sand group">
+        <div className="relative aspect-[4/3] rounded-[1.25rem] overflow-hidden bg-graphite-800 border border-white/10 group">
           <Image
             src={imgs[current]}
             alt={fmt(g.image, { title, n: current + 1 })}
@@ -44,7 +44,7 @@ export default function ImageGallery({ images, title }: Props) {
             <button
               onClick={() => setLightbox(true)}
               aria-label={g.open}
-              className="bg-ivory-50/95 p-3 rounded-full text-ink hover:text-gold-700 transition-[transform,color] duration-200 hover:scale-105 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
+              className="bg-ivory-50/95 p-3 rounded-full text-ink hover:text-gold-300 transition-[transform,color] duration-200 hover:scale-105 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
             >
               <Expand size={20} />
             </button>
@@ -55,14 +55,14 @@ export default function ImageGallery({ images, title }: Props) {
               <button
                 onClick={prev}
                 aria-label={g.prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 aria-label={g.next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-ivory-50/95 w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-gold-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70"
               >
                 <ChevronRight size={18} />
               </button>

@@ -7,7 +7,7 @@ export const de = {
   meta: {
     title: "BUCAN AUTOMOBILE – Gebrauchtwagen München",
     description:
-      "BUCAN AUTOMOBILE – Ihr Fahrzeughändler bei München. Geprüfte Gebrauchtwagen aller Marken, faire Preise, Garantie und transparente Abwicklung.",
+      "BUCAN AUTOMOBILE ist Ihr Fahrzeughändler bei München: geprüfte Gebrauchtwagen aller Marken, faire Preise, Garantie und transparente Abwicklung.",
     keywords: "Gebrauchtwagen München, Auto kaufen München, Fahrzeughandel München, BUCAN AUTOMOBILE",
     ogDescription: "Fahrzeughandel bei München. Geprüfte Fahrzeuge, faire Preise, Garantie.",
     vehiclesTitle: "Fahrzeuge – Bucan Automobile München",
@@ -37,7 +37,7 @@ export const de = {
     badge: "{rating} · {count} Bewertungen auf {source}",
     headline: ["Ihr nächstes Auto.", "Handverlesen in München."],
     subline:
-      "Geprüfte Gebrauchtwagen, transparente Historie und persönliche Betreuung – von der ersten Anfrage bis zur Übergabe.",
+      "Geprüfte Gebrauchtwagen, transparente Historie und persönliche Betreuung. Von der ersten Anfrage bis zur Übergabe.",
     ctaVehicles: "Fahrzeuge entdecken",
     ctaWhatsapp: "Per WhatsApp beraten lassen",
     whatsappPrefill: "Hallo Bucan Automobile, ich hätte gerne eine Beratung zu Ihren Fahrzeugen.",
@@ -47,7 +47,7 @@ export const de = {
       financing: "Flexible Finanzierung",
       delivery: "Lieferung nach Vereinbarung",
     },
-    imageAlt: "Fahrzeug aus dem Bestand von Bucan Automobile, inszeniert in einer dunklen Halle",
+    imageAlt: "Goldene Linienzeichnung einer Fahrzeugsilhouette, Bucan Automobile",
     scrollDown: "Nach unten scrollen",
   },
   spotlight: {
@@ -68,19 +68,19 @@ export const de = {
     title: "Was wir für Sie tun",
     financing: {
       title: "Flexible Finanzierung",
-      desc: "Wir helfen Ihnen, die passende Finanzierungslösung für Ihr Wunschfahrzeug zu finden – schnell, unkompliziert und transparent.",
+      desc: "Wir helfen Ihnen, die passende Finanzierungslösung für Ihr Wunschfahrzeug zu finden. Schnell, unkompliziert und transparent.",
     },
     delivery: {
       title: "Direktlieferung",
-      desc: "Auf Wunsch liefern wir Ihr neues Fahrzeug nach Vereinbarung direkt zu Ihnen nach Hause – bequem und ohne zusätzlichen Aufwand in München und Umgebung.",
+      desc: "Auf Wunsch liefern wir Ihr neues Fahrzeug nach Vereinbarung direkt zu Ihnen nach Hause. Bequem und ohne zusätzlichen Aufwand, in München und Umgebung.",
     },
     warranty: {
       title: "Garantie",
-      desc: "Für zusätzliche Sicherheit bieten wir zu unseren Fahrzeugen eine Gebrauchtwagen-Garantie an. Sprechen Sie uns an – wir beraten Sie gerne.",
+      desc: "Für zusätzliche Sicherheit bieten wir zu unseren Fahrzeugen eine Gebrauchtwagen-Garantie an. Sprechen Sie uns an, wir beraten Sie gerne.",
     },
     purchase: {
       title: "Fahrzeug Ankauf",
-      desc: "Wir kaufen Ihr Fahrzeug an und nehmen es in Zahlung – faire Preise, sofortige Abwicklung, kein Aufwand für Sie.",
+      desc: "Wir kaufen Ihr Fahrzeug an und nehmen es in Zahlung: faire Preise, sofortige Abwicklung, kein Aufwand für Sie.",
       link: "Fahrzeug anbieten",
     },
   },
@@ -142,7 +142,7 @@ export const de = {
   },
   contactForm: {
     title: "Schreiben Sie uns",
-    intro: "Wir antworten in der Regel innerhalb eines Werktags – per E-Mail oder auf Wunsch telefonisch.",
+    intro: "Wir antworten in der Regel innerhalb eines Werktags, per E-Mail oder auf Wunsch telefonisch.",
     name: "Name",
     email: "E-Mail",
     phone: "Telefon (optional)",
@@ -162,11 +162,11 @@ export const de = {
     eyebrow: "Fahrzeug Ankauf",
     title: ["Ihr Auto verkaufen.", "Fair, schnell, ohne Aufwand."],
     intro:
-      "Ob Inzahlungnahme oder Direktverkauf: Schicken Sie uns die Eckdaten und ein paar Fotos – Sie erhalten innerhalb von 24 Stunden ein Angebot. Ohne Inserat, ohne Besichtigungstourismus.",
+      "Ob Inzahlungnahme oder Direktverkauf: Schicken Sie uns die Eckdaten und ein paar Fotos. Sie erhalten innerhalb von 24 Stunden ein Angebot. Ohne Inserat, ohne Besichtigungstourismus.",
     chips: ["Faire Bewertung", "Angebot in 24 Stunden", "Inzahlungnahme möglich"],
     stepsTitle: "So läuft es ab",
     steps: [
-      { title: "Fahrzeug anbieten", desc: "Eckdaten und Fotos über das Formular senden – dauert etwa drei Minuten." },
+      { title: "Fahrzeug anbieten", desc: "Eckdaten und Fotos über das Formular senden. Das dauert etwa drei Minuten." },
       { title: "Angebot erhalten", desc: "Wir prüfen Ihre Angaben und melden uns innerhalb von 24 Stunden mit einem Preis." },
       { title: "Übergabe & Zahlung", desc: "Termin vereinbaren, Kaufvertrag unterschreiben, Geld erhalten. Abholung nach Absprache." },
     ],
@@ -216,7 +216,7 @@ export const de = {
     },
     error: "Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an.",
     usps: [
-      { title: "Alle Marken, alle Zustände", desc: "Auch mit hoher Laufleistung, ohne TÜV oder mit Schäden – wir machen Ihnen ein Angebot." },
+      { title: "Alle Marken, alle Zustände", desc: "Auch mit hoher Laufleistung, ohne TÜV oder mit Schäden: Wir machen Ihnen ein Angebot." },
       { title: "Schriftlicher Kaufvertrag", desc: "Klare Vereinbarung, keine versteckten Kosten, keine Nachverhandlung an der Haustür." },
       { title: "Inzahlungnahme", desc: "Verrechnen Sie Ihr Fahrzeug direkt mit einem Auto aus unserem Bestand." },
     ],
@@ -269,7 +269,7 @@ export const de = {
       back: "Zurück zur Übersicht",
       description: "Beschreibung",
       features: "Ausstattung",
-      whatsapp: "WhatsApp – Jetzt anfragen",
+      whatsapp: "Jetzt per WhatsApp anfragen",
       testDrive: "Probefahrt vereinbaren",
       sold: "Dieses Fahrzeug wurde bereits verkauft.",
       soldHint: "Schauen Sie unsere anderen Angebote an.",

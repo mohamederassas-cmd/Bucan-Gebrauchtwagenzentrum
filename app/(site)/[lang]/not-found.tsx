@@ -6,8 +6,8 @@ import { useI18n } from "@/lib/i18n/context";
 export default function NotFound() {
   const { t, path } = useI18n();
   return (
-    <main className="bg-ivory-100 min-h-screen">
-      <div className="bg-graphite-950 pt-32 sm:pt-40 pb-20 text-ivory-50">
+    <main className="relative z-10 min-h-screen">
+      <div className="pt-32 sm:pt-40 pb-20 text-ivory-50">
         <div className="max-w-3xl mx-auto px-5 text-center">
           <p className="eyebrow eyebrow-dark">404</p>
           <h1 className="mt-5 font-serif text-5xl sm:text-6xl">{t.notFound.title}</h1>

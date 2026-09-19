@@ -34,7 +34,7 @@ export default async function AnkaufPage({ params }: Params) {
   const icons = [BadgeCheck, FileSignature, Repeat];
 
   return (
-    <main className="bg-ivory-100 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: t.vehicles.detail.breadcrumbHome, path: localePath(locale, "/") },
@@ -43,7 +43,7 @@ export default async function AnkaufPage({ params }: Params) {
       />
 
       {/* Kopfband */}
-      <div className="relative bg-graphite-950 text-ivory-50 overflow-hidden">
+      <div className="relative text-ivory-50">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_70%_at_82%_30%,rgba(194,160,87,0.16),transparent_65%)]" aria-hidden="true" />
         <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-14 sm:pb-20">
           <p className="eyebrow eyebrow-dark eyebrow-left">{p.eyebrow}</p>
@@ -64,7 +64,7 @@ export default async function AnkaufPage({ params }: Params) {
       </div>
 
       {/* Ablauf – eine echte Reihenfolge, darum nummeriert */}
-      <section className="bg-graphite-900 text-ivory-50">
+      <section className="text-ivory-50">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
           <h2 className="sr-only">{p.stepsTitle}</h2>
           <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
@@ -82,6 +82,7 @@ export default async function AnkaufPage({ params }: Params) {
           </ol>
         </div>
       </section>
+      <div className="hairline" aria-hidden="true" />
 
       {/* Formular + Argumente */}
       <section className="py-16 sm:py-24">
@@ -95,11 +96,11 @@ export default async function AnkaufPage({ params }: Params) {
               return (
                 <Reveal key={usp.title} delay={i * 80}>
                   <div className="surface p-6">
-                    <div className="w-10 h-10 rounded-full border border-gold-300 text-gold-600 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-full border border-gold-500/40 text-gold-300 flex items-center justify-center mb-4">
                       <Icon size={18} strokeWidth={1.75} />
                     </div>
-                    <h3 className="font-semibold text-ink">{usp.title}</h3>
-                    <p className="mt-1.5 text-ink-500 text-sm leading-relaxed">{usp.desc}</p>
+                    <h3 className="font-semibold text-ivory-50">{usp.title}</h3>
+                    <p className="mt-1.5 text-ivory-50/60 text-sm leading-relaxed">{usp.desc}</p>
                   </div>
                 </Reveal>
               );

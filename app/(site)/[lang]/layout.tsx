@@ -8,6 +8,7 @@ import Navbar from "@/components/public/Navbar";
 import Footer from "@/components/public/Footer";
 import WhatsAppButton from "@/components/public/WhatsAppButton";
 import CookieBanner from "@/components/public/CookieBanner";
+import SiteBackground from "@/components/public/SiteBackground";
 
 type Params = { params: Promise<{ lang: string }> };
 
@@ -42,6 +43,8 @@ export default async function SiteLayout({ children, params }: Params & { childr
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
         </noscript>
+        {/* Feste animierte Bühne (z-0); jedes <main> und der Footer liegen als relative z-10 darüber */}
+        <SiteBackground />
         <I18nProvider locale={locale} dict={dict}>
           <Navbar />
           {children}

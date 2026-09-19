@@ -7,7 +7,7 @@ import { useI18n } from "@/lib/i18n/context";
 export default function WhatsAppButton() {
   const { t } = useI18n();
   const base =
-    "w-14 h-14 rounded-full flex items-center justify-center shadow-[0_12px_30px_-10px_rgba(0,0,0,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-100";
+    "w-14 h-14 rounded-full flex items-center justify-center shadow-[0_12px_30px_-10px_rgba(0,0,0,0.5)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite-950";
   return (
     <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-3 items-center">
       <a href={TEL_HREF} aria-label={t.whatsapp.callAria} className={`${base} bg-graphite-900 border border-white/10 text-gold-300`}>

@@ -62,7 +62,7 @@ export default function VehicleList({ vehicles }: Props) {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 text-ink-700 hover:text-ink active:text-gold-700 transition-colors font-medium text-sm rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
+              className="flex items-center gap-2 text-ivory-50/75 hover:text-ivory-50 active:text-gold-300 transition-colors font-medium text-sm rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
             >
               <SlidersHorizontal size={16} />
               {showFilters ? f.hide : f.show}
@@ -70,7 +70,7 @@ export default function VehicleList({ vehicles }: Props) {
             {hasFilters && (
               <button
                 onClick={resetFilters}
-                className="flex items-center gap-1 text-xs text-gold-700 hover:text-ink transition-colors ml-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
+                className="flex items-center gap-1 text-xs text-gold-300 hover:text-ivory-50 transition-colors ml-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60"
               >
                 <X size={13} /> {f.reset}
               </button>
@@ -78,7 +78,7 @@ export default function VehicleList({ vehicles }: Props) {
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-ink-500 text-sm hidden sm:block">{f.sort}</span>
+            <span className="text-ivory-50/55 text-sm hidden sm:block">{f.sort}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
@@ -94,10 +94,10 @@ export default function VehicleList({ vehicles }: Props) {
         </div>
 
         {showFilters && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5 border-t border-sand">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5 border-t border-white/10">
             {/* Status */}
             <div>
-              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.status}</label>
+              <label className="text-[11px] text-ivory-50/55 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.status}</label>
               <div className="flex flex-wrap gap-2">
                 {[
                   { value: "all", label: f.all },
@@ -110,8 +110,8 @@ export default function VehicleList({ vehicles }: Props) {
                     onClick={() => setStatus(opt.value as typeof status)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
                       status === opt.value
-                        ? "bg-ink text-ivory-50 font-semibold"
-                        : "bg-ivory-200 text-ink-700 hover:bg-ivory-300 active:bg-sand"
+                        ? "bg-ivory-50 text-ink font-semibold"
+                        : "bg-white/5 text-ivory-50/70 hover:bg-white/10 active:bg-white/15"
                     }`}
                   >
                     {opt.label}
@@ -122,7 +122,7 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Fuel */}
             <div>
-              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.fuel}</label>
+              <label className="text-[11px] text-ivory-50/55 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.fuel}</label>
               <select
                 value={fuel}
                 onChange={(e) => setFuel(e.target.value as typeof fuel)}
@@ -138,7 +138,7 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Transmission */}
             <div>
-              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.transmission}</label>
+              <label className="text-[11px] text-ivory-50/55 tracking-[0.16em] uppercase font-semibold mb-2 block">{f.transmission}</label>
               <div className="flex gap-2">
                 {[
                   { value: "all", label: f.all },
@@ -149,8 +149,8 @@ export default function VehicleList({ vehicles }: Props) {
                     onClick={() => setTransmission(opt.value as typeof transmission)}
                     className={`flex-1 px-2 py-1.5 rounded-full text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60 ${
                       transmission === opt.value
-                        ? "bg-ink text-ivory-50 font-semibold"
-                        : "bg-ivory-200 text-ink-700 hover:bg-ivory-300 active:bg-sand"
+                        ? "bg-ivory-50 text-ink font-semibold"
+                        : "bg-white/5 text-ivory-50/70 hover:bg-white/10 active:bg-white/15"
                     }`}
                   >
                     {opt.label}
@@ -161,8 +161,8 @@ export default function VehicleList({ vehicles }: Props) {
 
             {/* Max Price */}
             <div>
-              <label className="text-[11px] text-ink-500 tracking-[0.16em] uppercase font-semibold mb-2 block">
-                {f.maxPrice} <span className="text-gold-700 font-semibold tabular-nums">{formatNumber(maxPrice, locale)} €</span>
+              <label className="text-[11px] text-ivory-50/55 tracking-[0.16em] uppercase font-semibold mb-2 block">
+                {f.maxPrice} <span className="text-gold-200 font-semibold tabular-nums">{formatNumber(maxPrice, locale)} €</span>
               </label>
               <input
                 type="range"
@@ -180,7 +180,7 @@ export default function VehicleList({ vehicles }: Props) {
       </div>
 
       {/* Results Count */}
-      <div className="text-ink-500 text-sm mb-6 font-medium">
+      <div className="text-ivory-50/60 text-sm mb-6 font-medium">
         {filtered.length === 1 ? t.vehicles.foundOne : fmt(t.vehicles.found, { count: filtered.length })}
       </div>
 
@@ -193,9 +193,9 @@ export default function VehicleList({ vehicles }: Props) {
         </div>
       ) : (
         <div className="text-center py-24">
-          <h3 className="font-serif text-3xl text-ink mb-2">{t.vehicles.empty}</h3>
-          <p className="text-ink-500 text-sm mb-6">{t.vehicles.emptyHint}</p>
-          <button onClick={resetFilters} className="btn-outline-ink px-6 py-3 text-sm">
+          <h3 className="font-serif text-3xl text-ivory-50 mb-2">{t.vehicles.empty}</h3>
+          <p className="text-ivory-50/60 text-sm mb-6">{t.vehicles.emptyHint}</p>
+          <button onClick={resetFilters} className="btn-ghost-light px-6 py-3 text-sm">
             {t.vehicles.resetFilters}
           </button>
         </div>

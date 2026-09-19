@@ -47,9 +47,9 @@ export default function ContactForm({ token }: Props) {
   if (status === "success") {
     return (
       <div className="h-full flex flex-col items-start justify-center py-6" role="status">
-        <CheckCircle2 size={40} className="text-gold-600 mb-5" strokeWidth={1.5} />
-        <h3 className="font-serif text-3xl text-ink">{f.successTitle}</h3>
-        <p className="mt-3 text-ink-700 leading-relaxed max-w-md">{f.successText}</p>
+        <CheckCircle2 size={40} className="text-gold-300 mb-5" strokeWidth={1.5} />
+        <h3 className="font-serif text-3xl text-ivory-50">{f.successTitle}</h3>
+        <p className="mt-3 text-ivory-50/75 leading-relaxed max-w-md">{f.successText}</p>
         <button
           type="button"
           onClick={() => {
@@ -64,13 +64,13 @@ export default function ContactForm({ token }: Props) {
     );
   }
 
-  const label = "block text-[13px] font-semibold text-ink mb-1.5";
+  const label = "block text-[13px] font-semibold text-ivory-50 mb-1.5";
 
   return (
     <form onSubmit={submit} noValidate className="space-y-5">
       <div>
-        <h3 className="font-serif text-3xl text-ink">{f.title}</h3>
-        <p className="mt-2 text-ink-500 text-sm leading-relaxed">{f.intro}</p>
+        <h3 className="font-serif text-3xl text-ivory-50">{f.title}</h3>
+        <p className="mt-2 text-ivory-50/60 text-sm leading-relaxed">{f.intro}</p>
       </div>
 
       {/* Honeypot – für Menschen unsichtbar */}
@@ -81,11 +81,11 @@ export default function ContactForm({ token }: Props) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="cf-name" className={label}>{f.name} <span className="text-gold-700" aria-hidden="true">*</span></label>
+          <label htmlFor="cf-name" className={label}>{f.name} <span className="text-gold-300" aria-hidden="true">*</span></label>
           <input id="cf-name" name="name" type="text" required autoComplete="name" maxLength={80} className="input" value={form.name} onChange={(e) => set("name", e.target.value)} />
         </div>
         <div>
-          <label htmlFor="cf-email" className={label}>{f.email} <span className="text-gold-700" aria-hidden="true">*</span></label>
+          <label htmlFor="cf-email" className={label}>{f.email} <span className="text-gold-300" aria-hidden="true">*</span></label>
           <input id="cf-email" name="email" type="email" required autoComplete="email" inputMode="email" maxLength={120} className="input" value={form.email} onChange={(e) => set("email", e.target.value)} />
         </div>
       </div>
@@ -94,11 +94,11 @@ export default function ContactForm({ token }: Props) {
         <input id="cf-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={30} className="input" value={form.phone} onChange={(e) => set("phone", e.target.value)} />
       </div>
       <div>
-        <label htmlFor="cf-message" className={label}>{f.message} <span className="text-gold-700" aria-hidden="true">*</span></label>
+        <label htmlFor="cf-message" className={label}>{f.message} <span className="text-gold-300" aria-hidden="true">*</span></label>
         <textarea id="cf-message" name="message" required rows={5} maxLength={2000} placeholder={f.messagePlaceholder} className="input resize-y min-h-[8rem]" value={form.message} onChange={(e) => set("message", e.target.value)} />
       </div>
 
-      <label className="flex items-start gap-3 cursor-pointer text-sm text-ink-700 leading-relaxed">
+      <label className="flex items-start gap-3 cursor-pointer text-sm text-ivory-50/75 leading-relaxed">
         <input type="checkbox" required className="checkbox-gold" checked={form.consent} onChange={(e) => set("consent", e.target.checked)} />
         <span>
           {f.consent.split("{privacy}")[0]}
@@ -108,12 +108,12 @@ export default function ContactForm({ token }: Props) {
       </label>
 
       {error && (
-        <p role="alert" className="input-error text-sm bg-[#FBEDEB] border border-[#EAC2BD] rounded-xl px-4 py-3 !mt-4">
+        <p role="alert" className="input-error error-box text-sm !mt-4">
           {error}
         </p>
       )}
 
-      <button type="submit" disabled={status === "sending"} className="btn-ink px-7 py-4 text-[15px] w-full sm:w-auto disabled:opacity-60 disabled:cursor-wait">
+      <button type="submit" disabled={status === "sending"} className="btn-gold px-7 py-4 text-[15px] w-full sm:w-auto disabled:opacity-60 disabled:cursor-wait">
         {status === "sending" ? <Loader2 size={17} className="animate-spin" /> : <Send size={16} />}
         {status === "sending" ? f.sending : f.submit}
       </button>

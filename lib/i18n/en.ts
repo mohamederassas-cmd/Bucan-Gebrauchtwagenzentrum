@@ -5,7 +5,7 @@ export const en: Dictionary = {
   meta: {
     title: "BUCAN AUTOMOBILE – Used Cars Munich",
     description:
-      "BUCAN AUTOMOBILE – your car dealer near Munich. Inspected used cars of all brands, fair prices, warranty and transparent handling.",
+      "BUCAN AUTOMOBILE is your car dealer near Munich: inspected used cars of all brands, fair prices, warranty and transparent handling.",
     keywords: "used cars Munich, buy a car Munich, car dealer Munich, BUCAN AUTOMOBILE",
     ogDescription: "Car dealer near Munich. Inspected vehicles, fair prices, warranty.",
     vehiclesTitle: "Vehicles – Bucan Automobile Munich",
@@ -35,7 +35,7 @@ export const en: Dictionary = {
     badge: "{rating} · {count} reviews on {source}",
     headline: ["Your next car.", "Hand-picked in Munich."],
     subline:
-      "Inspected used cars, transparent history and personal service – from your first enquiry to the handover.",
+      "Inspected used cars, transparent history and personal service. From your first enquiry to the handover.",
     ctaVehicles: "Browse vehicles",
     ctaWhatsapp: "Get advice on WhatsApp",
     whatsappPrefill: "Hello Bucan Automobile, I would like some advice on your vehicles.",
@@ -45,7 +45,7 @@ export const en: Dictionary = {
       financing: "Flexible financing",
       delivery: "Delivery by arrangement",
     },
-    imageAlt: "Vehicle from the Bucan Automobile stock, staged in a dark showroom",
+    imageAlt: "Gold line drawing of a car silhouette, Bucan Automobile",
     scrollDown: "Scroll down",
   },
   spotlight: {
@@ -66,19 +66,19 @@ export const en: Dictionary = {
     title: "What we do for you",
     financing: {
       title: "Flexible financing",
-      desc: "We help you find the right financing solution for the car you want – fast, straightforward and transparent.",
+      desc: "We help you find the right financing solution for the car you want. Fast, straightforward and transparent.",
     },
     delivery: {
       title: "Home delivery",
-      desc: "On request and by arrangement we deliver your new car right to your door – convenient and hassle-free in Munich and the surrounding area.",
+      desc: "On request and by arrangement we deliver your new car right to your door. Convenient and hassle-free in Munich and the surrounding area.",
     },
     warranty: {
       title: "Warranty",
-      desc: "For extra peace of mind we offer a used-car warranty with our vehicles. Talk to us – we are happy to advise you.",
+      desc: "For extra peace of mind we offer a used-car warranty with our vehicles. Talk to us, we are happy to advise you.",
     },
     purchase: {
       title: "We buy your car",
-      desc: "We buy your vehicle or take it in part exchange – fair prices, immediate handling, no effort for you.",
+      desc: "We buy your vehicle or take it in part exchange: fair prices, immediate handling, no effort for you.",
       link: "Offer your vehicle",
     },
   },
@@ -140,7 +140,7 @@ export const en: Dictionary = {
   },
   contactForm: {
     title: "Write to us",
-    intro: "We usually reply within one working day – by email or, if you prefer, by phone.",
+    intro: "We usually reply within one working day, by email or, if you prefer, by phone.",
     name: "Name",
     email: "Email",
     phone: "Phone (optional)",
@@ -164,7 +164,7 @@ export const en: Dictionary = {
     chips: ["Fair valuation", "Offer within 24 hours", "Part exchange possible"],
     stepsTitle: "How it works",
     steps: [
-      { title: "Offer your car", desc: "Send the key facts and photos via the form – it takes about three minutes." },
+      { title: "Offer your car", desc: "Send the key facts and photos via the form. It takes about three minutes." },
       { title: "Receive an offer", desc: "We check your details and get back to you with a price within 24 hours." },
       { title: "Handover & payment", desc: "Arrange an appointment, sign the purchase contract, receive your money. Collection by arrangement." },
     ],
@@ -214,7 +214,7 @@ export const en: Dictionary = {
     },
     error: "Sending failed. Please try again or give us a call.",
     usps: [
-      { title: "All makes, all conditions", desc: "High mileage, no MOT or with damage – we will still make you an offer." },
+      { title: "All makes, all conditions", desc: "High mileage, no MOT or with damage: we will still make you an offer." },
       { title: "Written purchase contract", desc: "A clear agreement, no hidden costs, no renegotiation at your door." },
       { title: "Part exchange", desc: "Offset your car directly against a vehicle from our stock." },
     ],
@@ -267,7 +267,7 @@ export const en: Dictionary = {
       back: "Back to overview",
       description: "Description",
       features: "Equipment",
-      whatsapp: "WhatsApp – enquire now",
+      whatsapp: "Enquire now on WhatsApp",
       testDrive: "Arrange a test drive",
       sold: "This vehicle has already been sold.",
       soldHint: "Have a look at our other offers.",

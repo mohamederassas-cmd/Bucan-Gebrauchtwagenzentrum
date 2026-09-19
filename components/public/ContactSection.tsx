@@ -17,15 +17,15 @@ export default function ContactSection({ formToken }: Props) {
   const [weekdays, saturday] = SITE.openingHours;
 
   const row = "flex items-start gap-4 group rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/60";
-  const icon = "w-11 h-11 rounded-full border border-gold-300 text-gold-600 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-gold-500 group-hover:text-ink group-hover:border-gold-500";
-  const small = "text-[11px] text-ink-500 tracking-[0.18em] uppercase font-semibold mb-1";
+  const icon = "w-11 h-11 rounded-full border border-gold-500/40 text-gold-300 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-gold-500 group-hover:text-ink group-hover:border-gold-500";
+  const small = "text-[11px] text-ivory-50/55 tracking-[0.18em] uppercase font-semibold mb-1";
 
   return (
-    <section id="kontakt" className="py-20 sm:py-28 bg-ivory-100">
+    <section id="kontakt" className="py-20 sm:py-28">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14">
           <p className="eyebrow">{c.eyebrow}</p>
-          <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-ink">{c.title}</h2>
+          <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-ivory-50">{c.title}</h2>
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -44,44 +44,44 @@ export default function ContactSection({ formToken }: Props) {
                   <div className={icon}><Phone size={18} strokeWidth={1.75} /></div>
                   <div>
                     <div className={small}>{c.phone}</div>
-                    <div className="text-ink font-semibold">{SITE.phoneDisplay}</div>
+                    <div className="text-ivory-50 font-semibold">{SITE.phoneDisplay}</div>
                   </div>
                 </a>
                 <a href={whatsappUrl(t.whatsapp.prefill)} target="_blank" rel="noopener noreferrer" className={row}>
                   <div className={icon}><MessageCircle size={18} strokeWidth={1.75} /></div>
                   <div>
                     <div className={small}>{c.whatsapp}</div>
-                    <div className="text-ink font-semibold">{c.whatsappCta}</div>
+                    <div className="text-ivory-50 font-semibold">{c.whatsappCta}</div>
                   </div>
                 </a>
                 <a href={MAIL_HREF} className={row}>
                   <div className={icon}><Mail size={18} strokeWidth={1.75} /></div>
                   <div>
                     <div className={small}>{c.email}</div>
-                    <div className="text-ink font-semibold break-all">{SITE.email}</div>
+                    <div className="text-ivory-50 font-semibold break-all">{SITE.email}</div>
                   </div>
                 </a>
                 <a href={SITE.mapsDirections} target="_blank" rel="noopener noreferrer" className={row}>
                   <div className={icon}><MapPin size={18} strokeWidth={1.75} /></div>
                   <div>
                     <div className={small}>{c.address}</div>
-                    <div className="text-ink font-semibold">
+                    <div className="text-ivory-50 font-semibold">
                       {SITE.address.street}
                       <br />
-                      <span className="font-normal text-ink-500">{SITE.address.zip} {SITE.address.city}</span>
+                      <span className="font-normal text-ivory-50/55">{SITE.address.zip} {SITE.address.city}</span>
                     </div>
                   </div>
                 </a>
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-full border border-gold-300 text-gold-600 flex items-center justify-center flex-shrink-0"><Clock size={18} strokeWidth={1.75} /></div>
+                  <div className="w-11 h-11 rounded-full border border-gold-500/40 text-gold-300 flex items-center justify-center flex-shrink-0"><Clock size={18} strokeWidth={1.75} /></div>
                   <div>
                     <div className={small}>{c.hours}</div>
-                    <div className="text-ink font-semibold tabular-nums">
+                    <div className="text-ivory-50 font-semibold tabular-nums">
                       {c.weekdays}: {weekdays.opens} – {weekdays.closes}{c.timeSuffix}
                       <br />
                       {c.saturday}: {saturday.opens} – {saturday.closes}{c.timeSuffix}
                     </div>
-                    <div className="text-ink-500 text-sm mt-1">{c.hoursNote}</div>
+                    <div className="text-ivory-50/55 text-sm mt-1">{c.hoursNote}</div>
                   </div>
                 </div>
               </div>

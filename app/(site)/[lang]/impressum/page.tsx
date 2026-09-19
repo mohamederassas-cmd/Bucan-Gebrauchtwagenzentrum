@@ -7,17 +7,17 @@ export const metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main className="bg-ivory-100 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <PageHeader eyebrow="Rechtliches" title="Impressum" />
 
       <div className="py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="space-y-10 text-ink-700 leading-relaxed">
+          <div className="space-y-10 text-ivory-50/75 leading-relaxed">
             <section>
               <h2 className="eyebrow eyebrow-left mb-4">
                 Angaben gemäß § 5 TMG
               </h2>
-              <p className="text-ink font-semibold text-lg mb-1">Denis Bucan</p>
+              <p className="text-ivory-50 font-semibold text-lg mb-1">Denis Bucan</p>
               <p>BUCAN AUTOMOBILE</p>
               <p>Fichtenstrasse 40</p>
               <p>85649 Hofolding</p>
@@ -44,7 +44,7 @@ export default function ImpressumPage() {
               <p>
                 Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
                 <br />
-                <span className="text-ink font-semibold">DE331172770</span>
+                <span className="text-ivory-50 font-semibold">DE331172770</span>
               </p>
             </section>
 
@@ -115,17 +115,17 @@ export default function ImpressumPage() {
                 Informations- und Servicetexte. Die technische Umsetzung erfolgte durch die HYBOTE AI Systems LLC.
               </p>
               <p className="mt-3">
-                Ausdrücklich <span className="text-ink font-semibold">nicht</span> mit Künstlicher Intelligenz
+                Ausdrücklich <span className="text-ivory-50 font-semibold">nicht</span> mit Künstlicher Intelligenz
                 erstellt sind:
               </p>
               <ul className="list-disc list-inside space-y-1 mt-2">
                 <li>
-                  die Kundenbewertungen – dabei handelt es sich um echte, unveränderte Rückmeldungen von Käuferinnen
+                  die Kundenbewertungen. Dabei handelt es sich um echte, unveränderte Rückmeldungen von Käuferinnen
                   und Käufern über mobile.de
                 </li>
                 <li>
                   sämtliche Fahrzeugangaben und Fahrzeugbeschreibungen einschließlich Zustand, Laufleistung,
-                  Ausstattung und Preisen – diese stammen ausschließlich von uns
+                  Ausstattung und Preisen. Diese stammen ausschließlich von uns
                 </li>
                 <li>die Kontakt- und Unternehmensangaben</li>
                 <li>die rechtlichen Hinweise auf dieser Seite sowie in der Datenschutzerklärung</li>

@@ -41,24 +41,24 @@ export default function ConsentMap({ compact = false }: { compact?: boolean }) {
           title={t.contact.map.title}
         />
       ) : (
-        <div className="bg-ivory-200 h-full flex flex-col items-center justify-center text-center px-6 py-10" style={{ minHeight }}>
-          <div className="w-11 h-11 rounded-full border border-gold-300 text-gold-600 flex items-center justify-center mb-4">
+        <div className="h-full flex flex-col items-center justify-center text-center px-6 py-10" style={{ minHeight }}>
+          <div className="w-11 h-11 rounded-full border border-gold-500/40 text-gold-300 flex items-center justify-center mb-4">
             <MapPin size={18} strokeWidth={1.75} />
           </div>
-          <p className="text-ink font-semibold">{SITE.name}</p>
-          <p className="text-ink-700 text-sm mt-1">
+          <p className="text-ivory-50 font-semibold">{SITE.name}</p>
+          <p className="text-ivory-50/75 text-sm mt-1">
             {SITE.address.street}
             <br />
             {SITE.address.zip} {SITE.address.city}
           </p>
-          <p className="text-ink-500 text-xs leading-relaxed mt-5 max-w-xs">
+          <p className="text-ivory-50/55 text-xs leading-relaxed mt-5 max-w-xs">
             {t.contact.map.consent}{" "}
             <Link href="/datenschutz" className="link-gold">
               {t.contact.map.privacy}
             </Link>
             .
           </p>
-          <button type="button" onClick={loadMap} className="btn-ink mt-6 px-6 py-3 text-sm">
+          <button type="button" onClick={loadMap} className="btn-gold mt-6 px-6 py-3 text-sm">
             {t.contact.map.load}
           </button>
           <a

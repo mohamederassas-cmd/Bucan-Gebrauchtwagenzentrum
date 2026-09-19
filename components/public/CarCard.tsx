@@ -29,10 +29,10 @@ export default function CarCard({ vehicle }: Props) {
   return (
     <Link
       href={path(`/fahrzeuge/${vehicle.id}`)}
-      className="group block h-full surface surface-hover overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory-100 cursor-pointer"
+      className="group block h-full surface surface-hover overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite-950 cursor-pointer"
     >
       {/* Bild */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-ivory-200">
+      <div className="relative aspect-[16/10] overflow-hidden bg-graphite-800">
         <Image
           src={mainImage}
           alt={`${vehicle.make} ${vehicle.model}`}
@@ -58,21 +58,21 @@ export default function CarCard({ vehicle }: Props) {
 
       {/* Inhalt */}
       <div className="p-5">
-        <h3 className="text-ink text-lg font-semibold leading-snug">
-          {vehicle.make} <span className="font-normal text-ink-700">{vehicle.model}</span>
+        <h3 className="text-ivory-50 text-lg font-semibold leading-snug">
+          {vehicle.make} <span className="font-normal text-ivory-50/75">{vehicle.model}</span>
         </h3>
 
-        <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-ink-500 text-[13px] tabular-nums">
+        <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-ivory-50/55 text-[13px] tabular-nums">
           {specs.map((spec, i) => (
             <li key={spec} className="flex items-center gap-x-3">
-              {i > 0 && <span className="w-px h-3 bg-sand" aria-hidden="true" />}
+              {i > 0 && <span className="w-px h-3 bg-white/15" aria-hidden="true" />}
               {spec}
             </li>
           ))}
         </ul>
 
-        <div className="mt-4 pt-4 border-t border-sand flex items-center justify-between text-sm">
-          <span className="text-gold-700 font-semibold inline-flex items-center gap-1.5">
+        <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-sm">
+          <span className="text-gold-300 font-semibold inline-flex items-center gap-1.5">
             {t.vehicles.details}
             <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
           </span>

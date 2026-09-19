@@ -53,22 +53,10 @@ const config: Config = {
       },
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",
-        "hero-settle": "heroSettle 1.6s cubic-bezier(0.16,1,0.3,1) forwards",
-        "hero-sweep": "heroSweep 14s cubic-bezier(0.45,0,0.2,1) 1.1s infinite",
         "rise": "rise 0.9s cubic-bezier(0.16,1,0.3,1) both",
       },
       keyframes: {
         fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
-        heroSettle: {
-          "0%": { transform: "scale(1.06) translateX(1.5%)", opacity: "0.001" },
-          "100%": { transform: "scale(1) translateX(0)", opacity: "1" },
-        },
-        heroSweep: {
-          "0%": { transform: "translateX(-130%) skewX(-14deg)", opacity: "0" },
-          "4%": { opacity: "1" },
-          "18%": { transform: "translateX(130%) skewX(-14deg)", opacity: "1" },
-          "19%, 100%": { transform: "translateX(130%) skewX(-14deg)", opacity: "0" },
-        },
         rise: {
           "0%": { transform: "translateY(28px)", opacity: "0.001" },
           "100%": { transform: "translateY(0)", opacity: "1" },
