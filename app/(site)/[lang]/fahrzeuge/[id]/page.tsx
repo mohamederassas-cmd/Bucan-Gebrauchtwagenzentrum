@@ -10,6 +10,8 @@ import Navbar from "@/components/public/Navbar";
 import Footer from "@/components/public/Footer";
 import WhatsAppButton from "@/components/public/WhatsAppButton";
 import ImageGallery from "@/components/public/ImageGallery";
+import JsonLd from "@/components/public/JsonLd";
+import { vehicleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { Phone, MessageCircle, Gauge, Zap, Fuel, Settings, Palette, Calendar, ArrowLeft } from "lucide-react";
 
 // Keine Vorab-Generierung: neue/gelöschte Fahrzeuge müssen sofort sichtbar sein
@@ -65,6 +67,16 @@ export default async function VehicleDetailPage({ params }: Params) {
 
   return (
     <main className="bg-slate-50 min-h-screen">
+      <JsonLd
+        data={[
+          vehicleJsonLd(vehicle, locale),
+          breadcrumbJsonLd([
+            { name: d.breadcrumbHome, path: localePath(locale, "/") },
+            { name: t.vehicles.title, path: localePath(locale, "/fahrzeuge") },
+            { name: vehicleName, path: localePath(locale, `/fahrzeuge/${vehicle.id}`) },
+          ]),
+        ]}
+      />
       <Navbar />
 
       <div className="pt-28 pb-24">

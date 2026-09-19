@@ -3,6 +3,7 @@
 import { CreditCard, Truck, RefreshCw, ShieldCheck, ArrowRight } from "lucide-react";
 import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
+import Reveal from "./Reveal";
 
 export default function ServicesSection() {
   const { t } = useI18n();
@@ -17,14 +18,14 @@ export default function ServicesSection() {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-14">
+        <Reveal className="text-center mb-14">
           <p className="text-accent font-semibold text-sm tracking-widest uppercase mb-4">
             {t.services.eyebrow}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
             {t.services.title}
           </h2>
-        </div>
+        </Reveal>
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -51,24 +52,21 @@ export default function ServicesSection() {
               </div>
             );
 
-            if (service.link) {
-              return (
-                <a
-                  key={service.title}
-                  href={service.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group"
-                >
-                  {content}
-                </a>
-              );
-            }
-
             return (
-              <div key={service.title}>
-                {content}
-              </div>
+              <Reveal key={service.title} delay={i * 80} className="h-full">
+                {service.link ? (
+                  <a
+                    href={service.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  content
+                )}
+              </Reveal>
             );
           })}
         </div>

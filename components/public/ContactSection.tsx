@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, MessageCircle, Clock } from "lucide-react";
 import ConsentMap from "@/components/public/ConsentMap";
 import { SITE, TEL_HREF, MAIL_HREF, whatsappUrl } from "@/lib/site";
 import { useI18n } from "@/lib/i18n/context";
+import Reveal from "./Reveal";
 
 export default function ContactSection() {
   const { t } = useI18n();
@@ -14,15 +15,15 @@ export default function ContactSection() {
     <section id="kontakt" className="py-24 bg-slate-50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <p className="text-accent font-semibold text-sm tracking-widest uppercase mb-4">{c.eyebrow}</p>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">{c.title}</h2>
           <div className="section-divider" />
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left: Contact Info */}
-          <div className="space-y-8">
+          <Reveal className="space-y-8">
             <div className="card p-8">
               <h3 className="text-xl font-bold text-slate-900 mb-6">{SITE.name}</h3>
               <div className="space-y-5">
@@ -111,10 +112,12 @@ export default function ContactSection() {
                 {c.whatsapp}
               </a>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right: Google Maps – lädt erst nach Einwilligung (§ 25 TDDDG) */}
-          <ConsentMap />
+          <Reveal delay={120}>
+            <ConsentMap />
+          </Reveal>
         </div>
       </div>
     </section>

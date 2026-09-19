@@ -8,6 +8,9 @@ import ContactSection from "@/components/public/ContactSection";
 import CarCard from "@/components/public/CarCard";
 import WhatsAppButton from "@/components/public/WhatsAppButton";
 import CookieBanner from "@/components/public/CookieBanner";
+import JsonLd from "@/components/public/JsonLd";
+import Reveal from "@/components/public/Reveal";
+import { autoDealerJsonLd } from "@/lib/seo";
 import { getFeaturedVehicles } from "@/lib/vehicles";
 import { getDictionary, toLocale, localePath } from "@/lib/i18n";
 import Link from "next/link";
@@ -49,6 +52,7 @@ export default async function Home({ params }: Params) {
 
   return (
     <main className="bg-slate-50 min-h-screen">
+      <JsonLd data={autoDealerJsonLd()} />
       <Navbar />
 
       {/* Hero */}
@@ -60,7 +64,7 @@ export default async function Home({ params }: Params) {
       {/* Featured Vehicles */}
       <section className="py-24 bg-slate-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <Reveal className="text-center mb-16">
             <p className="text-accent font-semibold tracking-widest text-sm uppercase mb-4">
               {t.featured.eyebrow}
             </p>
@@ -68,13 +72,15 @@ export default async function Home({ params }: Params) {
               {t.featured.title}
             </h2>
             <div className="section-divider" />
-          </div>
+          </Reveal>
 
           {featuredVehicles.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                {featuredVehicles.map((vehicle) => (
-                  <CarCard key={vehicle.id} vehicle={vehicle} />
+                {featuredVehicles.map((vehicle, i) => (
+                  <Reveal key={vehicle.id} delay={Math.min(i, 5) * 80}>
+                    <CarCard vehicle={vehicle} />
+                  </Reveal>
                 ))}
               </div>
               <div className="text-center">
@@ -96,7 +102,7 @@ export default async function Home({ params }: Params) {
       <section id="ueber-uns" className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
+            <Reveal>
               <p className="text-accent font-semibold tracking-widest text-sm uppercase mb-4">
                 {t.about.eyebrow}
               </p>
@@ -115,15 +121,17 @@ export default async function Home({ params }: Params) {
                   </div>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {usps.map((usp) => (
-                <div key={usp.title} className="card p-6 hover:border-accent/30">
-                  <div className="mb-3">{usp.icon}</div>
-                  <h3 className="font-semibold text-slate-900 mb-2">{usp.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{usp.desc}</p>
-                </div>
+              {usps.map((usp, i) => (
+                <Reveal key={usp.title} delay={i * 80} className="h-full">
+                  <div className="card p-6 h-full hover:border-accent/30">
+                    <div className="mb-3">{usp.icon}</div>
+                    <h3 className="font-semibold text-slate-900 mb-2">{usp.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{usp.desc}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>

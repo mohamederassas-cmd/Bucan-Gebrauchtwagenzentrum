@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { fmt } from "@/lib/i18n";
+import Reveal from "./Reveal";
 
 const reviews = [
   {
@@ -96,7 +97,7 @@ export default function ReviewsSection() {
     <section id="bewertungen" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <p className="text-accent font-semibold text-sm tracking-widest uppercase mb-4">
             {t.reviews.eyebrow}
           </p>
@@ -113,7 +114,7 @@ export default function ReviewsSection() {
             <span className="text-slate-900 font-bold text-xl">{locale === "en" ? "5.0" : "5,0"}</span>
             <span className="text-slate-500 text-sm">{t.reviews.count}</span>
           </div>
-        </div>
+        </Reveal>
 
         {/* Reviews grid */}
         <div
