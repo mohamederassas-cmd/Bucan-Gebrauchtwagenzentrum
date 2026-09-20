@@ -81,7 +81,7 @@ function buildMail(i: Inquiry): { subject: string; html: string; text: string } 
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A98847">${i.type === "purchase" ? "Fahrzeug-Ankauf" : "Kontaktformular"} · ${esc(SITE.name)}</p>
 <h1 style="margin:0 0 18px;font-size:20px;color:#15171A;font-weight:600">${esc(subject)}</h1>
 <table style="border-collapse:collapse;width:100%">${rows.join("")}</table>
-<p style="margin:22px 0 0;font-size:12px;color:#6B7079">Antworten Sie einfach auf diese E-Mail – die Antwort geht direkt an den Kunden. Alle Anfragen finden Sie auch unter ${esc(SITE.url)}/admin/anfragen.</p>
+<p style="margin:22px 0 0;font-size:12px;color:#6B7079">Antworten Sie einfach auf diese E-Mail. Die Antwort geht direkt an den Kunden. Alle Anfragen finden Sie auch unter ${esc(SITE.url)}/admin/anfragen.</p>
 </div></body></html>`;
 
   return { subject, html, text: lines.filter(Boolean).join("\n") };
@@ -117,6 +117,15 @@ async function sendViaResend(msg: Message, apiKey: string): Promise<void> {
     ...msg,
   });
   if (error) throw new Error(`Resend: ${error.message}`);
+}
+
+/**
+ * Ist ein Versandweg hinterlegt? Wird im Admin fuer den Warnhinweis genutzt.
+ * Node-only (liest process.env), niemals aus der Middleware importieren.
+ */
+export function isMailConfigured(): boolean {
+  const { SMTP_HOST, SMTP_USER, SMTP_PASS, RESEND_API_KEY } = process.env;
+  return Boolean((SMTP_HOST && SMTP_USER && SMTP_PASS) || RESEND_API_KEY);
 }
 
 export async function sendInquiryMail(inquiry: Inquiry): Promise<void> {

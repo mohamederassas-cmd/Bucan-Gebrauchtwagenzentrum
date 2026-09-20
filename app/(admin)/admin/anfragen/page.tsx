@@ -1,5 +1,6 @@
 import { requireAdmin } from "@/lib/auth";
 import { listInquiries } from "@/lib/inquiries";
+import { isMailConfigured } from "@/lib/mail";
 import AdminLayout from "@/components/admin/AdminLayout";
 import InquiryList from "@/components/admin/InquiryList";
 
@@ -9,7 +10,7 @@ export default async function AdminInquiriesPage() {
   await requireAdmin();
   const inquiries = await listInquiries();
   const open = inquiries.filter((i) => i.status === "new").length;
-  const mailConfigured = !!process.env.RESEND_API_KEY;
+  const mailConfigured = isMailConfigured();
 
   return (
     <AdminLayout openInquiries={open}>
@@ -23,7 +24,8 @@ export default async function AdminInquiriesPage() {
 
         {!mailConfigured && (
           <div role="status" className="mb-6 bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 text-sm">
-            E-Mail-Versand ist noch nicht eingerichtet (RESEND_API_KEY fehlt). Anfragen werden trotzdem hier gespeichert.
+            E-Mail-Versand ist noch nicht eingerichtet: Es fehlen die Zugangsdaten des Postfachs
+            (SMTP_HOST, SMTP_USER, SMTP_PASS). Anfragen werden trotzdem hier gespeichert.
           </div>
         )}
 
