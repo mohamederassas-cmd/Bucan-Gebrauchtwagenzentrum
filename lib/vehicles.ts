@@ -54,14 +54,37 @@ export async function getFeaturedVehicles(): Promise<Vehicle[]> {
   return vehicles.filter((v) => v.featured && v.status !== "sold");
 }
 
+export interface SpotlightSelection {
+  /** Fahrzeug, das die Startseite tatsächlich als Fahrzeug der Woche zeigt. */
+  vehicle: Vehicle | null;
+  /**
+   * Gesetzt, wenn ein Fahrzeug markiert ist, aber nicht gezeigt wird (verkauft).
+   * Der Admin kann damit erklären, warum die Startseite ein anderes Fahrzeug zeigt.
+   */
+  hidden: Vehicle | null;
+}
+
+/**
+ * Welches Fahrzeug zeigt die Startseite als Fahrzeug der Woche und warum?
+ * Reihenfolge: markiertes Fahrzeug, sonst erstes Highlight. Verkaufte Fahrzeuge
+ * werden übersprungen.
+ */
+export async function getSpotlightSelection(): Promise<SpotlightSelection> {
+  const vehicles = await readVehicles();
+  const marked = vehicles.filter((v) => v.spotlight);
+  const vehicle =
+    marked.find((v) => v.status !== "sold") ??
+    vehicles.find((v) => v.featured && v.status !== "sold") ??
+    null;
+  return {
+    vehicle,
+    hidden: marked.length > 0 && !vehicle?.spotlight ? marked[0] : null,
+  };
+}
+
 /** Fahrzeug der Woche für den Startseiten-Showcase; Fallback: erstes Highlight. */
 export async function getSpotlightVehicle(): Promise<Vehicle | null> {
-  const vehicles = await readVehicles();
-  return (
-    vehicles.find((v) => v.spotlight && v.status !== "sold") ??
-    vehicles.find((v) => v.featured && v.status !== "sold") ??
-    null
-  );
+  return (await getSpotlightSelection()).vehicle;
 }
 
 export async function getVehicleById(id: string): Promise<Vehicle | null> {

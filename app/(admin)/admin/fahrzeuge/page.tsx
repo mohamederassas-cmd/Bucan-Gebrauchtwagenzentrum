@@ -1,4 +1,4 @@
-import { getAllVehicles } from "@/lib/vehicles";
+import { getAllVehicles, getSpotlightSelection } from "@/lib/vehicles";
 import AdminLayout from "@/components/admin/AdminLayout";
 import AdminVehicleTable from "@/components/admin/AdminVehicleTable";
 import Link from "next/link";
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminVehiclesPage() {
   await requireAdmin();
-  const vehicles = await getAllVehicles();
+  const [vehicles, spotlight] = await Promise.all([getAllVehicles(), getSpotlightSelection()]);
 
   return (
     <AdminLayout>
@@ -24,7 +24,7 @@ export default async function AdminVehiclesPage() {
           </Link>
         </div>
 
-        <AdminVehicleTable vehicles={vehicles} />
+        <AdminVehicleTable vehicles={vehicles} spotlightId={spotlight.vehicle?.id ?? null} />
       </div>
     </AdminLayout>
   );

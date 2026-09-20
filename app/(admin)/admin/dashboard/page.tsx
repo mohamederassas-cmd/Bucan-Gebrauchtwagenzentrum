@@ -1,4 +1,4 @@
-import { getVehicleStats, getAllVehicles, getSpotlightVehicle } from "@/lib/vehicles";
+import { getVehicleStats, getAllVehicles, getSpotlightSelection } from "@/lib/vehicles";
 import { getInquiryStats } from "@/lib/inquiries";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { formatPrice } from "@/lib/utils";
@@ -16,7 +16,7 @@ export default async function DashboardPage() {
     getAllVehicles(),
     isUsingBootstrapPassword(),
     getInquiryStats().catch(() => ({ total: 0, open: 0, byType: { contact: 0, purchase: 0 } })),
-    getSpotlightVehicle(),
+    getSpotlightSelection(),
   ]);
   const vehicles = allVehicles.slice(0, 5);
 
@@ -67,14 +67,32 @@ export default async function DashboardPage() {
           ))}
         </div>
 
-        {spotlight && (
+        {(spotlight.vehicle || spotlight.hidden) && (
           <div className="mb-6 flex items-center gap-3 bg-[#FBF6E9] border border-[#E9D9A6] rounded-lg p-4 text-sm text-[#5C4A1E]">
             <Crown size={18} className="text-[#C2A057] flex-shrink-0" />
             <span className="flex-1">
-              Fahrzeug der Woche: <strong>{spotlight.make} {spotlight.model}</strong>
-              {!spotlight.spotlight && " (automatisch – kein Fahrzeug markiert)"}
+              {spotlight.vehicle ? (
+                <>
+                  Fahrzeug der Woche auf der Website:{" "}
+                  <strong>{spotlight.vehicle.make} {spotlight.vehicle.model}</strong>
+                  {!spotlight.vehicle.spotlight &&
+                    (spotlight.hidden
+                      ? `. Automatisch gewählt, weil das markierte Fahrzeug (${spotlight.hidden.make} ${spotlight.hidden.model}) verkauft ist.`
+                      : ". Automatisch gewählt, weil kein Fahrzeug markiert ist.")}
+                </>
+              ) : (
+                <>
+                  Zurzeit wird kein Fahrzeug der Woche angezeigt: das markierte Fahrzeug{" "}
+                  <strong>{spotlight.hidden!.make} {spotlight.hidden!.model}</strong> ist verkauft.
+                </>
+              )}
             </span>
-            <Link href={`/admin/fahrzeuge/${spotlight.id}`} className="font-semibold underline hover:text-[#8A6E38]">Bearbeiten</Link>
+            <Link
+              href={`/admin/fahrzeuge/${(spotlight.vehicle ?? spotlight.hidden)!.id}`}
+              className="font-semibold underline hover:text-[#8A6E38]"
+            >
+              Bearbeiten
+            </Link>
           </div>
         )}
 

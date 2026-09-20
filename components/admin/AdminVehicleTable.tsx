@@ -9,12 +9,38 @@ import { Pencil, Trash2, Star, StarOff, Crown, ChevronDown, AlertCircle, X } fro
 
 interface Props {
   vehicles: Vehicle[];
+  /** Fahrzeug, das die Startseite gerade als Fahrzeug der Woche zeigt (ggf. automatisch gewählt). */
+  spotlightId: string | null;
 }
 
 const STATUS_OPTIONS = (Object.keys(STATUS_LABELS) as VehicleStatus[]).map((value) => ({
   value,
   label: STATUS_LABELS[value],
 }));
+
+/**
+ * Die Krone hat drei Zustände, damit Markierung und Startseite nicht auseinanderlaufen.
+ * Regel: Gold heißt „wird auf der Website gezeigt“, gefüllt heißt „selbst markiert“.
+ */
+function crownState(vehicle: Vehicle, spotlightId: string | null) {
+  const shown = vehicle.id === spotlightId;
+  if (vehicle.spotlight && shown) {
+    return { className: "fill-[#C2A057] text-[#C2A057]", title: "Fahrzeug der Woche (klicken zum Entfernen)" };
+  }
+  if (vehicle.spotlight) {
+    return {
+      className: "fill-[#CBD5E1] text-[#94A3B8]",
+      title: "Als Fahrzeug der Woche markiert, wird aber nicht angezeigt, weil verkauft",
+    };
+  }
+  if (shown) {
+    return {
+      className: "text-[#C2A057]",
+      title: "Wird zurzeit automatisch als Fahrzeug der Woche angezeigt (nicht markiert)",
+    };
+  }
+  return { className: "text-[#CBD5E1] hover:text-[#C2A057] transition-colors", title: "Als Fahrzeug der Woche setzen" };
+}
 
 /** Liest die deutsche Fehlermeldung aus einer API-Antwort. */
 async function errorMessage(res: Response, fallback: string): Promise<string> {
@@ -28,7 +54,7 @@ async function errorMessage(res: Response, fallback: string): Promise<string> {
   return fallback;
 }
 
-export default function AdminVehicleTable({ vehicles }: Props) {
+export default function AdminVehicleTable({ vehicles, spotlightId }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -123,6 +149,7 @@ export default function AdminVehicleTable({ vehicles }: Props) {
           <tbody className="divide-y divide-[#E2E8F0]">
             {vehicles.map((v) => {
               const isLoading = loading?.startsWith(v.id);
+              const crown = crownState(v, spotlightId);
               return (
                 <tr key={v.id} className={`hover:bg-[#F8FAFC] transition-colors ${isLoading ? "opacity-50" : ""}`}>
                   {/* Vehicle */}
@@ -202,13 +229,10 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                       onClick={() => setSpotlight(v.id, v.spotlight)}
                       disabled={!!loading}
                       aria-label={v.spotlight ? "Nicht mehr Fahrzeug der Woche" : "Als Fahrzeug der Woche setzen"}
-                      title={v.spotlight ? "Fahrzeug der Woche (klicken zum Entfernen)" : "Als Fahrzeug der Woche setzen"}
+                      title={crown.title}
                       className="transition-colors"
                     >
-                      <Crown
-                        size={18}
-                        className={v.spotlight ? "fill-[#C2A057] text-[#C2A057]" : "text-[#CBD5E1] hover:text-[#C2A057] transition-colors"}
-                      />
+                      <Crown size={18} className={crown.className} />
                     </button>
                   </td>
 
@@ -251,7 +275,9 @@ export default function AdminVehicleTable({ vehicles }: Props) {
 
       {/* Mobile Cards */}
       <div className="md:hidden divide-y divide-[#E2E8F0]">
-        {vehicles.map((v) => (
+        {vehicles.map((v) => {
+          const crown = crownState(v, spotlightId);
+          return (
           <div key={v.id} className={`p-4 ${loading?.startsWith(v.id) ? "opacity-50" : ""}`}>
             <div className="flex items-start justify-between gap-3 mb-3">
               <div>
@@ -279,6 +305,30 @@ export default function AdminVehicleTable({ vehicles }: Props) {
                   </option>
                 ))}
               </select>
+              <button
+                type="button"
+                onClick={() => toggleFeatured(v.id, v.featured)}
+                disabled={!!loading}
+                aria-label={v.featured ? "Von Highlights entfernen" : "Als Highlight setzen"}
+                title={v.featured ? "Von Highlights entfernen" : "Als Highlight setzen"}
+                className="w-8 h-8 flex items-center justify-center"
+              >
+                {v.featured ? (
+                  <Star size={18} className="fill-[#2563EB] text-[#2563EB]" />
+                ) : (
+                  <StarOff size={18} className="text-[#CBD5E1]" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => setSpotlight(v.id, v.spotlight)}
+                disabled={!!loading}
+                aria-label={v.spotlight ? "Nicht mehr Fahrzeug der Woche" : "Als Fahrzeug der Woche setzen"}
+                title={crown.title}
+                className="w-8 h-8 flex items-center justify-center"
+              >
+                <Crown size={18} className={crown.className} />
+              </button>
               <Link
                 href={`/admin/fahrzeuge/${v.id}`}
                 className="w-8 h-8 bg-[#F1F5F9] border border-[#E2E8F0] rounded-lg flex items-center justify-center text-[#475569] hover:text-[#2563EB] transition-all"
@@ -296,7 +346,8 @@ export default function AdminVehicleTable({ vehicles }: Props) {
               </button>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
     </div>
