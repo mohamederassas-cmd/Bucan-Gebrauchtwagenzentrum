@@ -1,18 +1,26 @@
 import Image from "next/image";
 
 /**
- * Fahrzeug-Bühne im Hero: ein echtes Fahrzeugfoto auf der dunklen Bühne, darüber
+ * Fahrzeug-Bühne im Hero: ein freigestelltes Fahrzeug auf der dunklen Bühne, darüber
  * eine choreografierte Lichtshow aus reinem CSS (Scheinwerferkegel, Glanz-Sweep
- * über die Karosserie, Lichtpfütze am Boden). Server-Komponente, kein JavaScript.
+ * über die Karosserie, Lichtpfütze und Spiegelung am Boden). Server-Komponente,
+ * kein JavaScript.
  *
  * Alle Bewegungen laufen ausschließlich über transform und opacity und stehen bei
  * prefers-reduced-motion still (siehe .stage-* in globals.css).
  */
 
-/** Foto: Samuele Errico Piccarini, Unsplash License (siehe public/hero/QUELLE.txt).
- *  Reine Seitenansicht ohne sichtbares Emblem, damit keine Herstellerzugehörigkeit
- *  suggeriert wird. Der schwarze Hintergrund verschwindet per screen-Blend im Graphit. */
-const PHOTO = "/hero/car.jpg";
+/** Freigestelltes PNG mit Alphakanal, aus dem Originalfoto gelöst (siehe
+ *  ASSET-QUELLEN.md und tools/cutout.swift). Weil der Wagen keinen eigenen
+ *  Hintergrund mehr mitbringt, steht keine Bildkante mehr über den goldenen
+ *  Hintergrundlinien: er steht frei im Raum und wird allein durch Licht,
+ *  Bodenspiegelung und Schatten geerdet. */
+const PHOTO = "/hero/car-cutout.png";
+const PHOTO_W = 1600;
+const PHOTO_H = 445;
+
+/** Gemeinsam für Wagen und Spiegelung, damit der Browser nur eine Datei lädt. */
+const SIZES = "(min-width: 1024px) 46vw, 92vw";
 
 interface Props {
   title: string;
@@ -22,26 +30,41 @@ interface Props {
 export default function HeroCarStage({ title, className = "" }: Props) {
   return (
     <div className={`car-stage relative aspect-[8/5] w-full ${className}`}>
-      {/* Weich auslaufende Dunkelfläche: darin verschwindet die Kante des Fotos,
-          das sonst als schwarzes Rechteck über den goldenen Hintergrundlinien stünde. */}
-      <div className="stage-veil" aria-hidden="true" />
+      {/* Lichtglocke hinter dem Wagen: hebt die schwarze Karosserie vom ebenso
+          dunklen Seitenhintergrund ab, ohne eine sichtbare Fläche zu erzeugen. */}
+      <div className="stage-glow" aria-hidden="true" />
 
       {/* Scheinwerferkegel von oben, schwenken langsam gegeneinander */}
       <div className="stage-beam stage-beam-l" aria-hidden="true" />
       <div className="stage-beam stage-beam-r" aria-hidden="true" />
 
-      {/* Lichtpfütze: setzt den Wagen auf den Boden, statt ihn schweben zu lassen */}
+      {/* Lichtpfütze auf der Standlinie: setzt den Wagen auf den Boden */}
       <div className="stage-pool" aria-hidden="true" />
 
-      {/* Das Fahrzeug. priority: steht auf Mobilgeräten über der Überschrift und trägt den LCP. */}
-      <div className="stage-car absolute inset-0">
+      {/* Wagen und seine Spiegelung. Die Standlinie ist die Unterkante von .stage-rig,
+          die Spiegelung beginnt bei top: 100 % exakt dort.
+          priority: steht auf Mobilgeräten über der Überschrift und trägt den LCP. */}
+      <div className="stage-rig">
+        <div className="stage-shadow" aria-hidden="true" />
+        {/* relative, sonst malt der positionierte Kontaktschatten über den Wagen */}
         <Image
           src={PHOTO}
           alt={title}
-          fill
+          width={PHOTO_W}
+          height={PHOTO_H}
           priority
-          sizes="(min-width: 1024px) 46vw, 92vw"
-          className="stage-photo object-contain"
+          sizes={SIZES}
+          className="relative w-full h-auto"
+        />
+        <Image
+          src={PHOTO}
+          alt=""
+          aria-hidden="true"
+          width={PHOTO_W}
+          height={PHOTO_H}
+          loading="eager"
+          sizes={SIZES}
+          className="stage-mirror w-full h-auto"
         />
       </div>
 
