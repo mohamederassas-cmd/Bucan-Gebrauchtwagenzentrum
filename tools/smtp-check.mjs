@@ -134,6 +134,15 @@ if (!pass) {
   process.exit(2);
 }
 
+// Haeufigste stille Fehlerquelle beim Einfuegen aus einem Passwortmanager.
+if (pass !== pass.trim()) {
+  console.log(
+    "Hinweis: Die Eingabe beginnt oder endet mit einem Leerzeichen (" +
+      pass.length +
+      " Zeichen). Das wird mitgesendet und ist oft die Ursache.\n"
+  );
+}
+
 const antwort = await attempt(pass);
 const code = (antwort.match(/MSG\d+/) || [])[0];
 
