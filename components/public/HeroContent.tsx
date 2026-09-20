@@ -3,22 +3,17 @@ import { ArrowRight, Star } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n";
 import { fmt, localePath, type Locale } from "@/lib/i18n";
 import { SITE, whatsappUrl } from "@/lib/site";
-import HeroCarDrawing from "./HeroCarDrawing";
+import HeroCarStage from "./HeroCarStage";
+import TrustMarquee from "./TrustMarquee";
 
 interface Props {
   locale: Locale;
   t: Dictionary;
 }
 
-/** Hero: Text links, gezeichnetes Fahrzeug rechts (mobil oben), über der festen Bühne (SiteBackground). */
+/** Hero: Text links, Fahrzeug-Bühne rechts (mobil oben), über der festen Bühne (SiteBackground). */
 export default function HeroContent({ locale, t }: Props) {
   const h = t.hero;
-  const trust = [
-    fmt(h.trust.customers, { customers: SITE.trust.customers }),
-    h.trust.warranty,
-    h.trust.financing,
-    h.trust.delivery,
-  ];
   const delay = (n: number) => ({ animationDelay: `${0.25 + n * 0.12}s` });
 
   return (
@@ -72,22 +67,15 @@ export default function HeroContent({ locale, t }: Props) {
             </div>
           </div>
 
-          {/* Zeichnung: im DOM nach dem Text (H1 bleibt erste Überschrift), mobil optisch oben */}
+          {/* Fahrzeug: im DOM nach dem Text (H1 bleibt erste Überschrift), mobil optisch oben */}
           <div className="order-first lg:order-none lg:col-span-6">
-            <HeroCarDrawing title={h.imageAlt} className="mx-auto max-w-[520px] lg:max-w-none lg:translate-x-4" />
+            <HeroCarStage title={h.imageAlt} className="mx-auto max-w-[560px] lg:max-w-none lg:translate-x-4" />
           </div>
         </div>
 
-        {/* Trust-Leiste */}
+        {/* Laufband der Leistungsversprechen */}
         <div className="rise mt-12 sm:mt-16" style={delay(4)}>
-          <ul className="glass-light rounded-2xl sm:rounded-full px-5 sm:px-7 py-3.5 flex items-center gap-x-6 lg:gap-x-0 overflow-x-auto no-scrollbar lg:overflow-visible lg:justify-between">
-            {trust.map((item, i) => (
-              <li key={item} className="flex items-center gap-x-6 whitespace-nowrap text-ivory-50/85 text-[13px] sm:text-sm font-medium">
-                {i > 0 && <span className="hidden lg:block w-1 h-1 rounded-full bg-gold-400" aria-hidden="true" />}
-                {item}
-              </li>
-            ))}
-          </ul>
+          <TrustMarquee t={t} />
         </div>
       </div>
     </section>
