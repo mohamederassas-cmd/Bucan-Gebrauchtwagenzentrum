@@ -12,25 +12,62 @@
  */
 import tls from "node:tls";
 import { createInterface } from "node:readline";
+import { execFileSync } from "node:child_process";
 import { stdin, stdout } from "node:process";
 
 const user = process.argv[2] || "info@bucan-automobile.de";
 const host = process.argv[3] || "smtp.strato.de";
 const port = 465;
 
-/** Passwort ohne Echo einlesen. */
+/**
+ * Terminal-Echo schalten. `stdin.setRawMode()` ist hier unzuverlaessig: sobald
+ * vorher nach stdout geschrieben wurde, initialisiert Node das TTY-Handle und
+ * setzt die Terminal-Einstellungen wieder zurueck, das Passwort erscheint dann
+ * im Klartext. `stty` wirkt direkt auf das Terminal und ist davon unabhaengig.
+ */
+function setzeEcho(an) {
+  try {
+    execFileSync("stty", [an ? "echo" : "-echo"], { stdio: ["inherit", "ignore", "ignore"] });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Passwort ohne Echo einlesen. Laesst sich das Echo nicht sicher abschalten,
+ * wird abgebrochen, statt ungeschuetzt zu fragen.
+ */
 function askPassword(frage) {
   return new Promise((resolve, reject) => {
     if (!stdin.isTTY) {
       reject(new Error("Kein interaktives Terminal. Bitte direkt in der Shell ausfuehren."));
       return;
     }
+    if (!setzeEcho(false)) {
+      reject(new Error("Terminal-Echo laesst sich nicht abschalten. Abbruch zum Schutz des Passworts."));
+      return;
+    }
+
+    // Echo in jedem Fall zuruecksetzen, auch bei Absturz oder Strg+C.
+    let wiederhergestellt = false;
+    const wiederherstellen = () => {
+      if (wiederhergestellt) return;
+      wiederhergestellt = true;
+      setzeEcho(true);
+    };
+    process.once("exit", wiederherstellen);
+    process.once("SIGINT", () => {
+      wiederherstellen();
+      stdout.write("\n");
+      process.exit(130);
+    });
+
     stdout.write(frage);
-    const rl = createInterface({ input: stdin, output: stdout, terminal: true });
-    // muteStream: readline schreibt nichts mehr nach stdout, waehrend getippt wird
-    rl.output.write = () => {};
-    rl.question("", (answer) => {
+    const rl = createInterface({ input: stdin, output: stdout, terminal: false });
+    rl.once("line", (answer) => {
       rl.close();
+      wiederherstellen();
       stdout.write("\n");
       resolve(answer);
     });
