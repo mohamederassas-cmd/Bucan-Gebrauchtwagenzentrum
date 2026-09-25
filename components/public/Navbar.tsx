@@ -147,8 +147,10 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile */}
+          {/* Mobile: der Sprachumschalter sitzt in der Leiste, nicht unten im Overlay.
+              Dort lag er hinter der Safari-Toolbar bzw. außerhalb kleiner Displays. */}
           <div className="lg:hidden flex items-center gap-2">
+            <LanguageSwitch className="mr-1" />
             <a
               href={TEL_HREF}
               aria-label={t.nav.callUs}
@@ -217,8 +219,7 @@ export default function Navbar() {
             </p>
           </div>
 
-          <div className="mt-auto pt-8 flex items-center justify-between">
-            <LanguageSwitch />
+          <div className="mt-auto pt-8">
             <span className="text-[11px] tracking-[0.2em] uppercase text-gold-400/80">Est. 2020</span>
           </div>
         </div>
